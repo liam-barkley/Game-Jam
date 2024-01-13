@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj4rxv6w67sab"]
 
-[ext_resource type="Texture2D" uid="uid://c42gmecgkks8a" path="res://Arts/kenney_monochrome-pirates/Sample B.png" id="1_6ep4i"]
+[ext_resource type="Texture2D" uid="uid://dh21qip0ywrw6" path="res://Arts/kenney_monochrome-pirates/Sample B.png" id="1_6ep4i"]
 [ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_qspiv"]
 
 [node name="MainMenu" type="Node2D"]

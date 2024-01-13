@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d31qlr5i6ukh0"]
 
 [ext_resource type="Script" path="res://Scenes/settings.gd" id="1_d0wj3"]
-[ext_resource type="Texture2D" uid="uid://c57n2casqx52v" path="res://Arts/kenney_monochrome-pirates/Sample A.png" id="1_nti65"]
+[ext_resource type="Texture2D" uid="uid://cxf00kq16xa5f" path="res://Arts/kenney_monochrome-pirates/Sample A.png" id="1_nti65"]
 
 [node name="Settings" type="Node2D"]
 script = ExtResource("1_d0wj3")
