@@ -31,10 +31,11 @@ offset_right = 417.0
 offset_bottom = 222.0
 text = "Settings"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="mmAudio" type="AudioStreamPlayer" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(320, 180)
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
