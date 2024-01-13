@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d31qlr5i6ukh0"]
+
+[ext_resource type="Texture2D" uid="uid://c57n2casqx52v" path="res://Arts/kenney_monochrome-pirates/Sample A.png" id="1_nti65"]
+
+[node name="Settings" type="Node2D"]
+
+[node name="SampleA" type="Sprite2D" parent="."]
+position = Vector2(298, 195)
+texture = ExtResource("1_nti65")

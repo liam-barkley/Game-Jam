@@ -7,22 +7,34 @@
 script = ExtResource("1_qspiv")
 
 [node name="Background(Temp)" type="Sprite2D" parent="."]
-position = Vector2(360, 222)
+position = Vector2(338, 198)
 texture = ExtResource("1_6ep4i")
 
 [node name="Play" type="Button" parent="."]
 offset_left = 242.0
-offset_top = 86.0
+offset_top = 66.0
 offset_right = 415.0
-offset_bottom = 149.0
+offset_bottom = 129.0
 text = "Play"
 
 [node name="Quit" type="Button" parent="."]
 offset_left = 244.0
-offset_top = 215.0
+offset_top = 259.0
 offset_right = 417.0
-offset_bottom = 278.0
+offset_bottom = 322.0
 text = "Quit"
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 244.0
+offset_top = 159.0
+offset_right = 417.0
+offset_bottom = 222.0
+text = "Settings"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(320, 180)
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
