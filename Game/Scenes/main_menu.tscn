@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj4rxv6w67sab"]
+
+[ext_resource type="Texture2D" uid="uid://c42gmecgkks8a" path="res://Arts/kenney_monochrome-pirates/Sample B.png" id="1_6ep4i"]
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_qspiv"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_qspiv")
+
+[node name="Background(Temp)" type="Sprite2D" parent="."]
+position = Vector2(360, 222)
+texture = ExtResource("1_6ep4i")
+
+[node name="Play" type="Button" parent="."]
+offset_left = 242.0
+offset_top = 86.0
+offset_right = 415.0
+offset_bottom = 149.0
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 244.0
+offset_top = 215.0
+offset_right = 417.0
+offset_bottom = 278.0
+text = "Quit"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
