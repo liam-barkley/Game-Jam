@@ -61,11 +61,9 @@ func spread_corruption(x, y):
 			var nx = x + i
 			var ny = y + j
 
-			if is_corrupted_grid[nx][ny] == true:
-				continue
-			elif nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
-				# Skip the center tile (self)
-				if i == 0 and j == 0:
+			if nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
+				# Skip the center tile (self) and corrupted tiles
+				if (i == 0 and j == 0) || (is_corrupted_grid[nx][ny] == true):
 					continue
 
 				if randf() < corruption_probability:
