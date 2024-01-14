@@ -1,8 +1,8 @@
 extends TileMap
 
-var GRID_SIZE = 16 # 16x16 will need to be changed to 32x32
-var NUM_ROWS = 15
-var NUM_COLS = 15
+var GRID_SIZE = 32
+var NUM_ROWS = 16
+var NUM_COLS = 16
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 
 var CORRUPTION_PROBABILITY = 0.025
@@ -26,18 +26,13 @@ func initialize_grid():
 		is_corrupted_grid.append(row)
 	
 	# Randomly assign one corrupted tile
-	var corrupt_init = false
 	var nx = 0 
 	var ny = 0
-	while corrupt_init == false:
+	while true:
 		var r = randf()
 		if  r < CORRUPTION_PROBABILITY:
-			var pos = Vector2(nx*GRID_SIZE, ny*GRID_SIZE)
-			var my_instance = corrupted_tile.instantiate()
-			my_instance.position = pos 
-			add_child(my_instance)
-			is_corrupted_grid[nx][ny] = true
-			corrupt_init = true
+			add_corruption(nx, ny)
+			break
 
 		if (ny+1)/NUM_COLS == 1:
 			nx += 1
@@ -69,19 +64,24 @@ func spread_corruption(x, y):
 					continue
 
 				if randf() < CORRUPTION_PROBABILITY:
-					is_corrupted_grid[nx][ny] = true
-					# Instantiate corrupt tile
-					var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
-					var corruption = corrupted_tile.instantiate()
-					corruption.position = pos 
-					# Set corrupted tile
-					var tile = get_cell_atlas_coords(0, Vector2i(nx, ny))
-					corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), 2, tile)
-					# Link signals
-					corruption.body_entered.connect(on_corruption_body_entered)
-					corruption.body_exited.connect(on_corruption_body_exited)
-					# Add instance to parent
-					add_child(corruption)
+					
+					add_corruption(nx, ny)
+
+func add_corruption(nx, ny):
+	# Get vectors
+	var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
+	var atlas_coords = get_cell_atlas_coords(0, Vector2i(nx, ny))
+	# Instantiate corrupt tile
+	var corruption = corrupted_tile.instantiate()
+	corruption.position = pos 
+	# Set corrupted tile
+	corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), 0, atlas_coords)
+	# Link signals
+	corruption.body_entered.connect(on_corruption_body_entered)
+	corruption.body_exited.connect(on_corruption_body_exited)
+	# Add instance to parent
+	is_corrupted_grid[nx][ny] = true
+	add_child(corruption)
 
 func on_corruption_body_entered(body):
 	if body.name == "Player" && is_player_in_corruption == false:
