@@ -60,7 +60,7 @@ func spread_corruption(x, y):
 
 			var nx = x + i
 			var ny = y + j
-			
+
 			if is_corrupted_grid[nx][ny] == true:
 				continue
 			elif nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
@@ -70,7 +70,8 @@ func spread_corruption(x, y):
 
 				if randf() < corruption_probability:
 					is_corrupted_grid[nx][ny] = true
+					# Instantiate corrupt tile
 					var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
-					var my_instance = corrupted_tile.instantiate()
-					my_instance.position = pos 
-					add_child(my_instance)
+					var corruption = corrupted_tile.instantiate()
+					corruption.position = pos 
+					add_child(corruption)
