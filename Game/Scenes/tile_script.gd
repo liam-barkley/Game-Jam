@@ -1,13 +1,12 @@
 extends TileMap
 
+var GRID_SIZE = 16 # 16x16 will need to be changed to 32x32
 var NUM_ROWS = 15
 var NUM_COLS = 15
-var boolean_2d_array = []
+var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 
 var corruption_probability = 0.025
-
-var clean_tile = Vector2i(0,0)
-var corrupted_tile = Vector2i(7,1)
+var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 
 func _ready():
 	initialize_grid()
@@ -22,26 +21,20 @@ func initialize_grid():
 		var row = []
 		for y in range(NUM_COLS):
 			row.append(false)
-		boolean_2d_array.append(row)
-
-	## Set up the grid with an initial state
-	#for x in range(NUM_ROWS):
-		#for y in range(NUM_COLS):
-			#var tile = Vector2(x,y)
-			#set_cell(0, tile , 0, clean_tile)
+		is_corrupted_grid.append(row)
 	
 	# Randomly assign one corrupted tile
 	var corrupt_init = false
 	var nx = 0 
 	var ny = 0
 	while corrupt_init == false:
-		
-		#print("(" + str(nx) + "," + str(ny) + ")\n")
 		var r = randf()
 		if  r < corruption_probability:
-			var tile = Vector2(nx,ny)
-			set_cell(0, tile , 0, corrupted_tile)
-			boolean_2d_array[nx][ny] = true
+			var pos = Vector2(nx*GRID_SIZE, ny*GRID_SIZE)
+			var my_instance = corrupted_tile.instantiate()
+			my_instance.position = pos 
+			add_child(my_instance)
+			is_corrupted_grid[nx][ny] = true
 			corrupt_init = true
 
 		if (ny+1)/NUM_COLS == 1:
@@ -57,25 +50,27 @@ func update_grid():
 			spread_corruption(x, y)
 #
 func spread_corruption(x, y):
-	#print(str(x) + " " + str(y))
-	if boolean_2d_array[x][y] == false:
+	
+	if is_corrupted_grid[x][y] == false:
 		return
-	#print("Corrupted tile!")
+
 	# Spread corruption to neighboring tiles
 	for i in range(-1, 2):
 		for j in range(-1, 2):
+
 			var nx = x + i
 			var ny = y + j
-
-			if nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
+			
+			if is_corrupted_grid[nx][ny] == true:
+				continue
+			elif nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
 				# Skip the center tile (self)
 				if i == 0 and j == 0:
 					continue
-				var r = randf()
-				#print(r)
-				if r < corruption_probability && boolean_2d_array[nx][ny] == false:
-					var tile = Vector2(nx,ny)
-					set_cell(2, tile , 0, corrupted_tile)
-					boolean_2d_array[nx][ny] = true
 
-
+				if randf() < corruption_probability:
+					is_corrupted_grid[nx][ny] = true
+					var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
+					var my_instance = corrupted_tile.instantiate()
+					my_instance.position = pos 
+					add_child(my_instance)
