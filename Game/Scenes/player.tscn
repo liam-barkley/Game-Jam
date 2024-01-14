@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://cfr2wjve2btpe"]
+[gd_scene load_steps=84 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
 [ext_resource type="Texture2D" uid="uid://bu7prrnwobxda" path="res://Arts/Characters/survivalgame-player-green.png" id="3_jksri"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
 [ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
+[ext_resource type="PackedScene" uid="uid://bw3vdxc2gx8ph" path="res://Scenes/health_bar.tscn" id="9_1uuor"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dlbu"]
 atlas = ExtResource("3_jksri")
@@ -627,6 +628,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hgcy"]
+radius = 6.0
+height = 18.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gt1i1"]
 radius = 3.0
 height = 14.0
@@ -643,6 +648,10 @@ sprite_frames = SubResource("SpriteFrames_jbb6x")
 animation = &"attack_right"
 frame = 3
 frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_8hgcy")
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_qohu5")]
 
@@ -673,9 +682,17 @@ script = ExtResource("6_uuhg0")
 script = ExtResource("7_jtbc0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("9_1uuor")]
+offset_left = -32.0
+offset_top = 18.0
+offset_right = 32.0
+offset_bottom = 45.0
+player = NodePath("../..")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]

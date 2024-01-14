@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal health_changed
+
 # Nodes
 @onready var state_machine = $StateMachine
 
@@ -24,3 +26,4 @@ func _on_sword_hitbox_area_entered(area):
 
 func _on_hurtbox_damage(amount):
 	health = health - amount
+	health_changed.emit()

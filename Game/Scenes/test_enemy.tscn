@@ -17,4 +17,5 @@ script = ExtResource("2_ng6wo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_bj1ku")
 
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]
