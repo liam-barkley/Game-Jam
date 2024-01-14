@@ -1,6 +1,7 @@
 extends State
 
 @onready var animated_sprite_2d = $"../../AnimatedSprite2D"
+@onready var sword_hitbox = $"../../SwordHitbox"
 
 var old_direction = Vector2.ZERO
 var direction = Vector2.ZERO

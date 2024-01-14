@@ -3,7 +3,7 @@ extends State
 @onready var animated_sprite_2d = $"../../AnimatedSprite2D"
 
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
 	

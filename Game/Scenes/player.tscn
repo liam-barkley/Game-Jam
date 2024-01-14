@@ -1,8 +1,9 @@
-[gd_scene load_steps=80 format=3 uid="uid://cfr2wjve2btpe"]
+[gd_scene load_steps=82 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
 [ext_resource type="Texture2D" uid="uid://bu7prrnwobxda" path="res://Arts/Characters/survivalgame-player-green.png" id="3_jksri"]
 [ext_resource type="Script" path="res://Scripts/Player/StateMachine.gd" id="3_jlv1t"]
+[ext_resource type="PackedScene" uid="uid://dl7yy65bwdxiu" path="res://Scenes/hurtbox.tscn" id="3_qohu5"]
 [ext_resource type="Script" path="res://Scripts/Player/Idle.gd" id="4_p7012"]
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
@@ -626,9 +627,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbq0x"]
-radius = 5.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gt1i1"]
+radius = 3.0
 height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsnb7"]
+size = Vector2(6.5, 18)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ex118")
@@ -636,12 +640,21 @@ SPEED = 150.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jbb6x")
-animation = &"death"
-frame = 5
+animation = &"attack_right"
+frame = 3
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_tbq0x")
+[node name="Hurtbox" parent="." instance=ExtResource("3_qohu5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_gt1i1")
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_gsnb7")
+disabled = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_jlv1t")
@@ -665,3 +678,5 @@ enabled = false
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]
+[connection signal="area_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_area_entered"]
