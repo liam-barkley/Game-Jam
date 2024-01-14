@@ -5,8 +5,10 @@ var NUM_ROWS = 15
 var NUM_COLS = 15
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 
-var corruption_probability = 0.025
+var CORRUPTION_PROBABILITY = 0.025
 var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
+
+var is_player_in_corruption : bool = false
 
 func _ready():
 	initialize_grid()
@@ -29,7 +31,7 @@ func initialize_grid():
 	var ny = 0
 	while corrupt_init == false:
 		var r = randf()
-		if  r < corruption_probability:
+		if  r < CORRUPTION_PROBABILITY:
 			var pos = Vector2(nx*GRID_SIZE, ny*GRID_SIZE)
 			var my_instance = corrupted_tile.instantiate()
 			my_instance.position = pos 
@@ -66,10 +68,27 @@ func spread_corruption(x, y):
 				if (i == 0 and j == 0) || (is_corrupted_grid[nx][ny] == true):
 					continue
 
-				if randf() < corruption_probability:
+				if randf() < CORRUPTION_PROBABILITY:
 					is_corrupted_grid[nx][ny] = true
 					# Instantiate corrupt tile
 					var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
 					var corruption = corrupted_tile.instantiate()
 					corruption.position = pos 
+					# Set corrupted tile
+					var tile = get_cell_atlas_coords(0, Vector2i(nx, ny))
+					corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), 2, tile)
+					# Link signals
+					corruption.body_entered.connect(on_corruption_body_entered)
+					corruption.body_exited.connect(on_corruption_body_exited)
+					# Add instance to parent
 					add_child(corruption)
+
+func on_corruption_body_entered(body):
+	if body.name == "Player" && is_player_in_corruption == false:
+		is_player_in_corruption = true
+		print("Player has entered the corruption")
+
+func on_corruption_body_exited(body):
+	#if body.name == "Player" && is_player_in_corruption == true:
+		#is_player_in_corruption = false
+	pass
