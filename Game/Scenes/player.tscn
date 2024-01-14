@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cfr2wjve2btpe"]
+[gd_scene load_steps=80 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
 [ext_resource type="Texture2D" uid="uid://bu7prrnwobxda" path="res://Arts/Characters/survivalgame-player-green.png" id="3_jksri"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/Idle.gd" id="4_p7012"]
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
+[ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dlbu"]
 atlas = ExtResource("3_jksri")
@@ -134,6 +135,30 @@ region = Rect2(224, 128, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_olb51"]
 atlas = ExtResource("3_jksri")
 region = Rect2(256, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dypkt"]
+atlas = ExtResource("3_jksri")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08t4j"]
+atlas = ExtResource("3_jksri")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74ucb"]
+atlas = ExtResource("3_jksri")
+region = Rect2(512, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0bd8"]
+atlas = ExtResource("3_jksri")
+region = Rect2(544, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7v5e"]
+atlas = ExtResource("3_jksri")
+region = Rect2(576, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88a4d"]
+atlas = ExtResource("3_jksri")
+region = Rect2(608, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_juq48"]
 atlas = ExtResource("3_jksri")
@@ -403,6 +428,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_dypkt")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_08t4j")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_74ucb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0bd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7v5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88a4d")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_juq48")
 }, {
 "duration": 1.0,
@@ -588,7 +636,9 @@ SPEED = 150.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jbb6x")
-animation = &"left_up"
+animation = &"death"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tbq0x")
@@ -605,6 +655,9 @@ script = ExtResource("5_j73yv")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("6_uuhg0")
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("7_jtbc0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false

@@ -8,7 +8,7 @@ func enter(msg := {}) -> void:
 	if msg.has("direction"):
 		direction = msg.direction
 
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	play_animation()
 	await animated_sprite_2d.animation_finished
 	

@@ -12,7 +12,7 @@ func enter(msg := {}) -> void:
 	if msg.has("direction"):
 		direction = msg.direction
 
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	play_animation()
 	
 	if Input.is_action_just_pressed("attack"):
