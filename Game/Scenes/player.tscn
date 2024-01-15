@@ -683,9 +683,9 @@ script = ExtResource("7_jtbc0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -192
-limit_top = -160
-limit_right = 704
-limit_bottom = 704
+limit_top = -192
+limit_right = 1504
+limit_bottom = 1504
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
