@@ -1,8 +1,8 @@
 extends TileMap
 
 var GRID_SIZE = 32
-var NUM_ROWS = 16
-var NUM_COLS = 16
+var NUM_ROWS = 42
+var NUM_COLS = 42
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 
 var CORRUPTION_PROBABILITY = 0.025
