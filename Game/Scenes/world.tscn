@@ -688,7 +688,7 @@ wait_time = 0.5
 [node name="Player" parent="TileMap" instance=ExtResource("3_t2bnr")]
 position = Vector2(99.1018, 87.9647)
 
-[node name="EvilPlant" parent="TileMap" instance=ExtResource("5_qfr71")]
-position = Vector2(373, 178)
+[node name="RangedPlant" parent="." instance=ExtResource("5_qfr71")]
+position = Vector2(-361, -339)
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]

@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var shoot_timer = $ShootTimer
 @onready var ray_cast = $RayCast2D
+@onready var bullety = get_parent().get_node("RangedPlantBullet")
 @export var HEALTH = 10
 @export var DAMAGE = 2
 @export var ammo : PackedScene
@@ -31,20 +32,29 @@ func search_closest_tower():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	current_target = null
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
 	else:
 		current_target = player
 	
-	
-	aim_at(current_target)
-	check_target_collision(current_target)
+	if current_target != null:
+		aim_at(current_target)
+		check_target_collision(current_target)
+	else:
+		shoot_timer.stop()
 	
 func aim_at(target):
 	
 	if target!=null:
-		ray_cast.target_position = to_local(target.position)
+		ray_cast.target_position = target.position
+		if target.name == "Player":
+			var new_position = target.position
+			new_position.x -= 14
+			new_position.y -= 14
+			ray_cast.target_position = to_local(new_position)
+			
+		
 	
 func check_target_collision(target):
 	if (ray_cast.get_collider() == target or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
@@ -52,9 +62,9 @@ func check_target_collision(target):
 		
 		
 	elif !(ray_cast.get_collider() == target or ray_cast.get_collider() == player):
+		#this can be inefficient
 		shoot_timer.stop()
 		shoot_allowed = false
-		print("hold fire")
 
 
 	
@@ -77,7 +87,6 @@ func _on_hurt_box_area_exited(area):
 		$HurtBox/Timer.stop()
 
 func shoot(target):
-	print(target)
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
 	bullet.position = self.position
@@ -85,7 +94,6 @@ func shoot(target):
 	get_tree().current_scene.add_child(bullet)
 
 func _on_shoot_timer_timeout():
-	print("pew pew")
 	shoot(current_target)
 
 

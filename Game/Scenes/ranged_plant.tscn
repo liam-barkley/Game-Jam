@@ -27,12 +27,12 @@ texture = ExtResource("2_dhrlv")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="Body" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_8a27h")
 
 [node name="HurtBox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CloseDamage" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_tkdee")
 
 [node name="Timer" type="Timer" parent="HurtBox"]
