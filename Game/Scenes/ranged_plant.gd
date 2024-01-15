@@ -42,12 +42,12 @@ func _process(delta):
 	check_target_collision(current_target)
 	
 func aim_at(target):
+	
 	if target!=null:
 		ray_cast.target_position = to_local(target.position)
 	
 func check_target_collision(target):
 	if (ray_cast.get_collider() == target or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
-		print(shoot_timer.is_stopped())
 		shoot_timer.start()
 		
 		
@@ -77,7 +77,7 @@ func _on_hurt_box_area_exited(area):
 		$HurtBox/Timer.stop()
 
 func shoot(target):
-	print("Help")
+	print(target)
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
 	bullet.position = self.position

@@ -11,14 +11,19 @@ script = ExtResource("1_m0v06")
 
 [node name="BulletSize" type="Area2D" parent="."]
 
+[node name="Sprite2D" type="Sprite2D" parent="BulletSize"]
+position = Vector2(0, 1)
+scale = Vector2(0.148437, 0.140625)
+texture = ExtResource("2_tjqhn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletSize"]
 position = Vector2(4, 0.5)
 shape = SubResource("CircleShape2D_50yip")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="BulletSize"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tjqhn")
+position = Vector2(0, 1)
+scale = Vector2(1, 0.9)
 
 [connection signal="area_entered" from="BulletSize" to="." method="_on_bullet_size_area_entered"]
+[connection signal="body_entered" from="BulletSize" to="." method="_on_bullet_size_body_entered"]
 [connection signal="screen_exited" from="BulletSize/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
