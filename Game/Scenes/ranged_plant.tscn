@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://bkaacwghv2qqi"]
+
+[ext_resource type="Script" path="res://Scenes/ranged_plant.gd" id="1_yqd74"]
+[ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_3cd2n"]
+[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="2_dhrlv"]
+[ext_resource type="Script" path="res://Scripts/RangedPlant/StateMachine.gd" id="3_2ya5m"]
+[ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
+[ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
+[ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8a27h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkdee"]
+size = Vector2(28, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a28ue"]
+radius = 174.233
+
+[node name="RangedPlant" type="Node2D"]
+script = ExtResource("1_yqd74")
+ammo = ExtResource("2_3cd2n")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 3.8147e-06)
+scale = Vector2(0.125, 0.234375)
+texture = ExtResource("2_dhrlv")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_8a27h")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_tkdee")
+
+[node name="Timer" type="Timer" parent="HurtBox"]
+wait_time = 0.252
+
+[node name="FireRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireRange"]
+shape = SubResource("CircleShape2D_a28ue")
+debug_color = Color(0.984314, 0, 0.345098, 0.419608)
+
+[node name="Statement" type="Node" parent="."]
+script = ExtResource("3_2ya5m")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="Statement"]
+script = ExtResource("4_ml4as")
+
+[node name="Attack" type="Node" parent="Statement"]
+script = ExtResource("5_mwqlf")
+
+[node name="Dead" type="Node" parent="Statement"]
+script = ExtResource("6_3u4kb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]
+[connection signal="timeout" from="HurtBox/Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="FireRange" to="." method="_on_fire_range_body_entered"]
+[connection signal="body_exited" from="FireRange" to="." method="_on_fire_range_body_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

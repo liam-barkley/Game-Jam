@@ -8,4 +8,5 @@ func _on_hurtbox_damage(amount):
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("hurtbox"):
+		
 		area.take_damage(DAMAGE)
