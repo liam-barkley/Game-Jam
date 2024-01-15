@@ -34,7 +34,7 @@ animations = [{
 radius = 28.0
 
 [node name="wood_tree" type="Node2D"]
-position = Vector2(1, 0)
+position = Vector2(15, 15)
 script = ExtResource("1_hreit")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

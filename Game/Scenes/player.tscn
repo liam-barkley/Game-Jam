@@ -640,6 +640,7 @@ height = 14.0
 size = Vector2(6.5, 18)
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(8, 8)
 script = ExtResource("1_ex118")
 SPEED = 150.0
 

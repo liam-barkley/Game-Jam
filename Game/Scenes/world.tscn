@@ -1906,11 +1906,9 @@ sources/0 = SubResource("TileSetAtlasSource_pf8ff")
 sources/1 = SubResource("TileSetAtlasSource_7xmsj")
 
 [node name="World" type="Node2D"]
-position = Vector2(731, 505)
 script = ExtResource("1_fk3o6")
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-746, -519)
 tile_set = SubResource("TileSet_didg4")
 format = 2
 layer_0/name = "Ground"
@@ -1927,40 +1925,11 @@ script = ExtResource("2_023tt")
 wait_time = 4.0
 
 [node name="Player" parent="TileMap" instance=ExtResource("3_t2bnr")]
-position = Vector2(99.1018, 87.9647)
+position = Vector2(146, 82)
 
-[node name="TreeCollectables" type="Node" parent="."]
+[node name="Node" type="Node" parent="TileMap"]
 
-[node name="wood_tree" parent="TreeCollectables" groups=["tree"] instance=ExtResource("5_7rr2a")]
-position = Vector2(485, 702)
-
-[node name="wood_tree2" parent="TreeCollectables" groups=["tree"] instance=ExtResource("5_7rr2a")]
-position = Vector2(299, 167)
-
-[node name="wood_tree3" parent="TreeCollectables" groups=["tree"] instance=ExtResource("5_7rr2a")]
-position = Vector2(963, 809)
-
-[node name="wood_tree4" parent="TreeCollectables" groups=["tree"] instance=ExtResource("5_7rr2a")]
-position = Vector2(799, 848)
-
-[node name="wood_tree5" parent="TreeCollectables" groups=["tree"] instance=ExtResource("5_7rr2a")]
-position = Vector2(611, 211)
-
-[node name="wood_tree6" parent="TreeCollectables" instance=ExtResource("5_7rr2a")]
-position = Vector2(264, 814)
-
-[node name="wood_tree7" parent="TreeCollectables" instance=ExtResource("5_7rr2a")]
-position = Vector2(292, 511)
-
-[node name="wood_tree8" parent="TreeCollectables" instance=ExtResource("5_7rr2a")]
-position = Vector2(138, 572)
+[node name="wood_tree" parent="TileMap/Node" instance=ExtResource("5_7rr2a")]
+position = Vector2(229, 179)
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree2" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree3" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree4" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree5" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree6" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree7" to="." method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_wood" from="TreeCollectables/wood_tree8" to="." method="_on_wood_tree_gathered_wood"]
