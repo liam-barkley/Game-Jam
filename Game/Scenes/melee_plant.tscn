@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0xwe7ass64p6"]
+
+[ext_resource type="Script" path="res://Scripts/MeleeEnemy/melee_plant.gd" id="1_3cudg"]
+[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_mt50i"]
+[ext_resource type="Script" path="res://Scripts/State.gd" id="2_dl0ey"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxi7q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qgia"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc75x"]
+radius = 82.0
+
+[node name="MeleePlant" type="CharacterBody2D"]
+script = ExtResource("1_3cudg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 0.499998)
+scale = Vector2(0.15625, 0.226563)
+texture = ExtResource("1_mt50i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_yxi7q")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_2qgia")
+
+[node name="MeleeEnemyStateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="MeleeEnemyStateMachine"]
+script = ExtResource("2_dl0ey")
+
+[node name="Attack" type="Node" parent="MeleeEnemyStateMachine"]
+script = ExtResource("2_dl0ey")
+
+[node name="Move" type="Node" parent="MeleeEnemyStateMachine"]
+script = ExtResource("2_dl0ey")
+
+[node name="Death" type="Node" parent="MeleeEnemyStateMachine"]
+script = ExtResource("2_dl0ey")
+
+[node name="VisionRange" type="Area2D" parent="."]
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
+shape = SubResource("CircleShape2D_bc75x")
+debug_color = Color(1, 0, 0.109804, 0.419608)
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
