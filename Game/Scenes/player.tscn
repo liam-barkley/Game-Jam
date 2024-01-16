@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://cfr2wjve2btpe"]
+[gd_scene load_steps=83 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
 [ext_resource type="Texture2D" uid="uid://bu7prrnwobxda" path="res://Arts/Characters/survivalgame-player-green.png" id="3_jksri"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
 [ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
-[ext_resource type="PackedScene" uid="uid://bw3vdxc2gx8ph" path="res://Scenes/health_bar.tscn" id="9_1uuor"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dlbu"]
 atlas = ExtResource("3_jksri")
@@ -641,6 +640,8 @@ size = Vector2(6.5, 18)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(8, 8)
+collision_layer = 4
+collision_mask = 26
 script = ExtResource("1_ex118")
 SPEED = 150.0
 
@@ -689,15 +690,6 @@ limit_right = 1504
 limit_bottom = 1504
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HealthBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("9_1uuor")]
-offset_left = -32.0
-offset_top = 18.0
-offset_right = 32.0
-offset_bottom = 45.0
-player = NodePath("../..")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]
