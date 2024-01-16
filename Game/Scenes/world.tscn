@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv4ufeg5f2650"]
+[gd_scene load_steps=13 format=3 uid="uid://dv4ufeg5f2650"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_fk3o6"]
 [ext_resource type="Texture2D" uid="uid://d25bh0bro72nv" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/tilemap.png" id="1_ngcyt"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://1qkoxa5mfkbt" path="res://Arts/Terrain (Reg+Mono)/Terrain_Tilemap_V1.0.png" id="2_l6pns"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_t2bnr"]
 [ext_resource type="PackedScene" uid="uid://dan05mcwth3fl" path="res://Scenes/wood_tree.tscn" id="5_7rr2a"]
+[ext_resource type="PackedScene" uid="uid://dcvpxnk1vi847" path="res://Scenes/ui.tscn" id="7_50q53"]
+[ext_resource type="PackedScene" uid="uid://bn7krrssrtoys" path="res://Scenes/rock_stone.tscn" id="7_gexk7"]
+[ext_resource type="PackedScene" uid="uid://ccpocuyp60wrf" path="res://Scenes/rock_ore.tscn" id="8_ctcem"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pf8ff"]
 texture = ExtResource("1_ngcyt")
@@ -1927,9 +1930,21 @@ wait_time = 4.0
 [node name="Player" parent="TileMap" instance=ExtResource("3_t2bnr")]
 position = Vector2(146, 82)
 
-[node name="Node" type="Node" parent="TileMap"]
+[node name="Resources" type="Node" parent="TileMap"]
 
-[node name="wood_tree" parent="TileMap/Node" instance=ExtResource("5_7rr2a")]
+[node name="wood_tree" parent="TileMap/Resources" instance=ExtResource("5_7rr2a")]
 position = Vector2(229, 179)
 
+[node name="RockStone" parent="TileMap/Resources" instance=ExtResource("7_gexk7")]
+position = Vector2(334, 177)
+
+[node name="RockOre" parent="TileMap/Resources" instance=ExtResource("8_ctcem")]
+position = Vector2(280, 126)
+
+[node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50q53")]
+player = NodePath("../TileMap/Player")
+
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
+[connection signal="gathered_wood" from="TileMap/Resources/wood_tree" to="UI" method="_on_wood_tree_gathered_wood"]
+[connection signal="gathered_stone" from="TileMap/Resources/RockStone" to="UI" method="_on_rock_stone_gathered_stone"]
+[connection signal="gathered_ore" from="TileMap/Resources/RockOre" to="UI" method="_on_rock_ore_gathered_ore"]
