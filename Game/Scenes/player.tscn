@@ -659,7 +659,7 @@ shape = SubResource("CapsuleShape2D_8hgcy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_gt1i1")
 
-[node name="SwordHitbox" type="Area2D" parent="."]
+[node name="SwordHitbox" type="Area2D" parent="." groups=["Weapons"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
 position = Vector2(10, 0)

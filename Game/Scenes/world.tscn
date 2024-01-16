@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 [gd_scene load_steps=10 format=3 uid="uid://dv4ufeg5f2650"]
+=======
+[gd_scene load_steps=9 format=3 uid="uid://dv4ufeg5f2650"]
+>>>>>>> Wilbert
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_fk3o6"]
 [ext_resource type="Texture2D" uid="uid://d25bh0bro72nv" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/tilemap.png" id="1_ngcyt"]
 [ext_resource type="Script" path="res://Scenes/tile_script.gd" id="2_023tt"]
 [ext_resource type="Texture2D" uid="uid://1qkoxa5mfkbt" path="res://Arts/Terrain (Reg+Mono)/Terrain_Tilemap_V1.0.png" id="2_l6pns"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_t2bnr"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://dan05mcwth3fl" path="res://Scenes/wood_tree.tscn" id="5_7rr2a"]
+=======
+[ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="5_qfr71"]
+>>>>>>> Wilbert
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pf8ff"]
 texture = ExtResource("1_ngcyt")
@@ -1931,5 +1939,8 @@ position = Vector2(146, 82)
 
 [node name="wood_tree" parent="TileMap/Node" instance=ExtResource("5_7rr2a")]
 position = Vector2(229, 179)
+
+[node name="RangedPlant" parent="." instance=ExtResource("5_qfr71")]
+position = Vector2(-361, -339)
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
