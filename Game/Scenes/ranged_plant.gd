@@ -12,10 +12,12 @@ var player_in_proximity = false
 var player
 var shoot_allowed = false
 var current_target
+var new_position 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent().find_child("Player")
+	print(player)
 
 #this function searches the closest tower to itself and returns that tower
 func search_closest_tower():
@@ -33,26 +35,26 @@ func search_closest_tower():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	current_target = null
+	
+	
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
 	else:
 		current_target = player
-	
+	#print(current_target)
 	if current_target != null:
 		aim_at(current_target)
 		check_target_collision(current_target)
+		
 	else:
 		shoot_timer.stop()
 	
 func aim_at(target):
 	
 	if target!=null:
-		ray_cast.target_position = target.position
-		if target.name == "Player":
-			var new_position = target.position
-			new_position.x -= 14
-			new_position.y -= 14
-			ray_cast.target_position = to_local(new_position)
+		ray_cast.target_position = target.position - self.position
+			
+			
 			
 		
 	
@@ -87,9 +89,10 @@ func _on_hurt_box_area_exited(area):
 		$HurtBox/Timer.stop()
 
 func shoot(target):
+	print("fire")
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
-	bullet.position = self.position
+	bullet.position = ray_cast.global_position
 	bullet.direction = (ray_cast.target_position).normalized()
 	get_tree().current_scene.add_child(bullet)
 
@@ -98,7 +101,9 @@ func _on_shoot_timer_timeout():
 
 
 func _on_fire_range_body_entered(body):
+	
 	if body.name == "Player":
+		print("hello = "+body.name)
 		player_in_proximity = true
 
 
