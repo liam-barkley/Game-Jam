@@ -1946,19 +1946,7 @@ player = NodePath("..")
 
 [node name="Resources" type="Node" parent="TileMap"]
 
-[node name="wood_tree" parent="TileMap/Resources" instance=ExtResource("5_7rr2a")]
+[node name="wood_tree" parent="TileMap/Node" instance=ExtResource("5_7rr2a")]
 position = Vector2(229, 179)
 
-[node name="RockStone" parent="TileMap/Resources" instance=ExtResource("7_gexk7")]
-position = Vector2(334, 177)
-
-[node name="RockOre" parent="TileMap/Resources" instance=ExtResource("8_ctcem")]
-position = Vector2(280, 126)
-
-[node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50q53")]
-player = NodePath("../TileMap/Player")
-
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
-[connection signal="gathered_wood" from="TileMap/Resources/wood_tree" to="UI" method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_stone" from="TileMap/Resources/RockStone" to="UI" method="_on_rock_stone_gathered_stone"]
-[connection signal="gathered_ore" from="TileMap/Resources/RockOre" to="UI" method="_on_rock_ore_gathered_ore"]

@@ -39,6 +39,7 @@ shape = SubResource("RectangleShape2D_tkdee")
 wait_time = 0.252
 
 [node name="FireRange" type="Area2D" parent="."]
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FireRange"]
 shape = SubResource("CircleShape2D_a28ue")
@@ -60,6 +61,9 @@ script = ExtResource("6_3u4kb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 31
+collide_with_areas = true
 
 [node name="ShootTimer" type="Timer" parent="."]
 
