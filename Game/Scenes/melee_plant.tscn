@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0xwe7ass64p6"]
+[gd_scene load_steps=8 format=3 uid="uid://d0xwe7ass64p6"]
 
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/melee_plant.gd" id="1_3cudg"]
 [ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_mt50i"]
@@ -11,7 +11,11 @@ radius = 8.0
 height = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bc75x"]
-radius = 82.0
+radius = 165.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eog00"]
+radius = 19.0
+height = 48.0
 
 [node name="MeleePlant" type="CharacterBody2D"]
 script = ExtResource("1_3cudg")
@@ -22,9 +26,11 @@ scale = Vector2(0.15625, 0.226563)
 texture = ExtResource("1_mt50i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_yxi7q")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_2qgia")
@@ -45,11 +51,21 @@ script = ExtResource("2_dl0ey")
 
 [node name="VisionRange" type="Area2D" parent="."]
 collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
 shape = SubResource("CircleShape2D_bc75x")
 debug_color = Color(1, 0, 0.109804, 0.419608)
 
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CapsuleShape2D_eog00")
+
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
 [connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
