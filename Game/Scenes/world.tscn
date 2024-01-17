@@ -1,15 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dv4ufeg5f2650"]
+[gd_scene load_steps=11 format=3 uid="uid://dv4ufeg5f2650"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_fk3o6"]
 [ext_resource type="Texture2D" uid="uid://d25bh0bro72nv" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/tilemap.png" id="1_ngcyt"]
 [ext_resource type="Script" path="res://Scenes/tile_script.gd" id="2_023tt"]
 [ext_resource type="Texture2D" uid="uid://1qkoxa5mfkbt" path="res://Arts/Terrain (Reg+Mono)/Terrain_Tilemap_V1.0.png" id="2_l6pns"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_t2bnr"]
-[ext_resource type="PackedScene" uid="uid://dan05mcwth3fl" path="res://Scenes/wood_tree.tscn" id="5_7rr2a"]
 [ext_resource type="Script" path="res://Scenes/Label.gd" id="6_smimi"]
 [ext_resource type="PackedScene" uid="uid://dcvpxnk1vi847" path="res://Scenes/ui.tscn" id="7_50q53"]
-[ext_resource type="PackedScene" uid="uid://bn7krrssrtoys" path="res://Scenes/rock_stone.tscn" id="7_gexk7"]
-[ext_resource type="PackedScene" uid="uid://ccpocuyp60wrf" path="res://Scenes/rock_ore.tscn" id="8_ctcem"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pf8ff"]
 texture = ExtResource("1_ngcyt")
@@ -854,14 +851,18 @@ texture_region_size = Vector2i(32, 32)
 0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:3/0/physics_layer_0/angular_velocity = 0.0
 1:3/0 = 0
+1:3/0/y_sort_origin = 8
 1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:3/0/physics_layer_0/angular_velocity = 0.0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(2.276, 4.97184, 4.25, 11, 0.198874, 14.3852, -3.95538, 11.8219, -3.0715, 4.97184)
 2:3/0 = 0
 2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:3/0/physics_layer_0/angular_velocity = 0.0
 3:3/0 = 0
+3:3/0/y_sort_origin = 8
 3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:3/0/physics_layer_0/angular_velocity = 0.0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.552, 9.94369, -7.11526, 10.1205, -8.75, 12.75, -8.03125, 14.9063, -0.71875, 14.9063, 0.662912, 12.5953, 0.397749, 9.76691, -1.81196, 10.0321)
 4:3/0 = 0
 4:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:3/0/physics_layer_0/angular_velocity = 0.0
@@ -973,14 +974,18 @@ texture_region_size = Vector2i(32, 32)
 1:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:4/0/physics_layer_0/angular_velocity = 0.0
 2:4/0 = 0
+2:4/0/y_sort_origin = 8
 2:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:4/0/physics_layer_0/angular_velocity = 0.0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.220972, 14.2747, 7.29204, 14.5399, 7.5572, 11.1811, 6.09375, 8.71875, -0.65625, 8.84375)
 3:4/0 = 0
 3:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:4/0/physics_layer_0/angular_velocity = 0.0
 4:4/0 = 0
+4:4/0/y_sort_origin = 5
 4:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:4/0/physics_layer_0/angular_velocity = 0.0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.21875, 1.65625, -11.3438, 8.84375, -6.90625, 10.7813, -4.21875, 9.34375, -0.34375, 12.7188, 1.28125, 10.7188, 5.65625, 12.7188, 9.15625, 10.9063, 8.96875, 7.65625, 10.7813, 5.90625, 10.4063, 1.90625)
 5:4/0 = 0
 5:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:4/0/physics_layer_0/angular_velocity = 0.0
@@ -1910,9 +1915,11 @@ sources/0 = SubResource("TileSetAtlasSource_pf8ff")
 sources/1 = SubResource("TileSetAtlasSource_7xmsj")
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_fk3o6")
 
 [node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("ui")]
+y_sort_enabled = true
 tile_set = SubResource("TileSet_didg4")
 format = 2
 layer_0/name = "Ground"
@@ -1922,6 +1929,7 @@ layer_1/name = "Corruption"
 layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "GoundObjects"
+layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(589830, 196609, 3, 393220, 65537, 3, 720907, 65537, 3, 786435, 131073, 4, 196619, 131073, 4, 196614, 196609, 3, 196610, 65537, 3, 720900, 131073, 4, 589833, 131073, 4, 458759, 262145, 4, 131082, 262145, 4, 589826, 262145, 4, 786442, 262145, 4, 1310731, 262145, 4, 1179655, 196609, 3, 786448, 131073, 4, 1179661, 131073, 4, 917516, 65537, 3, 1310726, 65537, 3, 1507340, 131073, 4, 1441798, 196609, 3, 1572878, 65537, 3, 1966103, 65537, 3, 1703957, 196609, 3, 1769492, 131073, 4, 1835028, 262145, 4, 1835029, 65537, 3, 2031638, 196609, 3, 2031650, 65537, 3, 1638434, 196609, 3, 1835037, 131073, 4, 2228250, 196609, 3, 2228251, 262145, 4, 2228252, 65537, 3, 2293789, 65537, 3, 2293790, 131073, 4, 2293791, 131073, 4, 2359328, 196609, 3, 2424862, 196609, 3, 2490397, 131073, 4, 2424860, 262145, 4, 2424859, 262145, 4, 2359321, 65537, 3, 2293784, 131073, 4, 2097174, 131073, 4, 1703952, 262145, 4, 1245199, 262145, 4, 1179663, 131073, 4, 1048591, 65537, 3, 917520, 65537, 3, 851984, 262145, 4, 524301, 262145, 4, 524300, 262145, 4, 524299, 196609, 3, 786439, 131073, 4, 851975, 196609, 3, 851974, 196609, 3, 983045, 196609, 3, 1769504, 196609, 3, 1835042, 131073, 4, 1900578, 65537, 3, 1966113, 262145, 4, 2031643, 131073, 4, 2031642, 65537, 3, 1966106, 65537, 3, 1966105, 131073, 4, 1703941, 65537, 3, 1638405, 131073, 4, 524304, 131073, 4, 458767, 262145, 4, 327692, 65537, 3, 458774, 262145, 4, 196634, 196609, 3, 196633, 65537, 3, 196632, 262145, 4, 196631, 196609, 3, 262166, 196609, 3, 262165, 65537, 3, 262164, 196609, 3, 589862, 262145, 4, 655398, 262145, 4, 655399, 196609, 3, 1310758, 131073, 4, 1376294, 131073, 4, 1114151, 262145, 4, 1572889, 196609, 3, 1507352, 65537, 3, 1507351, 196609, 3, 2293799, 65537, 3, 2293798, 65537, 3, 2293797, 196609, 3, 1835046, 131073, 4, 262161, 131073, 4, 720920, 131073, 4, 2424847, 1048577, 1, 1966092, 1048577, 1, 2424865, 1048577, 1, 2031656, 1048577, 1, 1638439, 1048577, 1, 720936, 1048577, 1, 1179685, 1048577, 1, 393245, 1048577, 1, 393240, 1048577, 1, 589843, 1048577, 1, 131091, 1048577, 1)
 script = ExtResource("2_023tt")
 ui = NodePath("../UI")
@@ -1931,17 +1939,6 @@ wait_time = 4.0
 
 [node name="Player" parent="TileMap" instance=ExtResource("3_t2bnr")]
 position = Vector2(146, 82)
-
-[node name="Resources" type="Node" parent="TileMap"]
-
-[node name="wood_tree" parent="TileMap/Resources" instance=ExtResource("5_7rr2a")]
-position = Vector2(229, 179)
-
-[node name="RockStone" parent="TileMap/Resources" instance=ExtResource("7_gexk7")]
-position = Vector2(334, 177)
-
-[node name="RockOre" parent="TileMap/Resources" instance=ExtResource("8_ctcem")]
-position = Vector2(280, 126)
 
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50q53")]
 player = NodePath("../TileMap/Player")
@@ -1962,6 +1959,3 @@ player = NodePath("../../TileMap/Player")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
-[connection signal="gathered_wood" from="TileMap/Resources/wood_tree" to="UI" method="_on_wood_tree_gathered_wood"]
-[connection signal="gathered_stone" from="TileMap/Resources/RockStone" to="UI" method="_on_rock_stone_gathered_stone"]
-[connection signal="gathered_ore" from="TileMap/Resources/RockOre" to="UI" method="_on_rock_ore_gathered_ore"]
