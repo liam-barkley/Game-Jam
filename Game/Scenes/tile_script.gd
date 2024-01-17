@@ -13,6 +13,9 @@ var is_player_in_corruption : bool = false
 func _ready():
 	initialize_grid()
 	$Timer.start()
+	#var player = get_node("Player")
+	#var r = get_random_grid_pos()
+	#player.position = Vector2(r.x*NUM_COLS, r.y*NUM_ROWS)
 	
 func _on_timer_timeout():
 	update_grid()
@@ -26,20 +29,36 @@ func initialize_grid():
 		is_corrupted_grid.append(row)
 	
 	# Randomly assign one corrupted tile
-	var nx = 0 
-	var ny = 0
+	var pos = get_random_grid_pos()
+	add_corruption(pos.x, pos.y)
+			
+# get a random position to spawn an entity
+func get_random_grid_pos():
+	var random = RandomNumberGenerator.new()
+	random.randomize()
+	# ensure spawn occurs on valid location
 	while true:
-		var r = randf()
-		if  r < CORRUPTION_PROBABILITY:
-			add_corruption(nx, ny)
-			break
-
-		if (ny+1)/NUM_COLS == 1:
-			nx += 1
-			nx %= NUM_ROWS
-			ny = 0
-		else:
-			ny += 1
+		var x = random.randi_range(0, NUM_COLS-1)
+		var y = random.randi_range(0, NUM_ROWS-1)
+		position = Vector2i(x, y)
+		var atlas_coord = get_cell_atlas_coords(0, position)
+		if valid_spawn_pos(atlas_coord):
+			print("spawned at " + str(position))
+			print("with atlas: " + str(atlas_coord))
+			return position
+			
+# a valid spawn is any atlas coordinate in the tilemap that is allowed
+func valid_spawn_pos(pos):
+	if pos.x == 10 and pos.y == 2:
+		return false
+	elif pos.x == 6:
+		return false
+	elif pos.x > 13:
+		return false
+	elif pos.x > 6 and (pos.y == 0 or pos.y == 6):
+		return false
+	
+	return true 
 #
 func update_grid():
 	for x in range(NUM_ROWS):
@@ -64,9 +83,9 @@ func spread_corruption(x, y):
 					continue
 
 				if randf() < CORRUPTION_PROBABILITY:
-					
 					add_corruption(nx, ny)
 
+# NB need to pass in tilemap coordinate
 func add_corruption(nx, ny):
 	# Get vectors
 	var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
