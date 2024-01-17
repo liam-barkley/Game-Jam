@@ -639,8 +639,9 @@ height = 14.0
 size = Vector2(6.5, 18)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 4
-collision_mask = 26
+collision_mask = 27
 script = ExtResource("1_ex118")
 SPEED = 150.0
 

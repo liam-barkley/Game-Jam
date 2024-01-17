@@ -7,19 +7,24 @@
 radius = 25.0799
 
 [node name="RockOre" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(16, 16)
 script = ExtResource("1_2ffya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, 16)
 texture = ExtResource("1_lul7s")
 
 [node name="PickableArea" type="Area2D" parent="."]
-position = Vector2(16, 16)
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickableArea"]
 shape = SubResource("CircleShape2D_2k5ot")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(6, 13, -3, 13, -8, 10, -12, 8, -11, 5, 7, 5, 8, 9)
 
 [connection signal="body_entered" from="PickableArea" to="." method="_on_pickable_area_body_entered"]
 [connection signal="body_exited" from="PickableArea" to="." method="_on_pickable_area_body_exited"]

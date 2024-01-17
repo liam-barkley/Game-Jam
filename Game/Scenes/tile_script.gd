@@ -53,7 +53,6 @@ func spawn_resources():
 	for i in (randi() % h + l):
 		var r = get_random_grid_pos()
 		var stone = rock_stone.instantiate()
-		print(str(i) + ": " + str(r))
 		stone.position = Vector2(r.x*GRID_SIZE, r.y*GRID_SIZE)
 		stone.gathered_stone.connect(ui._on_rock_stone_gathered_stone)
 		add_child(stone)
