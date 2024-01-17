@@ -8,7 +8,6 @@ radius = 25.0799
 
 [node name="RockOre" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(16, 16)
 script = ExtResource("1_2ffya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

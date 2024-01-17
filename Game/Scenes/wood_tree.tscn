@@ -35,7 +35,6 @@ radius = 28.0
 
 [node name="wood_tree" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(16, 16)
 script = ExtResource("1_hreit")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

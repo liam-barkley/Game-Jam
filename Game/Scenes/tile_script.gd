@@ -46,14 +46,14 @@ func spawn_resources():
 	for i in (randi() % h + l):
 		var r = get_random_grid_pos()
 		var tree = wood_tree.instantiate()
-		tree.position = Vector2(r.x*GRID_SIZE, r.y*GRID_SIZE)
+		tree.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		tree.gathered_wood.connect(ui._on_wood_tree_gathered_wood)
 		add_child(tree)
-	# spawn stone
+	## spawn stone
 	for i in (randi() % h + l):
 		var r = get_random_grid_pos()
 		var stone = rock_stone.instantiate()
-		stone.position = Vector2(r.x*GRID_SIZE, r.y*GRID_SIZE)
+		stone.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		stone.gathered_stone.connect(ui._on_rock_stone_gathered_stone)
 		add_child(stone)
 	# spawn ore
@@ -61,7 +61,7 @@ func spawn_resources():
 		var r = get_random_grid_pos()
 		var ore = rock_ore.instantiate()
 		#print(str(i) + ": " + str(r))
-		ore.position = Vector2(r.x*GRID_SIZE, r.y*GRID_SIZE)
+		ore.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		ore.gathered_ore.connect(ui._on_rock_ore_gathered_ore)
 		add_child(ore)
 

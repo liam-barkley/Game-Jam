@@ -8,7 +8,6 @@ radius = 29.0
 
 [node name="RockStone" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(16, 16)
 script = ExtResource("1_yew3r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
