@@ -21,7 +21,7 @@ func _ready():
 	# Random spawning 
 	var player = get_node("Player")
 	var r = get_random_grid_pos()
-	player.position = Vector2(r.x*GRID_SIZE, r.y*GRID_SIZE)
+	player.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 	
 func _on_timer_timeout():
 	update_grid()
@@ -37,6 +37,7 @@ func initialize_grid():
 	# Randomly assign one corrupted tile
 	var pos = get_random_grid_pos()
 	add_corruption(pos.x, pos.y)
+	print("Corruption spawned at: " + str(Vector2i(pos.x, pos.y)))
 
 func spawn_resources():
 	var l = 5
@@ -134,7 +135,6 @@ func add_corruption(nx, ny):
 	# Add instance to parent
 	is_corrupted_grid[nx][ny] = true
 	add_child(corruption)
-	print("Corruption spawned at: " + str(Vector2i(nx,ny)))
 
 func on_corruption_body_entered(body):
 	if body.name == "Player" && is_player_in_corruption == false:
