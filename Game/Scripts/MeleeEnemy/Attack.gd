@@ -2,7 +2,6 @@ extends State
 
 @onready var animated_sprite_2d = $"../../AnimatedSprite2D"
 @onready var attack_timer = $"../../AttackTimer"
-
 var direction = Vector2.ZERO
 var player = null
 
