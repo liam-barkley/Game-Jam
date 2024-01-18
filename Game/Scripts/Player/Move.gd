@@ -6,7 +6,7 @@ extends State
 var old_direction = Vector2.ZERO
 var direction = Vector2.ZERO
 
-func update(delta: float) -> void:
+func physics_update(delta: float) -> void:
 	# Get the input direction and handle states
 	if direction != Vector2.ZERO:
 		# Here we remember the old direction on order to transition to correct idle state
