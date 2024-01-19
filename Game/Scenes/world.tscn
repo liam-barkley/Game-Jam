@@ -1948,6 +1948,10 @@ position = Vector2(464, 186)
 [node name="RangedPlant" parent="TileMap" instance=ExtResource("9_rvxsf")]
 position = Vector2(224, 224)
 
+[node name="ranged_spawn_timer" type="Timer" parent="TileMap"]
+wait_time = 3.0
+autostart = true
+
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50q53")]
 player = NodePath("../TileMap/Player")
 
@@ -1967,3 +1971,4 @@ player = NodePath("../../TileMap/Player")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
+[connection signal="timeout" from="TileMap/ranged_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]

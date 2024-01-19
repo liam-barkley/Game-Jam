@@ -20,7 +20,6 @@ func _ready():
 	player = get_parent().find_child("Player")
 	print(player)
 	print(self.position)
-	
 
 #this function searches the closest tower to itself and returns that tower
 func search_closest_tower():
@@ -33,15 +32,12 @@ func search_closest_tower():
 			if (dist <= closest_tower_dist):
 				closest_tower = tower
 	return closest_tower
-	
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#print(self.position)
 	current_target = null
-	
-	
-	
+
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
 	else:
@@ -61,11 +57,7 @@ func aim_at(target):
 	
 	if target!=null:
 		ray_cast.target_position = target.position - self.position
-			
-			
-			
-		
-	
+
 func check_target_collision(target):
 	if (ray_cast.get_collider() == target or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
 		shoot_timer.start()
@@ -76,16 +68,11 @@ func check_target_collision(target):
 		shoot_timer.stop()
 		shoot_allowed = false
 
-
-	
-
 # This is for when the player gets hurt
 func _on_hurt_box_area_entered(area):
 	if area.is_in_group("hurtbox"):
 		hurt_area = area
 		$HurtBox/Timer.start()
-	
-
 
 func _on_timer_timeout():
 	hurt_area.take_damage(DAMAGE)
@@ -108,12 +95,9 @@ func shoot(target):
 func _on_shoot_timer_timeout():
 	shoot(current_target)
 
-
 func _on_fire_range_body_entered(body):
-	
 	if body.name == "Player":
 		player_in_proximity = true
-
 
 func _on_fire_range_body_exited(body):
 	if body.name == "Player":
@@ -121,11 +105,9 @@ func _on_fire_range_body_exited(body):
 		var looky = position.direction_to(player.position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 
-
-
-
 func _on_damage_area_entered(area):
 	if area.is_in_group("Weapons"):
 		HEALTH -= 2
 		if HEALTH <=0:
+			get_parent().num_enemies -= 1
 			queue_free()

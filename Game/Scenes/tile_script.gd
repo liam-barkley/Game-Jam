@@ -4,15 +4,20 @@ var GRID_SIZE = 32
 var NUM_ROWS = 42
 var NUM_COLS = 42
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
+var arr_corrupted_tiles = []
+var arr_idx = 0
 
 var CORRUPTION_PROBABILITY = 0.025
 var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 var wood_tree = preload("res://Scenes/wood_tree.tscn")
 var rock_stone = preload("res://Scenes/rock_stone.tscn")
 var rock_ore = preload("res://Scenes/rock_ore.tscn")
+
+var ranged_enemy = preload("res://Scenes/ranged_plant.tscn")
 @export var ui : CanvasLayer
 
 var is_player_in_corruption : bool = false
+var num_enemies : int = 0
 
 func _ready():
 	initialize_grid()
@@ -135,6 +140,8 @@ func add_corruption(nx, ny):
 	corruption.body_exited.connect(on_corruption_body_exited)
 	# Add instance to parent
 	is_corrupted_grid[nx][ny] = true
+	arr_corrupted_tiles.append(Vector2(nx, ny))
+	arr_idx += 1
 	add_child(corruption)
 
 func on_corruption_body_entered(body):
@@ -146,3 +153,20 @@ func on_corruption_body_exited(body):
 	#if body.name == "Player" && is_player_in_corruption == true:
 		#is_player_in_corruption = false
 	pass
+
+
+func _on_ranged_spawn_timer_timeout():
+	var num_corrupt_tiles = arr_corrupted_tiles.size()
+	var FRAC = 3
+
+	if num_enemies < num_corrupt_tiles / FRAC:
+		# get random corruption tile
+		var i = randi() % num_corrupt_tiles
+		var r = arr_corrupted_tiles[i]
+		print("spawn: " + str(r) + str(valid_spawn_pos(r)))
+		if valid_spawn_pos(r):
+			var enemy = ranged_enemy.instantiate()
+			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
+			num_enemies += 1
+			add_child(enemy)
+			$ranged_spawn_timer.wait_time = randi() % 15 + 10
