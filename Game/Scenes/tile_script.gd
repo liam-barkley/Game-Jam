@@ -18,10 +18,12 @@ func _ready():
 	initialize_grid()
 	spawn_resources()
 	$Timer.start()
+	#$RangedPlant.position = Vector2i(224,224)
+	
 	# Random spawning 
-	var player = get_node("Player")
-	var r = get_random_grid_pos()
-	player.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
+	#var player = get_node("Player")
+	#var r = get_random_grid_pos()
+	#player.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 	
 func _on_timer_timeout():
 	update_grid()

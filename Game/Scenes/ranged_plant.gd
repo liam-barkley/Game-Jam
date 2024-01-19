@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var Ranged_enemy_state_machine = $RangedEnemyStateMachine
 @onready var shoot_timer = $ShootTimer
 @onready var ray_cast = $RayCast2D
 @onready var bullety = get_parent().get_node("RangedPlantBullet")
@@ -18,6 +19,8 @@ var new_position
 func _ready():
 	player = get_parent().find_child("Player")
 	print(player)
+	print(self.position)
+	
 
 #this function searches the closest tower to itself and returns that tower
 func search_closest_tower():
@@ -34,19 +37,24 @@ func search_closest_tower():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#print(self.position)
 	current_target = null
+	
 	
 	
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
 	else:
 		current_target = player
+		
 	#print(current_target)
 	if current_target != null:
 		aim_at(current_target)
 		check_target_collision(current_target)
 		
 	else:
+		var looky = position.direction_to(self.position)
+		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 		shoot_timer.stop()
 	
 func aim_at(target):
@@ -110,3 +118,12 @@ func _on_fire_range_body_entered(body):
 func _on_fire_range_body_exited(body):
 	if body.name == "Player":
 		player_in_proximity = false
+
+
+
+
+func _on_damage_area_entered(area):
+	if area.is_in_group("Weapons"):
+		HEALTH -= 2
+		if HEALTH <=0:
+			queue_free()

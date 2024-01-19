@@ -1,24 +1,32 @@
 extends State
 
+@onready var animated_sprite_2d = $"../../AnimatedSprite2D"
 
-# Called when the node enters the scene tree for the first time.
-func handle_input(_event: InputEvent) -> void:
-	pass
+var direction = Vector2.ZERO
 
-# Virtual function. Corresponds to the `_process()` callback.
+# Upon entering the state, we set the Enemy node's velocity to zero.
+func enter(msg := {}) -> void:
+	# Direction to idle towards
+	if msg.has("direction"):
+		direction = msg.direction
+
 func update(_delta: float) -> void:
-	pass
+	play_animation()
 
-# Virtual function. Corresponds to the `_physics_process()` callback.
-func physics_update(_delta: float) -> void:
-	pass
+func play_animation():
+	if direction == Vector2.ZERO:
+		animated_sprite_2d.play("idle_down")
+		return
+	
+	# Player is more below than beside
+	if abs(direction.y) >= abs (direction.x):
+		if direction.y >= 0:
+			animated_sprite_2d.play("idle_down")
+		else:
+			animated_sprite_2d.play("idle_up")
+		return
 
-# Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
-# is a dictionary with arbitrary data the state can use to initialize itself.
-func enter(_msg := {}) -> void:
-	pass
-
-# Virtual function. Called by the state machine before changing the active state. Use this function
-# to clean up the state.
-func exit() -> void:
-	pass
+	if direction.x >= 0:
+		animated_sprite_2d.play("idle_right")
+	else:
+		animated_sprite_2d.play("idle_left")
