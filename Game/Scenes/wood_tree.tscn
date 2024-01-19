@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dan05mcwth3fl"]
 
-[ext_resource type="Script" path="res://wood_tree.gd" id="1_hreit"]
+[ext_resource type="Script" path="res://Scenes/wood_tree.gd" id="1_fgxme"]
 [ext_resource type="Texture2D" uid="uid://cuqy5qr63yvmm" path="res://Resources/survivalgame-appletree.png" id="2_8d4s2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7obk"]
@@ -35,7 +35,7 @@ radius = 28.0
 
 [node name="wood_tree" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_hreit")
+script = ExtResource("1_fgxme")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lx7sq")

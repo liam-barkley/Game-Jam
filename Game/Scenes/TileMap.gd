@@ -145,7 +145,6 @@ func add_corruption(nx, ny):
 	# Add instance to parent
 	is_corrupted_grid[nx][ny] = true
 	arr_corrupted_tiles.append(Vector2(nx, ny))
-	print("Corruption added at " + str(Vector2i(nx, ny)))
 	add_child(corruption)
 
 func on_corruption_body_entered(body):
@@ -169,7 +168,7 @@ func _on_ranged_spawn_timer_timeout():
 		print("spawn: " + str(r))
 		if valid_spawn_pos(get_cell_atlas_coords(ground_layer, r)):
 			# get random enemy
-			var enemy = enemies[randi() % enemies.size()].instantiate()
+			var enemy = enemies.pick_random().instantiate()
 			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 			num_enemies += 1
 			add_child(enemy)

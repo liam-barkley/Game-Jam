@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://daqhdp873fjc8"]
 
-[ext_resource type="Script" path="res://ProcGenWorld.gd" id="1_k3rl4"]
+[ext_resource type="Script" path="res://Scenes/ProcGenWorld.gd" id="1_k3rl4"]
 [ext_resource type="TileSet" uid="uid://c7af7j7g24pot" path="res://Scenes/tileset.tres" id="2_l6lf1"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_puo4j"]
 [ext_resource type="Script" path="res://Scenes/TileMap.gd" id="3_x24lf"]
