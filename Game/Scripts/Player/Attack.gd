@@ -4,6 +4,7 @@ extends State
 @onready var sword_hitbox = $"../../SwordHitbox"
 @onready var collision_shape_2d = $"../../SwordHitbox/CollisionShape2D"
 
+
 var direction = Vector2.ZERO
 
 func enter(msg := {}) -> void:
@@ -18,6 +19,7 @@ func update(_delta: float) -> void:
 	collision_shape_2d.disabled = true
 	
 	if Input.is_action_just_pressed("attack"):
+		
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 
 		# to tell the next state that we want to jump.
 		state_machine.transition_to("Attack")
@@ -27,6 +29,7 @@ func update(_delta: float) -> void:
 		state_machine.transition_to("Idle", {direction = direction})
 
 func play_animation():
+	
 	if direction == Vector2.ZERO:
 		animated_sprite_2d.play("attack_down")
 	
