@@ -25,5 +25,6 @@ func _on_sword_hitbox_area_entered(area):
 
 
 func _on_hurtbox_damage(amount):
+	$Eina.play()
 	health = health - amount
 	health_changed.emit()

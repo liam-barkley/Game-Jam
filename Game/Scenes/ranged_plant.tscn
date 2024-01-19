@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bkaacwghv2qqi"]
+[gd_scene load_steps=54 format=3 uid="uid://bkaacwghv2qqi"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant.gd" id="1_yqd74"]
 [ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_3cd2n"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
 [ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
+[ext_resource type="AudioStream" uid="uid://tnpx0hl4kqtn" path="res://Music/PlantShoot.mp3" id="8_sxm8t"]
 [ext_resource type="Texture2D" uid="uid://yeufmwf4l0cn" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="8_y6ilt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8a27h"]
@@ -399,6 +400,10 @@ collide_with_areas = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
 shape = SubResource("CapsuleShape2D_3dful")
+
+[node name="plantshoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_sxm8t")
+volume_db = 10.57
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]

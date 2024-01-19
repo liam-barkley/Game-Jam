@@ -93,6 +93,7 @@ func shoot(target):
 	get_tree().current_scene.add_child(bullet)
 
 func _on_shoot_timer_timeout():
+	$plantshoot.play()
 	shoot(current_target)
 
 func _on_fire_range_body_entered(body):
