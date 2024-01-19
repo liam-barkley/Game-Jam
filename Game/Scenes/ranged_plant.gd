@@ -53,7 +53,7 @@ func _process(delta):
 		check_target_collision(current_target)
 		
 	else:
-		var looky = position.direction_to(self.position)
+		var looky = position.direction_to(player.position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 		shoot_timer.stop()
 	
@@ -97,7 +97,8 @@ func _on_hurt_box_area_exited(area):
 		$HurtBox/Timer.stop()
 
 func shoot(target):
-	print("fire")
+	var looky = position.direction_to(player.position)
+	Ranged_enemy_state_machine.transition_to("Attack", {"direction" = looky})
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
 	bullet.position = ray_cast.global_position
@@ -111,13 +112,14 @@ func _on_shoot_timer_timeout():
 func _on_fire_range_body_entered(body):
 	
 	if body.name == "Player":
-		print("hello = "+body.name)
 		player_in_proximity = true
 
 
 func _on_fire_range_body_exited(body):
 	if body.name == "Player":
 		player_in_proximity = false
+		var looky = position.direction_to(player.position)
+		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 
 
 

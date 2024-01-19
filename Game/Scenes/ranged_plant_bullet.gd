@@ -5,19 +5,13 @@ var speed : float = 100
 var DAMAGE = 2
 var attack_pressed=false
 var area_space
-# Called when the node enters the scene tree for the first time.
+@onready var Health =2
+# Called when the  node enters the scene tree for the first time.
 func _ready():
 	pass
 
 func _process(delta):
 	attack_pressed = Input.is_action_just_pressed("attack")
-	if area_space != null:
-		if area_space.is_in_group("Weapons"):
-			# If player clicked attack it will kill the bullet
-			print("in weapons area")
-			if attack_pressed:
-				print("Im Free")
-				queue_free()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	position +=direction * speed * delta
@@ -27,6 +21,9 @@ func _physics_process(delta):
 
 func _on_bullet_size_area_entered(area):
 	area_space=area
+	if area.is_in_group("Weapons"):
+		
+		queue_free()
 	
 	# Check if bullet is in player attack area
 	if area.is_in_group("hurtbox"):
