@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://daqhdp873fjc8"]
+
+[ext_resource type="Script" path="res://ProcGenWorld.gd" id="1_k3rl4"]
+[ext_resource type="TileSet" uid="uid://c7af7j7g24pot" path="res://Scenes/tileset.tres" id="2_l6lf1"]
+
+[sub_resource type="Gradient" id="Gradient_bjeg6"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.258675, 0.40694, 0.599369)
+colors = PackedColorArray(0, 0.203922, 1, 1, 0.380392, 0.941176, 1, 1, 1, 1, 0, 1, 0.319842, 0.793013, 0.0713885, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0d85l"]
+noise_type = 5
+seed = 1
+frequency = 0.031
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_23tfg"]
+color_ramp = SubResource("Gradient_bjeg6")
+noise = SubResource("FastNoiseLite_0d85l")
+
+[node name="ProcGenWorld" type="Node2D"]
+script = ExtResource("1_k3rl4")
+noise_height_text = SubResource("NoiseTexture2D_23tfg")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_l6lf1")
+format = 2
+layer_0/name = "ground"
+layer_1/name = "ground_objects"
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1361, 752)
+scale = Vector2(2, 2)
+zoom = Vector2(0.2, 0.2)
