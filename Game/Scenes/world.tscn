@@ -1947,8 +1947,6 @@ position = Vector2(464, 186)
 
 [node name="RangedPlant" parent="TileMap" instance=ExtResource("9_rvxsf")]
 position = Vector2(224, 224)
-HEALTH = 10
-DAMAGE = 2
 
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50q53")]
 player = NodePath("../TileMap/Player")

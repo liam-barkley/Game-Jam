@@ -24,8 +24,9 @@ var num_ore = 0:
 		update_ore_label()
 
 func _ready():
-	await player.ready
-	player.health_changed.connect(update_health_progress())
+	await player != null
+	player.health_changed.connect(update_health_progress)
+
 	update_health_progress()
 	update_rock_label()
 	update_ore_label()
