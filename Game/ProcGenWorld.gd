@@ -3,6 +3,12 @@ extends Node2D
 @onready var tile_map = $TileMap
 @export var noise_height_text : NoiseTexture2D 
 
+var num_wood : int = 0
+
+func _on_wood_tree_gathered_wood():
+	num_wood += 1
+	print(num_wood)
+
 var source = 1
 var GRASS_PROBABILITY = 0.25
 var SAND_PROBABILITY = 0.15
@@ -19,7 +25,9 @@ var grass_atlas = Vector2i(3,2)
 var rock_atlas = Vector2i(4,4)
 
 var ground_layer = 0
-var ground_object_layer = 1
+var ground_decor = 1
+var corruption_layer = 2
+var ground_object_layer = 3
 
 var sand_terrain_idx = 0
 var grass_terrain_idx = 1
@@ -72,7 +80,7 @@ func gen_world():
 				if noise_val > 0.4:
 					sand_tiles_arr.append(pos)
 					if randf() < SAND_PROBABILITY:
-						tile_map.set_cell(ground_object_layer, pos, source, sand_atlas_arr.pick_random())
+						tile_map.set_cell(ground_decor, pos, source, sand_atlas_arr.pick_random())
 			# beach boundary
 			if distance <= min(center_x, center_y) - 3 and distance >= min(center_x, center_y) - 6:
 				sand_tiles_arr.append(pos)
@@ -87,12 +95,12 @@ func gen_world():
 				if noise_val > -0.2:
 					sand_tiles_arr.append(pos)
 					if randf() < SAND_PROBABILITY and noise_val <= 0:
-						tile_map.set_cell(ground_object_layer, pos, source, sand_atlas_arr.pick_random())
+						tile_map.set_cell(ground_decor, pos, source, sand_atlas_arr.pick_random())
 					# grass
 					if noise_val > 0:
 						grass_tiles_arr.append(pos)
 						if randf() < GRASS_PROBABILITY:
-							tile_map.set_cell(ground_object_layer, pos, source, grass_atlas_arr.pick_random())
+							tile_map.set_cell(ground_decor, pos, source, grass_atlas_arr.pick_random())
 						if randf() < TREE_PROBABILITY:
 							tile_map.set_cell(ground_object_layer, pos, source, tree_atlas_arr.pick_random())
 						if randf() < ROCK_PROBABILITY:
@@ -105,3 +113,4 @@ func gen_world():
 	# debug info
 	print("high: ", noise_val_array.max())
 	print("low ", noise_val_array.min())
+

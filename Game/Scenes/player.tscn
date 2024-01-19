@@ -632,8 +632,8 @@ radius = 6.0
 height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gt1i1"]
-radius = 6.0
-height = 18.0
+radius = 3.0
+height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsnb7"]
 size = Vector2(6.5, 18)
@@ -658,7 +658,6 @@ shape = SubResource("CapsuleShape2D_8hgcy")
 [node name="Hurtbox" parent="." instance=ExtResource("3_qohu5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_gt1i1")
 
 [node name="SwordHitbox" type="Area2D" parent="." groups=["Weapons"]]
@@ -685,15 +684,8 @@ script = ExtResource("6_uuhg0")
 script = ExtResource("7_jtbc0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = -192
-limit_top = -192
-limit_right = 1504
-limit_bottom = 1504
 
-[node name="Eina" type="AudioStreamPlayer2D" parent="."]
-volume_db = 22.781
-
-[node name="Attack" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]
