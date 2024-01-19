@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv4ufeg5f2650"]
+[gd_scene load_steps=11 format=3 uid="uid://dv4ufeg5f2650"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_fk3o6"]
 [ext_resource type="Texture2D" uid="uid://d25bh0bro72nv" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/tilemap.png" id="1_ngcyt"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_t2bnr"]
 [ext_resource type="Script" path="res://Scenes/Label.gd" id="6_smimi"]
 [ext_resource type="PackedScene" uid="uid://dcvpxnk1vi847" path="res://Scenes/ui.tscn" id="7_50q53"]
-[ext_resource type="PackedScene" uid="uid://d0xwe7ass64p6" path="res://Scenes/melee_plant.tscn" id="8_gqq0g"]
-[ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="9_rvxsf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pf8ff"]
 texture = ExtResource("1_ngcyt")
@@ -1941,12 +1939,6 @@ wait_time = 4.0
 
 [node name="Player" parent="TileMap" instance=ExtResource("3_t2bnr")]
 position = Vector2(146, 280)
-
-[node name="MeleePlant" parent="TileMap" instance=ExtResource("8_gqq0g")]
-position = Vector2(464, 186)
-
-[node name="RangedPlant" parent="TileMap" instance=ExtResource("9_rvxsf")]
-position = Vector2(224, 224)
 
 [node name="ranged_spawn_timer" type="Timer" parent="TileMap"]
 wait_time = 3.0
