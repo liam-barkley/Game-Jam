@@ -13,7 +13,9 @@ var wood_tree = preload("res://Scenes/wood_tree.tscn")
 var rock_stone = preload("res://Scenes/rock_stone.tscn")
 var rock_ore = preload("res://Scenes/rock_ore.tscn")
 
-var ranged_enemy = preload("res://Scenes/ranged_plant.tscn")
+var enemies = [preload("res://Scenes/ranged_plant.tscn"),
+			   preload("res://Scenes/melee_plant.tscn")]
+
 @export var ui : CanvasLayer
 
 var is_player_in_corruption : bool = false
@@ -154,7 +156,6 @@ func on_corruption_body_exited(body):
 		#is_player_in_corruption = false
 	pass
 
-
 func _on_ranged_spawn_timer_timeout():
 	var num_corrupt_tiles = arr_corrupted_tiles.size()
 	var FRAC = 3
@@ -163,9 +164,10 @@ func _on_ranged_spawn_timer_timeout():
 		# get random corruption tile
 		var i = randi() % num_corrupt_tiles
 		var r = arr_corrupted_tiles[i]
-		print("spawn: " + str(r) + str(valid_spawn_pos(r)))
-		if valid_spawn_pos(r):
-			var enemy = ranged_enemy.instantiate()
+		print("spawn: " + str(r))
+		if valid_spawn_pos(get_cell_atlas_coords(0, r)):
+			# get random enemy
+			var enemy = enemies[randi() % enemies.size()].instantiate()
 			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 			num_enemies += 1
 			add_child(enemy)
