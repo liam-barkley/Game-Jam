@@ -4,8 +4,8 @@ extends CharacterBody2D
 
 # Constants
 @export var SPEED = 70.0
-@export var DAMAGE = 2
-@export var HEALTH = 10
+@export var DAMAGE = 1
+@export var HEALTH = 5
 
 # Variables
 @export var max_health = 20
