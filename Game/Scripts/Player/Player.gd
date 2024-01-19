@@ -30,10 +30,17 @@ func _on_hurtbox_damage(amount):
 	health_changed.emit()
 	
 func _input(event):
+	var max = 2.2
+	var min = 0.2
 	if Input.is_action_just_pressed("zoom_in"):
 		var zoom = camera_2d.zoom.x + 0.1
-		camera_2d.zoom = Vector2(zoom, zoom)
+		if zoom <= max:
+			camera_2d.zoom = Vector2(zoom, zoom)
+		
 	if Input.is_action_just_pressed("zoom_out"):
 		var zoom = camera_2d.zoom.x - 0.1
-		camera_2d.zoom = Vector2(zoom, zoom)
+		if zoom >= min:
+			camera_2d.zoom = Vector2(zoom, zoom)
+
+		
 	
