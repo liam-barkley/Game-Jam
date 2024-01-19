@@ -25,6 +25,7 @@ func _ready():
 	initialize_grid()
 	spawn_resources()
 	$Timer.start()
+	print(get_cell_atlas_coords(2, Vector2i(2,3)) == Vector2i(-1,-1))
 	#$RangedPlant.position = Vector2i(224,224)
 	
 	# Random spawning 
@@ -84,9 +85,7 @@ func get_random_grid_pos():
 		var y = random.randi_range(0, NUM_ROWS-1)
 		position = Vector2i(x, y)
 		var atlas_coord = get_cell_atlas_coords(0, position)
-		if valid_spawn_pos(atlas_coord):
-			#print("spawned at " + str(position))
-			#print("with atlas: " + str(atlas_coord))
+		if valid_spawn_pos(atlas_coord) and (get_cell_atlas_coords(2, position) == Vector2i(-1,-1)):
 			return position
 			
 # a valid spawn is any atlas coordinate in the tilemap that is allowed
