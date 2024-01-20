@@ -1,9 +1,12 @@
 extends Node2D
 
 @onready var tile_map = $TileMap
+@onready var ui = $UI
+
 @export var noise_height_text : NoiseTexture2D 
 
 var num_wood : int = 0
+var tower_scenes = [preload("res://healing_tower.tscn")]
 
 func _on_wood_tree_gathered_wood():
 	num_wood += 1
@@ -42,6 +45,7 @@ var noise : Noise
 
 var width = 50
 var height = 50
+var grid_size = 32
 var center_x = width / 2
 var center_y = height / 2
 
@@ -51,6 +55,17 @@ func _ready():
 	noise = noise_height_text.noise
 	noise.seed = randi()
 	gen_world()
+	
+func _process(delta):
+	if Input.is_action_just_pressed("place"):
+		# healing tower
+		if ui.num_wood >= 1 and ui.num_rock >= 2:
+			var building = tower_scenes[0].instantiate()
+			building.position = get_local_mouse_position()
+			add_child(building)
+		
+			ui.num_wood -= 1
+			ui.num_rock -= 2
 	
 func gen_world():
 	
@@ -113,4 +128,5 @@ func gen_world():
 	# debug info
 	print("high: ", noise_val_array.max())
 	print("low ", noise_val_array.min())
+	
 

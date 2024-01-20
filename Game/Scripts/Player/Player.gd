@@ -29,6 +29,12 @@ func _on_hurtbox_damage(amount):
 	health = health - amount
 	health_changed.emit()
 	
+func _heal_player(amount):
+	health = health + amount
+	if health >= max_health:
+		health = max_health
+	health_changed.emit()
+	
 func _input(event):
 	var max = 2.2
 	var min = 0.2

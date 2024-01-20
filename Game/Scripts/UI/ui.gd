@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var rock_label = %RockLabel
 @onready var ore_label = %OreLabel
 @onready var wood_label = %WoodLabel
+@onready var label = $Control/MarginContainer/MarginContainer/BoxContainer/PlayerHealthBar/Label
 
 var num_wood = 0:
 	set(new_wood):
@@ -33,6 +34,10 @@ func _ready():
 
 func update_health_progress():
 	player_health_bar.value = player.health * 100 / player.max_health
+	if player.health <= 0:
+		label.text = "0"
+	else:
+		label.text = str(player.health)
 
 func update_wood_label():
 	wood_label.text = str(num_wood)

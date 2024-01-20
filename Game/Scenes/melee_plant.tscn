@@ -640,15 +640,15 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxi7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qgia"]
-radius = 29.0
-height = 60.0
+radius = 26.0
+height = 52.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bc75x"]
 radius = 165.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eog00"]
-radius = 30.0
-height = 60.0
+radius = 37.0
+height = 74.0
 
 [node name="MeleePlant" type="CharacterBody2D"]
 collision_layer = 8
