@@ -2,6 +2,7 @@ extends Node2D
 
 var is_ready : bool = false
 var is_player_nearby : bool = false
+@onready var texture_rect = $TextureRect
 
 signal gathered_wood
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +20,8 @@ func _process(delta):
 				is_ready = false
 				gathered_wood.emit()
 				start_timer()
+	
+	texture_rect.visible = is_player_nearby and is_ready
 
 func start_timer():
 	var r = randi() % 15 + 5

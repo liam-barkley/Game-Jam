@@ -2,6 +2,7 @@ extends Node2D
 
 var is_ready : bool = false
 var is_player_nearby : bool = false
+@onready var texture_rect = $TextureRect
 
 signal gathered_stone
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +15,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("interact"):
 			gathered_stone.emit()
 			queue_free()
+	texture_rect.visible = is_player_nearby
 
 func _on_pickable_area_body_entered(body):
 	if body.name == "Player":
