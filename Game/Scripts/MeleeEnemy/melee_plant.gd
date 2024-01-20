@@ -5,11 +5,10 @@ extends CharacterBody2D
 # Constants
 @export var SPEED = 70.0
 @export var DAMAGE = 1
-@export var HEALTH = 5
+@export var HEALTH = 6
+@export var MAX_HEALTH = 6
 
 # Variables
-@export var max_health = 20
-@onready var health = max_health
 var hurt_area
 
 func _physics_process(_delta):
@@ -51,7 +50,8 @@ func _on_attack_range_area_exited(area):
 		hurt_area = null
 
 func _on_attack_timer_timeout():
-	hurt_area.take_damage(DAMAGE)
+	if hurt_area != null:
+		hurt_area.take_damage(DAMAGE)
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Weapons"):

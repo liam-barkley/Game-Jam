@@ -46,4 +46,10 @@ debug_color = Color(1, 1, 0, 0.419608)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealRange"]
 shape = SubResource("CircleShape2D_b0vq2")
 
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 2.5
+
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_entered" from="HealRange" to="." method="_on_heal_range_body_entered"]
+[connection signal="body_exited" from="HealRange" to="." method="_on_heal_range_body_exited"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
