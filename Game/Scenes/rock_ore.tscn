@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/rock_ore.gd" id="1_2ffya"]
 [ext_resource type="Texture2D" uid="uid://b7hg1wng14tpt" path="res://Arts/Resources/Rock_ore.png" id="1_lul7s"]
-[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Down-Arrow-PNG-Pic.png" id="3_5degx"]
+[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Arrow-icon.png" id="3_5degx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2k5ot"]
 radius = 25.0799

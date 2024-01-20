@@ -655,7 +655,7 @@ frame_progress = 1.0
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_8hgcy")
 
-[node name="Hurtbox" parent="." instance=ExtResource("3_qohu5")]
+[node name="Hurtbox" parent="." groups=["player"] instance=ExtResource("3_qohu5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -1)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/wood_tree.gd" id="1_fgxme"]
 [ext_resource type="Texture2D" uid="uid://cuqy5qr63yvmm" path="res://Resources/survivalgame-appletree.png" id="2_8d4s2"]
-[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Down-Arrow-PNG-Pic.png" id="3_my1p6"]
+[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Arrow-icon.png" id="3_my1p6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7obk"]
 atlas = ExtResource("2_8d4s2")

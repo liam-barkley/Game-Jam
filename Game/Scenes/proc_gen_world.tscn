@@ -59,7 +59,7 @@ autostart = true
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_cjqwg")]
 player = NodePath("../TileMap/Player")
 
-[node name="Label" type="Label" parent="UI" node_paths=PackedStringArray("tilemap", "player")]
+[node name="Label2" type="Label" parent="UI" node_paths=PackedStringArray("tilemap", "player")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
