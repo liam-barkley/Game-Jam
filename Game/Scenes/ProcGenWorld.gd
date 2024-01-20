@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var tile_map = $TileMap
 @onready var ui = $UI
+@onready var player = $TileMap/Player
 
 @export var noise_height_text : NoiseTexture2D 
 
@@ -56,12 +57,21 @@ func _process(delta):
 	
 	# manage towers
 	if Input.is_action_just_pressed("build"):
+		var mouse_pos = get_local_mouse_position()
+		var player_pos = player.position
+		
+		# building radius
+		var distance = sqrt(pow(mouse_pos.x - player_pos.x, 2) + pow(mouse_pos.y - player_pos.y, 2))
+		if distance >= 3 * grid_size:
+			print("Not in build radius")
+			return
+
 		# check for sufficient resources
 		if not ui.build_selected_tower():
 			return
 		# place tower that has been built
 		var building = ui.TOWER_SCENES[ui.tower_selected].instantiate()
-		building.position = get_local_mouse_position()
+		building.position = mouse_pos
 		add_child(building)
 
 func gen_world():

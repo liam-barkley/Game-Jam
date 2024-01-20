@@ -128,7 +128,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 8
 text = "Left click attack
-Right click place
+Right click build
 Shift to sprint
 Scroll to zoom
 "

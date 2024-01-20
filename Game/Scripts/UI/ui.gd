@@ -44,15 +44,7 @@ func _ready():
 	update_health_progress()
 	update_rock_label()
 	update_ore_label()
-	
-	var h = "Healer (%d wood, %d stone, %d ore)" % [healer_resources[0], healer_resources[1], healer_resources[2]]
-	var p = "Purifier (%d wood, %d stone, %d ore)" % [purifier_resources[0], purifier_resources[1], purifier_resources[2]]
-	option_button.add_item(h, HEALER_IDX)
-	option_button.add_item(p, PURIFIER_IDX)
-	
-	# set healer active 
-	option_button.selected = HEALER_IDX
-	tower_selected = HEALER_IDX
+	update_dropdown()
 
 func build_selected_tower():
 	match tower_selected:
@@ -93,7 +85,16 @@ func use_resources(res):
 	num_wood -= res[0]
 	num_rock -= res[1]
 	num_ore -= res[2]
-	var r = Vector3(num_wood, num_rock, num_wood)
+
+func update_dropdown():
+	var h = "Healer (%d wood, %d stone, %d ore)" % [healer_resources[0], healer_resources[1], healer_resources[2]]
+	var p = "Purifier (%d wood, %d stone, %d ore)" % [purifier_resources[0], purifier_resources[1], purifier_resources[2]]
+	option_button.add_item(h, HEALER_IDX)
+	option_button.add_item(p, PURIFIER_IDX)
+	
+	# set healer active 
+	option_button.selected = HEALER_IDX
+	tower_selected = HEALER_IDX
 
 func update_health_progress():
 	player_health_bar.value = player.health * 100 / player.max_health
