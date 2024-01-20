@@ -6,11 +6,9 @@ extends Node2D
 @export var noise_height_text : NoiseTexture2D 
 
 var num_wood : int = 0
-var tower_scenes = [preload("res://healing_tower.tscn")]
-
-func _on_wood_tree_gathered_wood():
-	num_wood += 1
-	print(num_wood)
+var tower_scenes = [preload("res://Scenes/healing_tower.tscn"), 
+					preload("res://purifying_tower.tscn")]
+var current_tower : int = 0
 
 var source = 1
 var GRASS_PROBABILITY = 0.25
@@ -54,19 +52,32 @@ var noise_val_array = []
 func _ready():
 	noise = noise_height_text.noise
 	noise.seed = randi()
+	ui.change_selection.connect(on_ui_change_selection)
 	gen_world()
+	
+func on_ui_change_selection(selected):
+	current_tower = selected
 	
 func _process(delta):
 	if Input.is_action_just_pressed("place"):
-		# healing tower
-		if ui.num_wood >= 1 and ui.num_rock >= 2:
-			var building = tower_scenes[0].instantiate()
-			building.position = get_local_mouse_position()
-			add_child(building)
+		match current_tower:
+			0: # healing tower
+				if ui.num_wood >= 1 and ui.num_rock >= 2:
+					ui.num_wood -= 1
+					ui.num_rock -= 2
+				else:
+					return
+			1:  # purifying tower
+				if ui.num_ore >= 1:
+					ui.num_ore -= 1
+				else:
+					return
 		
-			ui.num_wood -= 1
-			ui.num_rock -= 2
-	
+		#if ui.num_wood >= 1 and ui.num_rock >= 2:
+		var building = tower_scenes[current_tower].instantiate()
+		building.position = get_local_mouse_position()
+		add_child(building)
+
 func gen_world():
 	
 	for y in range(width):
@@ -126,7 +137,7 @@ func gen_world():
 	tile_map.set_cells_terrain_connect(ground_layer, grass_tiles_arr, grass_terrain_idx, 0)
 
 	# debug info
-	print("high: ", noise_val_array.max())
-	print("low ", noise_val_array.min())
+	#print("high: ", noise_val_array.max())
+	#print("low ", noise_val_array.min())
 	
 

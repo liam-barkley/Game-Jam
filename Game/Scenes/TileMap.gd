@@ -45,7 +45,6 @@ func _ready():
 	# Random spawning 
 	var player = get_node("Player")
 	var r = get_random_grid_pos()
-	print(get_cell_atlas_coords(ground_layer, r))
 	player.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 
 func initialize_grid():
@@ -140,22 +139,18 @@ func add_corruption(nx, ny):
 	# Set corrupted tile
 	corruption.get_node("CorrosionTiles").set_cell(corruption_layer, Vector2i(0,0), 0, atlas_coords)
 	# Link signals
-	corruption.body_entered.connect(on_corruption_body_entered)
-	corruption.body_exited.connect(on_corruption_body_exited)
+	corruption.clear.connect(on_corruption_clear)
 	# Add instance to parent
 	is_corrupted_grid[nx][ny] = true
 	arr_corrupted_tiles.append(Vector2(nx, ny))
 	add_child(corruption)
 
-func on_corruption_body_entered(body):
-	if body.name == "Player" && is_player_in_corruption == false:
-		is_player_in_corruption = true
-		print("Player has entered the corruption")
-
-func on_corruption_body_exited(body):
-	#if body.name == "Player" && is_player_in_corruption == true:
-		#is_player_in_corruption = false
-	pass
+func on_corruption_clear(corruption):
+	var nx = corruption.position.x / GRID_SIZE
+	var ny = corruption.position.y / GRID_SIZE
+	
+	is_corrupted_grid[nx][ny] = false
+	print("Corruption cleared at: ", Vector2i(nx, ny))
 
 func _on_ranged_spawn_timer_timeout():
 	var num_corrupt_tiles = arr_corrupted_tiles.size()

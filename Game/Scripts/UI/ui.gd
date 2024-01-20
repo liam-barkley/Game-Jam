@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal change_selection(selected)
+
 @export var player: CharacterBody2D
 
 @onready var player_health_bar = %PlayerHealthBar
@@ -57,3 +59,6 @@ func _on_rock_stone_gathered_stone():
 
 func _on_rock_ore_gathered_ore():
 	num_ore += 1
+
+func _on_option_button_item_selected(index):
+	change_selection.emit(option_button.selected)
