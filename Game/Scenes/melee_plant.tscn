@@ -640,15 +640,15 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxi7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qgia"]
-radius = 17.0
-height = 38.0
+radius = 29.0
+height = 60.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bc75x"]
 radius = 165.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eog00"]
-radius = 22.0
-height = 44.0
+radius = 30.0
+height = 60.0
 
 [node name="MeleePlant" type="CharacterBody2D"]
 collision_layer = 8
@@ -703,6 +703,7 @@ shape = SubResource("CapsuleShape2D_eog00")
 wait_time = 1.4
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

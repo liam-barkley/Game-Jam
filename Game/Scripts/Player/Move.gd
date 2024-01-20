@@ -25,8 +25,12 @@ func physics_update(delta: float) -> void:
 
 func apply_acceleration(delta):
 	if not direction == Vector2.ZERO:
-		owner.velocity.x = move_toward(owner.velocity.x, direction.x * owner.SPEED, owner.ACCELERATION * delta)
-		owner.velocity.y = move_toward(owner.velocity.y, direction.y * owner.SPEED, owner.ACCELERATION * delta)
+		if Input.is_action_pressed("sprint"):
+			owner.velocity.x = move_toward(owner.velocity.x, direction.x * (owner.SPEED*1.5), owner.ACCELERATION * delta)
+			owner.velocity.y = move_toward(owner.velocity.y, direction.y * (owner.SPEED*1.5), owner.ACCELERATION * delta)
+		else:
+			owner.velocity.x = move_toward(owner.velocity.x, direction.x * owner.SPEED, owner.ACCELERATION * delta)
+			owner.velocity.y = move_toward(owner.velocity.y, direction.y * owner.SPEED, owner.ACCELERATION * delta)
 
 func apply_friction(delta):
 	if direction == Vector2.ZERO:

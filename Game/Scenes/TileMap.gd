@@ -168,7 +168,7 @@ func _on_ranged_spawn_timer_timeout():
 		print("spawn: " + str(r))
 		if valid_spawn_pos(get_cell_atlas_coords(ground_layer, r)):
 			# get random enemy
-			var enemy = enemies.pick_random().instantiate()
+			var enemy = enemies[1].instantiate()
 			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 			num_enemies += 1
 			add_child(enemy)

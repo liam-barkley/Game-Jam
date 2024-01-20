@@ -44,17 +44,18 @@ func _on_attack_range_body_exited(body):
 func _on_attack_range_area_entered(area):
 	if area.is_in_group("hurtbox"):
 		hurt_area = area
-		hurt_area.take_damage(DAMAGE)
 
 func _on_attack_range_area_exited(area):
 	if area.is_in_group("hurtbox"):
 		hurt_area = null
 
 func _on_attack_timer_timeout():
-	hurt_area.take_damage(DAMAGE)
+	# give time to get away
+	await get_tree().create_timer(0.75).timeout
+	if hurt_area != null:
+		hurt_area.take_damage(DAMAGE)
 
 func _on_hurtbox_area_entered(area):
-	print(area)
 	if area.is_in_group("Weapons"):
 		HEALTH -= 2
 		if HEALTH <=0:
