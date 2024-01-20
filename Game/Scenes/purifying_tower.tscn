@@ -1,9 +1,88 @@
-[gd_scene load_steps=3 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=15 format=3 uid="uid://ff2x2ipc20fh"]
 
-[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_whp4c"]
+[ext_resource type="Texture2D" uid="uid://dnfj14ix671wo" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers bases/PNGs/Tower 08.png" id="1_t2xwk"]
+[ext_resource type="Texture2D" uid="uid://cyv2rchd7ctyp" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers Weapons/Tower 08/Spritesheets/Tower 08 - Level 03 - Weapon.png" id="2_ypvp3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ypho"]
 radius = 66.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsgw6"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3hc1"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgtbf"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2qri"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7sky"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1afts"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgd2a"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wfko"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8muy"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_760up"]
+atlas = ExtResource("2_ypvp3")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ye163"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsgw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3hc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgtbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2qri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7sky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1afts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgd2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wfko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8muy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_760up")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,6 +92,16 @@ radius = 66.0
 shape = SubResource("CircleShape2D_0ypho")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(4.76837e-07, 0)
-scale = Vector2(0.3125, 0.414063)
-texture = ExtResource("1_whp4c")
+position = Vector2(0, -0.0625008)
+scale = Vector2(0.421875, 0.353516)
+texture = ExtResource("1_t2xwk")
+hframes = 3
+frame = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3.07813)
+scale = Vector2(0.289063, 0.346191)
+sprite_frames = SubResource("SpriteFrames_ye163")
+autoplay = "default"
+frame = 2
+frame_progress = 0.124998
