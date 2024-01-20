@@ -150,17 +150,17 @@ func on_corruption_clear(corruption):
 	var ny = corruption.position.y / GRID_SIZE
 	
 	is_corrupted_grid[nx][ny] = false
+	arr_corrupted_tiles.erase(Vector2(nx, ny))
 	print("Corruption cleared at: ", Vector2i(nx, ny))
 
 func _on_ranged_spawn_timer_timeout():
 	var num_corrupt_tiles = arr_corrupted_tiles.size()
 	var FRAC = 3
 
-	if num_enemies < num_corrupt_tiles / FRAC:
+	if num_enemies < num_corrupt_tiles / FRAC && arr_corrupted_tiles.size() > 0:
 		# get random corruption tile
-		var i = randi() % num_corrupt_tiles
-		var r = arr_corrupted_tiles[i]
-		print("spawn: " + str(r))
+		var r = arr_corrupted_tiles.pick_random()
+		print("spawned enemy at: " + str(r))
 		if valid_spawn_pos(get_cell_atlas_coords(ground_layer, r)):
 			# get random enemy
 			var enemy = enemies.pick_random().instantiate()

@@ -112,12 +112,7 @@ offset_right = 125.0
 offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-item_count = 2
 selected = 0
-popup/item_0/text = "Healing Tower (1 wood, 2 stone)"
-popup/item_0/id = 0
-popup/item_1/text = "Purifying Tower (1 ore)"
-popup/item_1/id = 1
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 6

@@ -6,9 +6,7 @@ extends Node2D
 @export var noise_height_text : NoiseTexture2D 
 
 var num_wood : int = 0
-var tower_scenes = [preload("res://Scenes/healing_tower.tscn"), 
-					preload("res://purifying_tower.tscn")]
-var current_tower : int = 0
+
 
 var source = 1
 var GRASS_PROBABILITY = 0.25
@@ -52,29 +50,17 @@ var noise_val_array = []
 func _ready():
 	noise = noise_height_text.noise
 	noise.seed = randi()
-	ui.change_selection.connect(on_ui_change_selection)
 	gen_world()
 	
-func on_ui_change_selection(selected):
-	current_tower = selected
-	
 func _process(delta):
-	if Input.is_action_just_pressed("place"):
-		match current_tower:
-			0: # healing tower
-				if ui.num_wood >= 1 and ui.num_rock >= 2:
-					ui.num_wood -= 1
-					ui.num_rock -= 2
-				else:
-					return
-			1:  # purifying tower
-				if ui.num_ore >= 1:
-					ui.num_ore -= 1
-				else:
-					return
-		
-		#if ui.num_wood >= 1 and ui.num_rock >= 2:
-		var building = tower_scenes[current_tower].instantiate()
+	
+	# manage towers
+	if Input.is_action_just_pressed("build"):
+		# check for sufficient resources
+		if not ui.build_selected_tower():
+			return
+		# place tower that has been built
+		var building = ui.TOWER_SCENES[ui.tower_selected].instantiate()
 		building.position = get_local_mouse_position()
 		add_child(building)
 
