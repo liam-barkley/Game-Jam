@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var ore_label = %OreLabel
 @onready var wood_label = %WoodLabel
 @onready var label = $Control/MarginContainer/MarginContainer/BoxContainer/PlayerHealthBar/Label
+@onready var option_button = $Control/OptionButton
 
 var num_wood = 0:
 	set(new_wood):
