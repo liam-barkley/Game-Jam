@@ -54,7 +54,6 @@ func _on_attack_timer_timeout():
 	hurt_area.take_damage(DAMAGE)
 
 func _on_hurtbox_area_entered(area):
-	print(area)
 	if area.is_in_group("Weapons"):
 		HEALTH -= 2
 		if HEALTH <=0:

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
 [ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
-[ext_resource type="AudioStream" uid="uid://7f3bono7a3b4" path="res://Music/PlantShoot.mp3" id="8_sxm8t"]
+[ext_resource type="AudioStream" uid="uid://d2q0m3wobhe0u" path="res://Music/PlantShoot.mp3" id="8_sxm8t"]
 [ext_resource type="Texture2D" uid="uid://yeufmwf4l0cn" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="8_y6ilt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8a27h"]
@@ -350,9 +350,9 @@ visibility_layer = 31
 script = ExtResource("1_yqd74")
 ammo = ExtResource("2_3cd2n")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="RangedPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
 
-[node name="Body" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="Body" type="CollisionShape2D" parent="RangedPlant"]
 shape = SubResource("CapsuleShape2D_8a27h")
 
 [node name="HurtBox" type="Area2D" parent="."]
