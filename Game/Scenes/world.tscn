@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv4ufeg5f2650"]
+[gd_scene load_steps=13 format=3 uid="uid://dv4ufeg5f2650"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_fk3o6"]
 [ext_resource type="Texture2D" uid="uid://d25bh0bro72nv" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/tilemap.png" id="1_ngcyt"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_t2bnr"]
 [ext_resource type="Script" path="res://Scenes/Label.gd" id="6_smimi"]
 [ext_resource type="PackedScene" uid="uid://dcvpxnk1vi847" path="res://Scenes/ui.tscn" id="7_50q53"]
+[ext_resource type="PackedScene" uid="uid://b6kwietue3xu4" path="res://Scenes/ranged_tower.tscn" id="8_5boak"]
+[ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="9_ymhut"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pf8ff"]
 texture = ExtResource("1_ngcyt")
@@ -1961,6 +1963,12 @@ script = ExtResource("6_smimi")
 tilemap = NodePath("../../TileMap")
 player = NodePath("../../TileMap/Player")
 metadata/_edit_use_anchors_ = true
+
+[node name="RangedTower" parent="." instance=ExtResource("8_5boak")]
+position = Vector2(480, 397)
+
+[node name="RangedPlant" parent="." instance=ExtResource("9_ymhut")]
+position = Vector2(224, 174)
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
 [connection signal="timeout" from="TileMap/ranged_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]

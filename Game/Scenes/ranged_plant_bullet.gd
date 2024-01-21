@@ -21,15 +21,15 @@ func _physics_process(delta):
 
 func _on_bullet_size_area_entered(area):
 	area_space=area
+	print(area)
 	if area.is_in_group("Weapons"):
-		
 		queue_free()
-	
+	if area.is_in_group("Allies"):
+		queue_free()
 	# Check if bullet is in player attack area
 	if area.is_in_group("hurtbox"):
 		area.take_damage(DAMAGE)
 		queue_free()
-	
 	
 		
 

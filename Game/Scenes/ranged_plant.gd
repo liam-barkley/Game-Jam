@@ -18,8 +18,7 @@ var new_position
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent().find_child("Player")
-	print(player)
-	print(self.position)
+	
 
 #this function searches the closest tower to itself and returns that tower
 func search_closest_tower():
@@ -28,7 +27,7 @@ func search_closest_tower():
 	var towers = get_tree().get_nodes_in_group("Towers")
 	if towers != null:
 		for tower in towers:
-			var dist = (tower.position.x-self.position.x)^2 + (tower.position.y - self.position.y)^2
+			var dist = (tower.position.x-self.position.x)*(tower.position.x-self.position.x)+ (tower.position.y - self.position.y)*(tower.position.y - self.position.y)
 			if (dist <= closest_tower_dist):
 				closest_tower = tower
 	return closest_tower
@@ -37,7 +36,7 @@ func search_closest_tower():
 func _process(delta):
 	#print(self.position)
 	current_target = null
-
+	ray_cast.target_position = Vector2.ZERO
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
 	else:
@@ -47,7 +46,6 @@ func _process(delta):
 	if current_target != null:
 		aim_at(current_target)
 		check_target_collision(current_target)
-		
 	else:
 		var looky = position.direction_to(player.position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
@@ -59,11 +57,13 @@ func aim_at(target):
 		ray_cast.target_position = target.position - self.position
 
 func check_target_collision(target):
-	if (ray_cast.get_collider() == target or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
+	
+	
+	if (target.is_in_group("Towers") or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
 		shoot_timer.start()
 		
 		
-	elif !(ray_cast.get_collider() == target or ray_cast.get_collider() == player):
+	elif !(target.is_in_group("Towers") or ray_cast.get_collider() == player):
 		#this can be inefficient
 		shoot_timer.stop()
 		shoot_allowed = false
@@ -84,7 +84,7 @@ func _on_hurt_box_area_exited(area):
 		$HurtBox/Timer.stop()
 
 func shoot(target):
-	var looky = position.direction_to(player.position)
+	var looky = position.direction_to(target.position)
 	Ranged_enemy_state_machine.transition_to("Attack", {"direction" = looky})
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
