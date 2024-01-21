@@ -5,11 +5,10 @@ extends CharacterBody2D
 # Constants
 @export var SPEED = 70.0
 @export var DAMAGE = 1
-@export var HEALTH = 5
+@export var HEALTH = 6
+@export var MAX_HEALTH = 6
 
 # Variables
-@export var max_health = 20
-@onready var health = max_health
 var hurt_area
 
 func _physics_process(_delta):
