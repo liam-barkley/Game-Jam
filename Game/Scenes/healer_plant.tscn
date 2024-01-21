@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4ehkq53nnm53"]
+[gd_scene load_steps=7 format=3 uid="uid://c4ehkq53nnm53"]
 
 [ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
 [ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_usvm2"]
-[ext_resource type="Script" path="res://Scripts/FiniteStateMachine.gd" id="3_hpwtv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
 size = Vector2(56, 56)
@@ -50,10 +49,11 @@ shape = SubResource("CircleShape2D_b0vq2")
 [node name="HealTimer" type="Timer" parent="."]
 wait_time = 2.5
 
-[node name="HealerEnemyStateMachine" type="Node" parent="."]
-script = ExtResource("3_hpwtv")
+[node name="WaitTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
 [connection signal="body_entered" from="HealRange" to="." method="_on_heal_range_body_entered"]
 [connection signal="body_exited" from="HealRange" to="." method="_on_heal_range_body_exited"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
