@@ -112,7 +112,6 @@ offset_right = 125.0
 offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-selected = 0
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 6
