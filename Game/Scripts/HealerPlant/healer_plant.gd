@@ -1,6 +1,7 @@
 extends Node2D
 
 #@onready var healer_enemy_state_machine = $HealerEnemyStateMachine
+
 #Constants
 @export var HEAL = 1
 
@@ -21,7 +22,7 @@ func _process(delta):
 	if target == null:
 		_find_new_target()
 		print("New target found: ", target)
-		
+	
 		waiting_for_process = true
 		$WaitTimer.start()
 		

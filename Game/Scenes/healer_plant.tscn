@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4ehkq53nnm53"]
+[gd_scene load_steps=11 format=3 uid="uid://c4ehkq53nnm53"]
 
 [ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
 [ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_usvm2"]
@@ -14,6 +14,52 @@ radius = 260.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b0vq2"]
 radius = 125.004
+
+[sub_resource type="GDScript" id="GDScript_iwb03"]
+script/source = "extends FiniteStateMachine
+"
+
+[sub_resource type="GDScript" id="GDScript_0o3ju"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_nivsu"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_h6nru"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="HealerPlant" type="Node2D"]
 script = ExtResource("1_m2qsc")
@@ -47,9 +93,21 @@ debug_color = Color(1, 1, 0, 0.419608)
 shape = SubResource("CircleShape2D_b0vq2")
 
 [node name="HealTimer" type="Timer" parent="."]
-wait_time = 2.5
 
 [node name="WaitTimer" type="Timer" parent="."]
+
+[node name="HealerEnemyStateMachine" type="Node" parent="."]
+script = SubResource("GDScript_iwb03")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_0o3ju")
+
+[node name="Death" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_nivsu")
+
+[node name="Heal" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_h6nru")
 
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
 [connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
