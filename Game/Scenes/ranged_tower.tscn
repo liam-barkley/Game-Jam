@@ -1,57 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://diseqr6x4bnac"]
+[gd_scene load_steps=8 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
-[ext_resource type="Texture2D" uid="uid://ci0jbv65w0bdi" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="2_hyorq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
-size = Vector2(40, 39)
+size = Vector2(123, 118)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g6hlu"]
-radius = 93.1343
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoysw"]
+atlas = ExtResource("2_hyorq")
+region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_84lqb"]
-atlas = ExtResource("4_yhx4b")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_025pm"]
-atlas = ExtResource("4_yhx4b")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2e0xn"]
-atlas = ExtResource("4_yhx4b")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xog02"]
-atlas = ExtResource("4_yhx4b")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sjrow"]
-atlas = ExtResource("4_yhx4b")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_hkogs"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6wl2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_84lqb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_025pm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2e0xn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xog02")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sjrow")
+"texture": SubResource("AtlasTexture_yoysw")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6hlu"]
+radius = 93.1343
 
 [node name="RangedTower" type="Node2D" groups=["Towers"]]
 light_mask = 28
@@ -65,8 +42,14 @@ target_position = Vector2(-2, 89)
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 8.5)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_mmkfj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -2.5)
+scale = Vector2(0.157331, 0.148925)
+sprite_frames = SubResource("SpriteFrames_d6wl2")
+animation = &"Idle"
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Allies"]]
 collision_layer = 20
@@ -77,11 +60,6 @@ shape = SubResource("CircleShape2D_g6hlu")
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 1.146
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_hkogs")
-autoplay = "default"
-frame_progress = 0.930515
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]
