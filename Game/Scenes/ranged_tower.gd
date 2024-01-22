@@ -30,8 +30,6 @@ func search_for_enemies():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	
 	if enemies.size() != 0:
-		print(enemies)
-		print(enemies.size())
 		for enemy in enemies:
 			
 			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)

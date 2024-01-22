@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=16 format=3 uid="uid://ff2x2ipc20fh"]
 
+[ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
 [ext_resource type="Texture2D" uid="uid://dnfj14ix671wo" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers bases/PNGs/Tower 08.png" id="1_t2xwk"]
 [ext_resource type="Texture2D" uid="uid://cyv2rchd7ctyp" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers Weapons/Tower 08/Spritesheets/Tower 08 - Level 03 - Weapon.png" id="2_ypvp3"]
 
@@ -84,9 +85,10 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=["Towers"]]
+script = ExtResource("1_so1wm")
 
-[node name="Area2D" type="Area2D" parent="." groups=["pure"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Allies", "pure"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_0ypho")
@@ -105,3 +107,5 @@ sprite_frames = SubResource("SpriteFrames_ye163")
 autoplay = "default"
 frame = 2
 frame_progress = 0.124998
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
