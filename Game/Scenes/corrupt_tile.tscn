@@ -132,6 +132,7 @@ size = Vector2(32, 32)
 
 [node name="CorruptArea" type="Area2D"]
 show_behind_parent = true
+collision_mask = 5
 script = ExtResource("1_mpi22")
 
 [node name="CorrosionTiles" type="TileMap" parent="."]

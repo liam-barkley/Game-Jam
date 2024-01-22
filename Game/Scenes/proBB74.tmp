@@ -71,7 +71,7 @@ player = NodePath("../../TileMap/Player")
 metadata/_edit_use_anchors_ = true
 
 [node name="game_music" type="AudioStreamPlayer" parent="."]
-volume_db = -12.83
+volume_db = -24.205
 
 [connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_timer_timeout"]
 [connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_spread_timer_timeout"]
