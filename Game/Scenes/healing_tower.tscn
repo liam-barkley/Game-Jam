@@ -117,9 +117,10 @@ autoplay = "default"
 frame_progress = 0.716998
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -30.0
-offset_top = -40.0
-offset_right = 34.0
+offset_left = -33.0
+offset_top = -41.0
+offset_right = 31.0
+offset_bottom = -1.0
 texture_under = ExtResource("4_fto1l")
 texture_progress = ExtResource("5_3lcnl")
 
