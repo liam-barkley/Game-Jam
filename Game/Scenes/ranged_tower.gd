@@ -64,6 +64,5 @@ func shoot(target):
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Ebullet"):
 		Health-= 2
-		print(Health)
 		if Health <= 0:
 			queue_free()
