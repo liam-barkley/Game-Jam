@@ -62,5 +62,6 @@ func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Abullets"):
 		HEALTH -= 1
 	if HEALTH <=0:
+			print("imfree")
 			#get_parent().num_enemies -= 1
 			queue_free()

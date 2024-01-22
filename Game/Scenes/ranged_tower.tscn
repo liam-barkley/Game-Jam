@@ -59,7 +59,7 @@ collision_mask = 20
 shape = SubResource("CircleShape2D_g6hlu")
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.221
+wait_time = 1.146
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]

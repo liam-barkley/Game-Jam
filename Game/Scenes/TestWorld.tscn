@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://brc7l0rs5ji15"]
+[gd_scene load_steps=5 format=3 uid="uid://brc7l0rs5ji15"]
 
+[ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="1_8b2up"]
 [ext_resource type="PackedScene" uid="uid://diseqr6x4bnac" path="res://Scenes/ranged_tower.tscn" id="2_kg0vr"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_e0hxs"]
 [ext_resource type="PackedScene" uid="uid://d0xwe7ass64p6" path="res://Scenes/melee_plant.tscn" id="5_e3go1"]
@@ -14,3 +15,6 @@ position = Vector2(401, 401)
 
 [node name="RangedTower" parent="." instance=ExtResource("2_kg0vr")]
 position = Vector2(132, -4)
+
+[node name="RangedPlant" parent="." instance=ExtResource("1_8b2up")]
+position = Vector2(-218, 6)
