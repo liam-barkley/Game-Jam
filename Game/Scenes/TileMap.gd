@@ -1,5 +1,9 @@
 extends TileMap
 @onready var proc_gen_world = $".."
+@onready var game_music = $"../game_music"
+@onready var player = $Player
+@export var ui : CanvasLayer
+@onready var label_2 = $"../UI/Label2"
 
 var GRID_SIZE = 32
 var NUM_ROWS
@@ -21,7 +25,23 @@ var ground_layer
 var ground_decor
 var ground_object_layer
 
-@export var ui : CanvasLayer
+enum states {BEACH, GRASS, CORRUPTION}
+
+# music states
+var current_state:
+	set(value):
+		match value:
+			states.BEACH:
+				game_music.stream = preload("res://Music/Beachy_background_V1.mp3")
+				game_music.volume_db = 0
+			states.GRASS:
+				game_music.stream = preload("res://Music/Ominous_background_V1.mp3")
+				game_music.volume_db = -12
+			states.CORRUPTION:
+				game_music.stream = preload("res://Music/Death_March.mp3")
+				game_music.volume_db = -10
+		current_state = value
+		game_music.play()
 
 var is_player_in_corruption : bool = false
 var num_enemies : int = 0
@@ -44,6 +64,20 @@ func _ready():
 	var player = get_node("Player")
 	var r = get_random_grid_pos()
 	player.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
+	
+func _process(delta):
+	var player_pos = Vector2i(player.position)
+	var tile = Vector2i(player_pos.x/32, player_pos.y/32)
+	
+	label_2.text = ("(" + str(player_pos.x/32) + "," + str(player_pos.y/32) + ")")
+
+	# set state
+	if not is_corrupted_grid[tile.x][tile.y]:
+		var atlas_coord = get_cell_atlas_coords(ground_layer, tile)
+		if current_state != states.GRASS and [Vector2i(2,3)].has(atlas_coord):
+			current_state = states.GRASS
+		elif current_state != states.BEACH and atlas_coord.x >= 6:
+			current_state = states.BEACH
 
 func initialize_grid():
 	# Initialize 2d array
@@ -149,10 +183,17 @@ func add_corruption(nx, ny):
 	
 	# Link signals
 	corruption.clear.connect(on_corruption_clear)
+	corruption.body_entered.connect(on_corruption_body_entered)
 	# Add instance to parent
 	is_corrupted_grid[nx][ny] = true
 	arr_corrupted_tiles.append(Vector2(nx, ny))
 	add_child(corruption)
+
+func on_corruption_body_entered(body):
+	print(body.name)
+	if body.name == "Player":
+		if current_state != states.CORRUPTION:
+			current_state = states.CORRUPTION
 
 func on_corruption_clear(corruption):
 	var nx = corruption.position.x / GRID_SIZE
