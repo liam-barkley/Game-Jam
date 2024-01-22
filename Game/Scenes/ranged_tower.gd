@@ -42,7 +42,7 @@ func search_for_enemies():
 func aim_at(target):
 	
 	if target!=null:
-		ray_cast.target_position = target.position - self.position
+		ray_cast.target_position = target.global_position - self.position
 		
 
 func check_target_collision(target):

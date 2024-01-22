@@ -43,7 +43,6 @@ func updateHealthbar():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	updateHealthbar()
-	#print(self.position)
 	current_target = null
 	ray_cast.target_position = Vector2.ZERO
 	if player_in_proximity == false:
@@ -63,9 +62,9 @@ func _process(delta):
 func aim_at(target):
 	
 	if target!=null:
-		ray_cast.target_position = target.position - self.position
+		ray_cast.target_position = target.global_position - self.position
 	if player!=null:
-		playerRay.target_position = player.position - self.position
+		playerRay.target_position = player.global_position - self.position
 
 func check_target_collision(target):
 	
