@@ -26,8 +26,7 @@ var rock_atlas = Vector2i(4,4)
 
 var ground_layer = 0
 var ground_decor = 1
-var corruption_layer = 2
-var ground_object_layer = 3
+var ground_object_layer = 2
 
 var sand_terrain_idx = 0
 var grass_terrain_idx = 1
@@ -136,4 +135,3 @@ func gen_world():
 	#print("high: ", noise_val_array.max())
 	#print("low ", noise_val_array.min())
 	
-
