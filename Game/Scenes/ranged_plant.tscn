@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bkaacwghv2qqi"]
+[gd_scene load_steps=56 format=3 uid="uid://bkaacwghv2qqi"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant.gd" id="1_yqd74"]
 [ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_3cd2n"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
 [ext_resource type="AudioStream" uid="uid://d2q0m3wobhe0u" path="res://Music/PlantShoot.mp3" id="8_sxm8t"]
 [ext_resource type="Texture2D" uid="uid://yeufmwf4l0cn" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="8_y6ilt"]
+[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
+[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8a27h"]
 
@@ -406,6 +408,14 @@ stream = ExtResource("8_sxm8t")
 volume_db = 10.57
 
 [node name="playerRay" type="RayCast2D" parent="."]
+
+[node name="healthbar" type="TextureProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -41.0
+offset_right = 32.0
+offset_bottom = -28.0
+texture_under = ExtResource("9_jq8k1")
+texture_progress = ExtResource("10_xb07b")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]

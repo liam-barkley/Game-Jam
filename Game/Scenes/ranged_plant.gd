@@ -34,9 +34,13 @@ func search_closest_tower():
 	else:
 		shoot_timer.stop()
 	return closest_tower
+	
+func updateHealthbar():
+	$healthbar.value =HEALTH*100/MAX_HEALTH
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	updateHealthbar()
 	#print(self.position)
 	current_target = null
 	ray_cast.target_position = Vector2.ZERO
