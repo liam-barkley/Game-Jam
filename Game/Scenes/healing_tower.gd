@@ -2,13 +2,7 @@ extends Node2D
 
 @export var HEAL_AMOUNT = 1
 var HEALTH = 10
-const MAX_HEALTH = 10
 @onready var timer = $Timer
-
-
-func updateHealthbar():
-	$HealthBar.value =HEALTH*100/MAX_HEALTH
-
 
 var player
 
@@ -32,10 +26,5 @@ func _on_timer_timeout():
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("Ebullet"):
 		HEALTH -= 2
-		updateHealthbar()
 		if HEALTH <= 0:
 			queue_free()
-
-
-func _on_ready():
-	$HealthBar.value = 100

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
 [ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
-[ext_resource type="AudioStream" uid="uid://cdalp57lwah0u" path="res://SFX/Plant shooting.mp3" id="8_p88px"]
+[ext_resource type="AudioStream" uid="uid://d2q0m3wobhe0u" path="res://Music/PlantShoot.mp3" id="8_sxm8t"]
 [ext_resource type="Texture2D" uid="uid://yeufmwf4l0cn" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="8_y6ilt"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
@@ -404,7 +404,7 @@ collide_with_areas = true
 shape = SubResource("CapsuleShape2D_3dful")
 
 [node name="plantshoot" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_p88px")
+stream = ExtResource("8_sxm8t")
 volume_db = 10.57
 
 [node name="playerRay" type="RayCast2D" parent="."]

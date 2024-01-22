@@ -3,8 +3,7 @@ extends Node2D
 @onready var shoot_timer = $ShootTimer
 @onready var ray_cast = $RayCast2D
 @export var ammo : PackedScene
-@export var HEALTH = 50
-const MAX_HEALTH = 50
+@export var Health = 50
 
 var shoot_allowed
 var current_target
@@ -12,13 +11,11 @@ var current_target
 func _ready():
 	pass # Replace with function body.
 
-func updateHealthbar():
-	$HealthBar.value =HEALTH*100/MAX_HEALTH
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	current_target = null
-	updateHealthbar()
+
 	
 	current_target=search_for_enemies()
 	#print(current_target)
@@ -71,8 +68,8 @@ func shoot(target):
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Ebullet"):
-		HEALTH-= 2
-		if HEALTH <= 0:
+		Health-= 2
+		if Health <= 0:
 			queue_free()
 
 

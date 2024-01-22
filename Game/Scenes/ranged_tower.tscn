@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://diseqr6x4bnac"]
+[gd_scene load_steps=8 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
 [ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="2_hyorq"]
-[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_bcwn5"]
-[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_njp4v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
 size = Vector2(123, 118)
@@ -62,14 +60,6 @@ shape = SubResource("CircleShape2D_g6hlu")
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 1.146
-
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -32.0
-offset_top = -73.0
-offset_right = 32.0
-offset_bottom = -33.0
-texture_under = ExtResource("4_bcwn5")
-texture_progress = ExtResource("5_njp4v")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]

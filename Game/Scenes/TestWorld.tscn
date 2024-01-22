@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://brc7l0rs5ji15"]
+[gd_scene load_steps=5 format=3 uid="uid://brc7l0rs5ji15"]
 
 [ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="1_8b2up"]
 [ext_resource type="PackedScene" uid="uid://ddsixicfunc4a" path="res://Scenes/healing_tower.tscn" id="2_mpj5u"]
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="3_e0hxs"]
 [ext_resource type="PackedScene" uid="uid://ff2x2ipc20fh" path="res://Scenes/purifying_tower.tscn" id="4_mk3rw"]
-[ext_resource type="PackedScene" uid="uid://diseqr6x4bnac" path="res://Scenes/ranged_tower.tscn" id="5_ofcov"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -18,6 +17,3 @@ position = Vector2(206, 402)
 
 [node name="Node2D2" parent="." instance=ExtResource("4_mk3rw")]
 position = Vector2(736, -14)
-
-[node name="RangedTower" parent="." instance=ExtResource("5_ofcov")]
-position = Vector2(375, -80)
