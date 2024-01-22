@@ -350,9 +350,9 @@ visibility_layer = 28
 script = ExtResource("1_yqd74")
 ammo = ExtResource("2_3cd2n")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="RangedPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
 
-[node name="Body" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="Body" type="CollisionShape2D" parent="RangedPlant"]
 shape = SubResource("CapsuleShape2D_8a27h")
 
 [node name="HurtBox" type="Area2D" parent="." groups=["Enemies"]]

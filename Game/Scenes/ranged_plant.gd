@@ -5,6 +5,7 @@ extends Node2D
 @onready var ray_cast = $RayCast2D
 @onready var bullety = get_parent().get_node("RangedPlantBullet")
 @export var HEALTH = 10
+@export var MAX_HEALTH = 10
 @export var DAMAGE = 2
 @export var ammo : PackedScene
 
@@ -112,3 +113,6 @@ func _on_damage_area_entered(area):
 		if HEALTH <=0:
 			get_parent().num_enemies -= 1
 			queue_free()
+		
+func _get_health():
+	return HEALTH

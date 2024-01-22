@@ -8,7 +8,7 @@ var NUM_COLS
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 var arr_corrupted_tiles = []
 
-var CORRUPTION_PROBABILITY = 0.025
+var CORRUPTION_PROBABILITY =  0.1 # 0.05
 
 var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 var wood_tree = preload("res://Scenes/wood_tree.tscn")
@@ -16,10 +16,9 @@ var rock_stone = preload("res://Scenes/rock_stone.tscn")
 var rock_ore = preload("res://Scenes/rock_ore.tscn")
 var enemies = [preload("res://Scenes/ranged_plant.tscn"),
 			   preload("res://Scenes/melee_plant.tscn")]
-			
+
 var ground_layer
 var ground_decor
-var corruption_layer
 var ground_object_layer
 
 @export var ui : CanvasLayer
@@ -34,13 +33,12 @@ func _ready():
 	NUM_COLS = proc_gen_world.width
 	ground_layer = proc_gen_world.ground_layer
 	ground_decor = proc_gen_world.ground_decor
-	corruption_layer = proc_gen_world.corruption_layer
 	ground_object_layer = proc_gen_world.ground_object_layer
 
 	# initialization
 	initialize_grid()
 	spawn_resources()
-	$Timer.start()
+	$spread_timer.start()
 	
 	# Random spawning 
 	var player = get_node("Player")
@@ -104,9 +102,9 @@ func valid_spawn_pos(pos):
 	return not invalid_atlas.has(pos)
 #
 func update_grid():
-	for x in range(NUM_ROWS):
-		for y in range(NUM_COLS):
-			spread_corruption(x, y)
+	var arr_corruption = arr_corrupted_tiles.duplicate(true)
+	for corrupt_tile in arr_corruption:
+		spread_corruption(corrupt_tile.x, corrupt_tile.y)
 #
 func spread_corruption(x, y):
 	
@@ -119,12 +117,16 @@ func spread_corruption(x, y):
 
 			var nx = x + i
 			var ny = y + j
-
+			
 			if nx >= 0 and nx < NUM_ROWS and ny >= 0 and ny < NUM_COLS:
-				# Skip the center tile (self) and corrupted tiles
-				if (i == 0 and j == 0) || (is_corrupted_grid[nx][ny] == true):
+				# skip already corrupted tiles:
+				if is_corrupted_grid[nx][ny] == true:
 					continue
-
+				# do not spread corruption to water:
+				var atlas_coord = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
+				if !valid_spawn_pos(atlas_coord):
+					continue
+				# randomly decide wheter to spread to tile:
 				if randf() < CORRUPTION_PROBABILITY:
 					add_corruption(nx, ny)
 
@@ -132,12 +134,19 @@ func spread_corruption(x, y):
 func add_corruption(nx, ny):
 	# Get vectors
 	var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
-	var atlas_coords = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
+	# get tile to display
+	var atlas_coords = get_cell_atlas_coords(ground_decor, Vector2i(nx, ny))
+	if atlas_coords == Vector2i(-1, -1):
+		atlas_coords = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
+	if atlas_coords == Vector2i(2,3) and randf() < 0.15:
+		atlas_coords = [Vector2i(4,1), Vector2i(3,2), Vector2i(4,3)].pick_random()
+
 	# Instantiate corrupt tile
 	var corruption = corrupted_tile.instantiate()
 	corruption.position = pos 
 	# Set corrupted tile
-	corruption.get_node("CorrosionTiles").set_cell(corruption_layer, Vector2i(0,0), 0, atlas_coords)
+	corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), 2, atlas_coords)
+	
 	# Link signals
 	corruption.clear.connect(on_corruption_clear)
 	# Add instance to parent
@@ -153,7 +162,7 @@ func on_corruption_clear(corruption):
 	arr_corrupted_tiles.erase(Vector2(nx, ny))
 	print("Corruption cleared at: ", Vector2i(nx, ny))
 
-func _on_ranged_spawn_timer_timeout():
+func _on_enemy_spawn_timer_timeout():
 	var num_corrupt_tiles = arr_corrupted_tiles.size()
 	var FRAC = 3
 
@@ -167,7 +176,7 @@ func _on_ranged_spawn_timer_timeout():
 			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 			num_enemies += 1
 			add_child(enemy)
-			$ranged_spawn_timer.wait_time = randi() % 15 + 10
+			$enemy_spawn_timer.wait_time = randi() % 15 + 10
 
-func _on_timer_timeout():
+func _on_spread_timer_timeout():
 	update_grid()

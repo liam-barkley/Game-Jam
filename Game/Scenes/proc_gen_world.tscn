@@ -37,22 +37,18 @@ layer_0/tile_data = PackedInt32Array(-655383, 786433, 1, -589847, 786433, 1, -52
 layer_1/name = "ground_decor"
 layer_1/z_index = -2
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "corruption"
-layer_2/z_index = -1
+layer_2/name = "ground_objects"
+layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array()
-layer_3/name = "ground_objects"
-layer_3/y_sort_enabled = true
-layer_3/tile_data = PackedInt32Array()
 script = ExtResource("3_x24lf")
 ui = NodePath("../UI")
 
-[node name="Timer" type="Timer" parent="TileMap"]
-wait_time = 4.0
+[node name="spread_timer" type="Timer" parent="TileMap"]
 
 [node name="Player" parent="TileMap" instance=ExtResource("3_puo4j")]
 position = Vector2(259, 243)
 
-[node name="ranged_spawn_timer" type="Timer" parent="TileMap"]
+[node name="enemy_spawn_timer" type="Timer" parent="TileMap"]
 wait_time = 3.0
 autostart = true
 
@@ -74,5 +70,8 @@ tilemap = NodePath("../../TileMap")
 player = NodePath("../../TileMap/Player")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
-[connection signal="timeout" from="TileMap/ranged_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
+[connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_timer_timeout"]
+[connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_spread_timer_timeout"]
+[connection signal="timeout" from="TileMap/enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
+[connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_enemy_spawn_timer_timeout"]
