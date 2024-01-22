@@ -119,7 +119,7 @@ func _on_damage_area_entered(area):
 	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
-			get_parent().num_enemies -= 1
+			#get_parent().num_enemies -= 1
 			queue_free()
 		
 func _get_health():

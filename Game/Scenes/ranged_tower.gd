@@ -35,7 +35,6 @@ func search_for_enemies():
 			
 			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)
 			if (dist <= closest_enemy_dist) and enemy.name != "HurtBox":
-				print(enemy)
 				closest_enemy = enemy
 	return closest_enemy
 
