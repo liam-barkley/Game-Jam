@@ -20,6 +20,7 @@ var new_position
 func _ready():
 	player = get_parent().find_child("Player")
 	
+	
 
 #this function searches the closest tower to itself and returns that tower
 func search_closest_tower():
@@ -43,6 +44,7 @@ func updateHealthbar():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	updateHealthbar()
+	playerRay.target_position = to_local(player.global_position)
 	current_target = null
 	ray_cast.target_position = Vector2.ZERO
 	if player_in_proximity == false:
@@ -55,16 +57,16 @@ func _process(delta):
 		aim_at(current_target)
 		check_target_collision(current_target)
 	else:
-		var looky = position.direction_to(player.position)
+		var looky = position.direction_to(player.global_position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 		shoot_timer.stop()
 	
 func aim_at(target):
 	
 	if target!=null:
-		ray_cast.target_position = target.global_position - self.position
-	if player!=null:
-		playerRay.target_position = player.global_position - self.position
+		ray_cast.target_position = to_local(target.global_position)
+	ray_cast.force_raycast_update()
+	playerRay.force_raycast_update()
 
 func check_target_collision(target):
 	

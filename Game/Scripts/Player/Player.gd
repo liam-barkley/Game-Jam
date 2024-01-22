@@ -21,11 +21,12 @@ func _physics_process(_delta):
 		state_machine.transition_to("Death")
 
 func _on_sword_hitbox_area_entered(area):
+	
 	if area.is_in_group("hurtbox") and not area.is_in_group("player"):
 		area.take_damage(DAMAGE)
 
 func _on_hurtbox_damage(amount):
-	#$Eina.play()
+	$HurtSound.play()
 	health = health - amount
 	health_changed.emit()
 	

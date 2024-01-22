@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
-[ext_resource type="Texture2D" uid="uid://ci0jbv65w0bdi" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Texture2D" uid="uid://c65o6gs53q6s0" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
 size = Vector2(40, 39)

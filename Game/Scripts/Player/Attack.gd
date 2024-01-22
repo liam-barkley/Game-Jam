@@ -13,7 +13,10 @@ func enter(msg := {}) -> void:
 		direction = msg.direction
 
 func update(_delta: float) -> void:
+	
+	
 	play_animation()
+	$"../../AttackSound".play()
 	adjust_hitbox()
 	collision_shape_2d.disabled = false
 	await animated_sprite_2d.animation_finished
