@@ -1,8 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=17 format=3 uid="uid://ff2x2ipc20fh"]
 
 [ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
 [ext_resource type="Texture2D" uid="uid://dnfj14ix671wo" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers bases/PNGs/Tower 08.png" id="1_t2xwk"]
 [ext_resource type="Texture2D" uid="uid://cyv2rchd7ctyp" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers Weapons/Tower 08/Spritesheets/Tower 08 - Level 03 - Weapon.png" id="2_ypvp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w174"]
+size = Vector2(30, 49)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ypho"]
 radius = 66.0
@@ -85,8 +88,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Purifying_tower" type="Node2D" groups=["Towers"]]
+[node name="Node2D" type="Node2D" groups=["Towers"]]
 script = ExtResource("1_so1wm")
+
+[node name="PurifyingTower" type="StaticBody2D" parent="." groups=["Towers"]]
+collision_layer = 17
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PurifyingTower"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_1w174")
 
 [node name="Area2D" type="Area2D" parent="." groups=["Allies", "pure"]]
 
@@ -107,13 +118,5 @@ sprite_frames = SubResource("SpriteFrames_ye163")
 autoplay = "default"
 frame = 2
 frame_progress = 0.124998
-
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -32.0
-offset_top = -36.0
-offset_right = 32.0
-offset_bottom = 4.0
-texture_under = ExtResource("4_jc6w5")
-texture_progress = ExtResource("5_ad0wa")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
