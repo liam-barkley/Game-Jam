@@ -17,7 +17,7 @@ func _process(delta):
 	current_target = null
 
 	
-		
+	current_target=search_for_enemies()
 	#print(current_target)
 	if current_target != null:
 		aim_at(current_target)
@@ -28,10 +28,13 @@ func search_for_enemies():
 	var closest_enemy
 	var closest_enemy_dist = 100000000
 	var enemies = get_tree().get_nodes_in_group("Enemies")
+	
 	if enemies != null:
+		
 		for enemy in enemies:
-			var dist = (enemy.position.x-self.position.x)^2 + (enemy.position.y - self.position.y)^2
-			if (dist <= closest_enemy_dist):
+			
+			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)
+			if (dist <= closest_enemy_dist) and enemy.position!= Vector2.ZERO:
 				closest_enemy = enemy
 	return closest_enemy
 
@@ -39,6 +42,7 @@ func aim_at(target):
 	
 	if target!=null:
 		ray_cast.target_position = target.position - self.position
+		
 
 func check_target_collision(target):
 	
@@ -64,6 +68,9 @@ func shoot(target):
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Ebullet"):
 		Health-= 2
-		print(Health)
 		if Health <= 0:
 			queue_free()
+
+
+func _on_shoot_timer_timeout():
+	shoot(current_target)

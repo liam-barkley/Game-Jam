@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
-[ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_dlpni"]
+[ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
 [ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="2_hyorq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
@@ -34,7 +34,7 @@ radius = 93.1343
 light_mask = 28
 visibility_layer = 28
 script = ExtResource("1_bkyfg")
-ammo = ExtResource("2_dlpni")
+ammo = ExtResource("2_054kw")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-2, 89)
@@ -59,6 +59,8 @@ collision_mask = 20
 shape = SubResource("CircleShape2D_g6hlu")
 
 [node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.221
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

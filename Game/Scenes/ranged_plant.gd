@@ -8,7 +8,7 @@ extends Node2D
 @export var MAX_HEALTH = 10
 @export var DAMAGE = 2
 @export var ammo : PackedScene
-
+@onready var playerRay = $playerRay
 var hurt_area
 var player_in_proximity = false
 var player
@@ -56,15 +56,17 @@ func aim_at(target):
 	
 	if target!=null:
 		ray_cast.target_position = target.position - self.position
+	if player!=null:
+		playerRay.target_position = player.position - self.position
 
 func check_target_collision(target):
 	
 	
-	if (target.is_in_group("Towers") or ray_cast.get_collider() == player) and shoot_timer.is_stopped():
+	if (target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped():
 		shoot_timer.start()
 		
 		
-	elif !(target.is_in_group("Towers") or ray_cast.get_collider() == player):
+	elif !(target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)):
 		#this can be inefficient
 		shoot_timer.stop()
 		shoot_allowed = false
@@ -89,9 +91,14 @@ func shoot(target):
 	Ranged_enemy_state_machine.transition_to("Attack", {"direction" = looky})
 	var bullet = ammo.instantiate()
 	#bullet._set_owner("ENEMY")
-	bullet.position = ray_cast.global_position
-	bullet.direction = (ray_cast.target_position).normalized()
-	get_tree().current_scene.add_child(bullet)
+	if target.name == "Player":
+		bullet.position = playerRay.global_position
+		bullet.direction = (playerRay.target_position).normalized()
+		get_tree().current_scene.add_child(bullet)
+	else:
+		bullet.position = ray_cast.global_position
+		bullet.direction = (ray_cast.target_position).normalized()
+		get_tree().current_scene.add_child(bullet)
 
 func _on_shoot_timer_timeout():
 	$plantshoot.play()
@@ -108,7 +115,8 @@ func _on_fire_range_body_exited(body):
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 
 func _on_damage_area_entered(area):
-	if area.is_in_group("Weapons"):
+	print(area.is_in_group("Abullets"))
+	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
 			get_parent().num_enemies -= 1
