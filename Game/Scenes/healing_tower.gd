@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var HEAL_AMOUNT = 1
-
+var HEALTH = 10
 @onready var timer = $Timer
 
 var player
@@ -21,3 +21,10 @@ func _on_timer_timeout():
 	if player != null:
 		print("healing player!")
 		player._heal_player(HEAL_AMOUNT)
+
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("Ebullet"):
+		HEALTH -= 2
+		if HEALTH <= 0:
+			queue_free()

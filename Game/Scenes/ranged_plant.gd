@@ -117,7 +117,6 @@ func _on_fire_range_body_exited(body):
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 
 func _on_damage_area_entered(area):
-	print(area.is_in_group("Abullets"))
 	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
