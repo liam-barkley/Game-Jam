@@ -76,7 +76,6 @@ visible = false
 shape = SubResource("RectangleShape2D_50qdc")
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_8iuqc")
@@ -109,6 +108,7 @@ script = SubResource("GDScript_nivsu")
 [node name="Heal" type="Node" parent="HealerEnemyStateMachine"]
 script = SubResource("GDScript_h6nru")
 
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
 [connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
 [connection signal="body_entered" from="HealRange" to="." method="_on_heal_range_body_entered"]

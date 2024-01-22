@@ -4,6 +4,8 @@ extends Node2D
 
 #Constants
 @export var HEAL = 1
+@export var HEALTH = 8
+@export var MAX_HEALTH = 8
 
 #Variables
 var target
@@ -21,7 +23,6 @@ func _process(delta):
 		return
 	if target == null:
 		_find_new_target()
-		print("New target found: ", target)
 	
 		waiting_for_process = true
 		$WaitTimer.start()
@@ -41,27 +42,22 @@ func _process(delta):
 
 func _on_vision_range_body_entered(body):
 	if target == null:
-		print("Target entered vision range")
 		_find_new_target()
 
 func _on_vision_range_body_exited(body):
 	if _same_target(body):
-		print("Target exited vision range")
 		target = null
 		_find_new_target()
 
 func _on_heal_range_body_entered(body):
 	if _same_target(body):
-		print("Target entered healing range")
 		heal_timer.start()
 
 func _on_heal_range_body_exited(body):
 	if _same_target(body):
-		print("Target exited healing range")
 		heal_timer.stop()
 
 func _on_heal_timer_timeout():
-	print("Timer timeout")
 	if target != null:
 		print("------------------------------------------")
 		print("Target to heal: ", target)
@@ -83,10 +79,12 @@ func _find_new_target():
 				if body.get_parent().HEALTH < body.get_parent().MAX_HEALTH:
 					target = body.get_parent()
 					can_heal_enemy = true
+					print("New healable target found: ", target)
 			if body.name == "MeleePlant":
 				if body.HEALTH < body.MAX_HEALTH:
 					target = body
 					can_heal_enemy = true
+					print("New healable target found: ", target)
 
 func _same_target(body):
 	if body.name == "RangedPlant":
@@ -99,3 +97,11 @@ func _same_target(body):
 
 func _on_wait_timer_timeout():
 	waiting_for_process = false
+
+
+func _on_hurt_box_area_entered(area):
+	if area.is_in_group("Weapons"):
+		HEALTH -= 2
+		if HEALTH <=0:
+			get_parent().num_enemies -= 1
+			queue_free()
