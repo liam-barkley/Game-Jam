@@ -29,14 +29,16 @@ func search_for_enemies():
 	var closest_enemy_dist = 100000000
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	
-	if enemies != null:
-		
+	if enemies.size() != 0:
+		print(enemies)
+		print(enemies.size())
 		for enemy in enemies:
 			
 			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)
 			if (dist <= closest_enemy_dist) and enemy.name != "HurtBox":
-				print(enemy)
 				closest_enemy = enemy
+	else:
+		shoot_timer.stop()
 	return closest_enemy
 
 func aim_at(target):

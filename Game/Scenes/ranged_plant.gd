@@ -26,11 +26,13 @@ func search_closest_tower():
 	var closest_tower
 	var closest_tower_dist = 100000000
 	var towers = get_tree().get_nodes_in_group("Towers")
-	if towers != null:
+	if towers.size() != 0:
 		for tower in towers:
 			var dist = (tower.position.x-self.position.x)*(tower.position.x-self.position.x)+ (tower.position.y - self.position.y)*(tower.position.y - self.position.y)
 			if (dist <= closest_tower_dist):
 				closest_tower = tower
+	else:
+		shoot_timer.stop()
 	return closest_tower
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -119,7 +121,7 @@ func _on_damage_area_entered(area):
 	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
-			get_parent().num_enemies -= 1
+			#get_parent().num_enemies -= 1
 			queue_free()
 		
 func _get_health():

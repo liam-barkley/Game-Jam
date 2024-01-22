@@ -55,8 +55,13 @@ func _on_attack_timer_timeout():
 		hurt_area.take_damage(DAMAGE)
 
 func _on_hurtbox_area_entered(area):
-	if area.is_in_group("Weapons"):
+	if area.is_in_group("Weapons") :
 		HEALTH -= 2
-		if HEALTH <=0:
-			get_parent().num_enemies -= 1
+		
+		
+	if area.is_in_group("Abullets"):
+		HEALTH -= 1
+	if HEALTH <=0:
+			print("imfree")
+			#get_parent().num_enemies -= 1
 			queue_free()

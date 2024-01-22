@@ -34,6 +34,8 @@ func _on_area_2d_area_entered(area):
 		queue_free()
 	if area.is_in_group("Enemies"):
 		queue_free()
+	if area.is_in_group("EnemyHealth"):
+		queue_free()
 	# Check if bullet is in player attack area
 	if area.is_in_group("hurtbox"):
 		queue_free()
