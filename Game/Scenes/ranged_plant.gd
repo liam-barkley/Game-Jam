@@ -29,7 +29,9 @@ func search_closest_tower():
 	if towers.size() != 0:
 		for tower in towers:
 			var dist = (tower.position.x-self.position.x)*(tower.position.x-self.position.x)+ (tower.position.y - self.position.y)*(tower.position.y - self.position.y)
-			if (dist <= closest_tower_dist):
+			
+			if (dist < closest_tower_dist):
+				closest_tower_dist= dist
 				closest_tower = tower
 	else:
 		shoot_timer.stop()
