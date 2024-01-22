@@ -652,7 +652,7 @@ height = 74.0
 
 [node name="MeleePlant" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 9
-collision_mask = 13
+collision_mask = 29
 script = ExtResource("1_3cudg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -685,8 +685,8 @@ script = ExtResource("6_f7deh")
 script = ExtResource("7_7erjs")
 
 [node name="VisionRange" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 9
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
 shape = SubResource("CircleShape2D_bc75x")
@@ -699,8 +699,7 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CapsuleShape2D_eog00")
 
-[node name="Timer" type="Timer" parent="AttackRange"]
-wait_time = 1.4
+[node name="WaitTimer" type="Timer" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5
@@ -713,5 +712,5 @@ one_shot = true
 [connection signal="area_exited" from="AttackRange" to="." method="_on_attack_range_area_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
-[connection signal="timeout" from="AttackRange/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
