@@ -17,5 +17,6 @@ func _process(delta):
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("Ebullet"):
 		HEALTH -= 2
+		updateHealthbar()
 		if HEALTH <= 0:
 			queue_free()

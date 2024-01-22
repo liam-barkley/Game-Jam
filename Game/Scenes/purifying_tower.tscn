@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=19 format=3 uid="uid://ff2x2ipc20fh"]
 
 [ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
 [ext_resource type="Texture2D" uid="uid://dnfj14ix671wo" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers bases/PNGs/Tower 08.png" id="1_t2xwk"]
 [ext_resource type="Texture2D" uid="uid://cyv2rchd7ctyp" path="res://Arts/Foozle_2DS0020_Spire_TowerPack_4/Foozle_2DS0020_Spire_TowerPack_4/Towers Weapons/Tower 08/Spritesheets/Tower 08 - Level 03 - Weapon.png" id="2_ypvp3"]
+[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_m6ywe"]
+[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_c6iru"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w174"]
 size = Vector2(30, 49)
@@ -118,5 +120,13 @@ sprite_frames = SubResource("SpriteFrames_ye163")
 autoplay = "default"
 frame = 2
 frame_progress = 0.124998
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -31.0
+offset_top = -31.0
+offset_right = 33.0
+offset_bottom = -20.0
+texture_under = ExtResource("4_m6ywe")
+texture_progress = ExtResource("5_c6iru")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
