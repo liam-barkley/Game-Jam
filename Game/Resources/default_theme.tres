@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://e81g3sxbef5w"]
+
+[ext_resource type="FontFile" uid="uid://tn5yqw1aegoy" path="res://Arts/Fonts/Kenney Future Narrow.ttf" id="1_27m83"]
+
+[resource]
+Button/fonts/font = ExtResource("1_27m83")
+Label/fonts/font = ExtResource("1_27m83")
+OptionButton/fonts/font = ExtResource("1_27m83")
+PopupMenu/font_sizes/font_separator_size = 10
+PopupMenu/font_sizes/font_size = 10
+PopupMenu/fonts/font = ExtResource("1_27m83")

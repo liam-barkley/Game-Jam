@@ -6,6 +6,9 @@ extends State
 var old_direction = Vector2.ZERO
 var direction = Vector2.ZERO
 
+func enter(msg := {}) -> void:
+	print("Player Entering Move state")
+
 func physics_update(delta: float) -> void:
 	# Get the input direction and handle states
 	if direction != Vector2.ZERO:
@@ -20,13 +23,17 @@ func physics_update(delta: float) -> void:
 
 	if Input.is_action_just_pressed("attack"):
 		state_machine.transition_to("Attack", {direction = direction})
-	elif owner.velocity == Vector2.ZERO:
+	elif direction.is_zero_approx():
 		state_machine.transition_to("Idle", {direction = old_direction})
 
 func apply_acceleration(delta):
 	if not direction == Vector2.ZERO:
-		owner.velocity.x = move_toward(owner.velocity.x, direction.x * owner.SPEED, owner.ACCELERATION * delta)
-		owner.velocity.y = move_toward(owner.velocity.y, direction.y * owner.SPEED, owner.ACCELERATION * delta)
+		if Input.is_action_pressed("sprint"):
+			owner.velocity.x = move_toward(owner.velocity.x, direction.x * (owner.SPEED*1.5), owner.ACCELERATION * delta)
+			owner.velocity.y = move_toward(owner.velocity.y, direction.y * (owner.SPEED*1.5), owner.ACCELERATION * delta)
+		else:
+			owner.velocity.x = move_toward(owner.velocity.x, direction.x * owner.SPEED, owner.ACCELERATION * delta)
+			owner.velocity.y = move_toward(owner.velocity.y, direction.y * owner.SPEED, owner.ACCELERATION * delta)
 
 func apply_friction(delta):
 	if direction == Vector2.ZERO:
@@ -34,22 +41,24 @@ func apply_friction(delta):
 		owner.velocity.y = move_toward(owner.velocity.y, 0, owner.FRICTION * delta)
 
 func play_animation():
-	match direction.y:
-		-1.0:
-			animated_sprite_2d.play("up")
-		1.0:
+	# Player more below than beside
+	if abs(direction.y) >= abs (direction.x):
+		if direction.y >= 0:
 			animated_sprite_2d.play("down")
-	match direction.x:
-		-1.0:
-			animated_sprite_2d.play("left")
-		1.0:
-			animated_sprite_2d.play("right")
+		else:
+			animated_sprite_2d.play("up")
+		return
+
+	if direction.x >= 0:
+		animated_sprite_2d.play("right")
+	else:
+		animated_sprite_2d.play("left")
 	
-	if direction.x > 0.5 and direction.y < -0.5:
-		animated_sprite_2d.play("right_up")
-	if direction.x > 0.5 and direction.y > 0.5:
-		animated_sprite_2d.play("right_down")
-	if direction.x < -0.5 and direction.y < -0.5:
-		animated_sprite_2d.play("left_up")
-	if direction.x < -0.5 and direction.y > 0.5:
-		animated_sprite_2d.play("left_down")
+	#if direction.x > 0.5 and direction.y < -0.5:
+		#animated_sprite_2d.play("right_up")
+	#if direction.x > 0.5 and direction.y > 0.5:
+		#animated_sprite_2d.play("right_down")
+	#if direction.x < -0.5 and direction.y < -0.5:
+		#animated_sprite_2d.play("left_up")
+	#if direction.x < -0.5 and direction.y > 0.5:
+		#animated_sprite_2d.play("left_down")

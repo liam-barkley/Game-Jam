@@ -6,6 +6,7 @@ var direction = Vector2.ZERO
 
 # Upon entering the state, we set the Player node's velocity to zero.
 func enter(msg := {}) -> void:
+	print("Player Entering Idle state")
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
 	
@@ -27,22 +28,24 @@ func play_animation():
 		animated_sprite_2d.play("idle_down")
 		return
 	
-	match direction.y:
-		-1.0:
-			animated_sprite_2d.play("idle_up")
-		1.0:
+	# Player is more below than beside
+	if abs(direction.y) >= abs (direction.x):
+		if direction.y >= 0:
 			animated_sprite_2d.play("idle_down")
-	match direction.x:
-		-1.0:
-			animated_sprite_2d.play("idle_left")
-		1.0:
-			animated_sprite_2d.play("idle_right")
+		else:
+			animated_sprite_2d.play("idle_up")
+		return
+
+	if direction.x >= 0:
+		animated_sprite_2d.play("idle_right")
+	else:
+		animated_sprite_2d.play("idle_left")
 	
-	if direction.x > 0.5 and direction.y < -0.5:
-		animated_sprite_2d.play("idle_right_up")
-	if direction.x > 0.5 and direction.y > 0.5:
-		animated_sprite_2d.play("idle_right_down")
-	if direction.x < -0.5 and direction.y < -0.5:
-		animated_sprite_2d.play("idle_left_up")
-	if direction.x < -0.5 and direction.y > 0.5:
-		animated_sprite_2d.play("idle_left_down")
+	#if direction.x > 0.5 and direction.y < -0.5:
+		#animated_sprite_2d.play("idle_right_up")
+	#if direction.x > 0.5 and direction.y > 0.5:
+		#animated_sprite_2d.play("idle_right_down")
+	#if direction.x < -0.5 and direction.y < -0.5:
+		#animated_sprite_2d.play("idle_left_up")
+	#if direction.x < -0.5 and direction.y > 0.5:
+		#animated_sprite_2d.play("idle_left_down")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://pd461cdy6t1a"]
+[gd_scene load_steps=8 format=3 uid="uid://pd461cdy6t1a"]
 
 [ext_resource type="Texture2D" uid="uid://5p3xiq25vcwc" path="res://Arts/Terrain (Reg+Mono)/MONOTerrain_Tilemap_V1.0.png" id="1_5ubx4"]
 [ext_resource type="Texture2D" uid="uid://cjils3yw7arf8" path="res://Arts/kenney_monochrome-pirates/Monochrome/Tilemap/corrosion_tilemap.png" id="1_8iim5"]
+[ext_resource type="Script" path="res://Scenes/corrupt_tile.gd" id="1_mpi22"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rkfuf"]
 texture = ExtResource("1_5ubx4")
@@ -629,6 +630,7 @@ size = Vector2(32, 32)
 
 [node name="CorruptArea" type="Area2D"]
 show_behind_parent = true
+script = ExtResource("1_mpi22")
 
 [node name="CorrosionTiles" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_fb5tr")
@@ -638,3 +640,5 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_5duv1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

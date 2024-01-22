@@ -1972,3 +1972,4 @@ position = Vector2(224, 174)
 
 [connection signal="timeout" from="TileMap/Timer" to="TileMap" method="_on_timer_timeout"]
 [connection signal="timeout" from="TileMap/ranged_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
+

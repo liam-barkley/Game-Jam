@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcvpxnk1vi847"]
+[gd_scene load_steps=9 format=3 uid="uid://dcvpxnk1vi847"]
 
 [ext_resource type="Texture2D" uid="uid://ch0j2qg50q5lo" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
 [ext_resource type="Script" path="res://Scripts/UI/ui.gd" id="1_fhapp"]
@@ -6,6 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cq8qfish7bo6a" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
+[ext_resource type="Theme" uid="uid://e81g3sxbef5w" path="res://Resources/default_theme.tres" id="7_hnhho"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h8b8r"]
+line_spacing = -2.0
+font_size = 8
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_fhapp")
@@ -83,3 +88,52 @@ unique_name_in_owner = true
 layout_mode = 2
 texture_under = ExtResource("4_jvu7m")
 texture_progress = ExtResource("5_003gc")
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/BoxContainer/PlayerHealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 9.0
+offset_right = 125.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme = ExtResource("7_hnhho")
+theme_override_font_sizes/font_size = 10
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -148.0
+offset_right = -17.0
+offset_bottom = -106.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Left click attack
+Right click build
+Shift to sprint
+Scroll to zoom
+"
+label_settings = SubResource("LabelSettings_h8b8r")
+horizontal_alignment = 2
+
+[connection signal="item_selected" from="Control/OptionButton" to="." method="_on_option_button_item_selected"]

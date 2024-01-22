@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6kwietue3xu4"]
+[gd_scene load_steps=8 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_dlpni"]
