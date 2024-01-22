@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var rock_label = %RockLabel
 @onready var ore_label = %OreLabel
 @onready var wood_label = %WoodLabel
+@onready var battery_label = %BatteryLabel
 @onready var label = $Control/MarginContainer/MarginContainer/BoxContainer/PlayerHealthBar/Label
 @onready var option_button = $Control/OptionButton
 
@@ -18,9 +19,9 @@ var TOWER_SCENES = [preload("res://Scenes/healing_tower.tscn"),
 var HEALER_IDX = 0
 var PURIFIER_IDX = 1
 
-# resources for towers [wood, rock, ore]
-var healer_resources = [1, 2, 0]
-var purifier_resources = [0, 0, 1]
+# resources for towers [wood, rock, ore, battery]
+var healer_resources = [1, 2, 0, 0]
+var purifier_resources = [0, 0, 1, 1]
 
 var num_wood = 0:
 	set(new_wood):
@@ -37,6 +38,11 @@ var num_ore = 0:
 		num_ore = new_ore
 		update_ore_label()
 
+var num_battery = 0:
+	set(new_battery):
+		num_battery = new_battery
+		update_battery_label()
+
 func _ready():
 	await player != null
 	player.health_changed.connect(update_health_progress)
@@ -44,6 +50,7 @@ func _ready():
 	update_health_progress()
 	update_rock_label()
 	update_ore_label()
+	update_battery_label()
 	update_dropdown()
 
 func build_selected_tower():
@@ -76,7 +83,7 @@ func build_purifier():
 		return false
 
 func check_sufficient_resources(req):
-	if num_wood >= req[0] && num_rock >= req[1] && num_ore >= req[2]:
+	if num_wood >= req[0] && num_rock >= req[1] && num_ore >= req[2] && num_battery >= req[3]:
 		return true
 	else:
 		return false
@@ -85,10 +92,11 @@ func use_resources(res):
 	num_wood -= res[0]
 	num_rock -= res[1]
 	num_ore -= res[2]
+	num_ore -= res[3]
 
 func update_dropdown():
 	var h = "Healer (%d wood, %d stone, %d ore)" % [healer_resources[0], healer_resources[1], healer_resources[2]]
-	var p = "Purifier (%d wood, %d stone, %d ore)" % [purifier_resources[0], purifier_resources[1], purifier_resources[2]]
+	var p = "Purifier (%d wood, %d stone, %d ore, %d battery)" % [purifier_resources[0], purifier_resources[1], purifier_resources[2], purifier_resources[3]]
 	option_button.add_item(h, HEALER_IDX)
 	option_button.add_item(p, PURIFIER_IDX)
 	
@@ -112,6 +120,9 @@ func update_rock_label():
 func update_ore_label():
 	ore_label.text = str(num_ore)
 
+func update_battery_label():
+	battery_label.text = str(num_battery)
+
 func _on_wood_tree_gathered_wood():
 	num_wood += 1
 
@@ -120,6 +131,9 @@ func _on_rock_stone_gathered_stone():
 
 func _on_rock_ore_gathered_ore():
 	num_ore += 1
+
+func _on_battery_gathered_battery():
+	num_battery += 1
 
 func _on_option_button_item_selected(index):
 	tower_selected = index
