@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcvpxnk1vi847"]
+[gd_scene load_steps=10 format=3 uid="uid://dcvpxnk1vi847"]
 
 [ext_resource type="Texture2D" uid="uid://ch0j2qg50q5lo" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
 [ext_resource type="Script" path="res://Scripts/UI/ui.gd" id="1_fhapp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cq8qfish7bo6a" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
+[ext_resource type="Texture2D" uid="uid://c0aoejfa5vvro" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
 [ext_resource type="Theme" uid="uid://e81g3sxbef5w" path="res://Resources/default_theme.tres" id="7_hnhho"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8b8r"]
@@ -72,6 +73,15 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
+[node name="Battery" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/Resources"]
+layout_mode = 2
+texture = ExtResource("5_lx0mq")
+
+[node name="BatteryLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -107,9 +117,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -74.0
+offset_left = -51.0
 offset_top = 9.0
-offset_right = 125.0
+offset_right = 148.0
 offset_bottom = 31.0
 grow_horizontal = 2
 theme = ExtResource("7_hnhho")
