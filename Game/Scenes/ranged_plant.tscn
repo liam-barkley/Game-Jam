@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://bkaacwghv2qqi"]
+[gd_scene load_steps=95 format=3 uid="uid://bkaacwghv2qqi"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant.gd" id="1_yqd74"]
 [ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_3cd2n"]
@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
 [ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
-[ext_resource type="Texture2D" uid="uid://cxumox3nmqn15" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
-[ext_resource type="AudioStream" uid="uid://b8y10x6758uc8" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
+[ext_resource type="Texture2D" uid="uid://bmucevrqw4crh" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
+[ext_resource type="AudioStream" uid="uid://uunobh13gp8d" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
 
@@ -652,71 +652,79 @@ animations = [{
 radius = 23.0
 height = 50.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgatr"]
+radius = 252.573
+
 [node name="RangedPlant" type="Node2D" groups=["Enemies"]]
 light_mask = 28
 visibility_layer = 28
-script = ExtResource("1_yqd74")
-ammo = ExtResource("2_3cd2n")
 
 [node name="RangedPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
+script = ExtResource("1_yqd74")
+ammo = ExtResource("2_3cd2n")
 
 [node name="Body" type="CollisionShape2D" parent="RangedPlant"]
 shape = SubResource("CapsuleShape2D_8a27h")
 
-[node name="HurtBox" type="Area2D" parent="." groups=["Enemies"]]
+[node name="HurtBox" type="Area2D" parent="RangedPlant" groups=["Enemies"]]
 
-[node name="CloseDamage" type="CollisionShape2D" parent="HurtBox"]
+[node name="CloseDamage" type="CollisionShape2D" parent="RangedPlant/HurtBox"]
 shape = SubResource("RectangleShape2D_tkdee")
 
-[node name="Timer" type="Timer" parent="HurtBox"]
+[node name="Timer" type="Timer" parent="RangedPlant/HurtBox"]
 wait_time = 0.252
 
-[node name="FireRange" type="Area2D" parent="."]
+[node name="FireRange" type="Area2D" parent="RangedPlant"]
 collision_mask = 20
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FireRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedPlant/FireRange"]
 light_mask = 7
 visibility_layer = 7
 shape = SubResource("CircleShape2D_a28ue")
 debug_color = Color(0.984314, 0, 0.345098, 0.419608)
 
-[node name="RangedEnemyStateMachine" type="Node" parent="."]
+[node name="RangedEnemyStateMachine" type="Node" parent="RangedPlant"]
 script = ExtResource("3_2ya5m")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="RangedEnemyStateMachine"]
+[node name="Idle" type="Node" parent="RangedPlant/RangedEnemyStateMachine"]
 script = ExtResource("4_ml4as")
 
-[node name="Attack" type="Node" parent="RangedEnemyStateMachine"]
+[node name="Attack" type="Node" parent="RangedPlant/RangedEnemyStateMachine"]
 script = ExtResource("5_mwqlf")
 
-[node name="Dead" type="Node" parent="RangedEnemyStateMachine"]
+[node name="Dead" type="Node" parent="RangedPlant/RangedEnemyStateMachine"]
 script = ExtResource("6_3u4kb")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RangedPlant"]
 sprite_frames = SubResource("SpriteFrames_03c8w")
 animation = &"stand_up"
 frame_progress = 0.636988
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="RangedPlant"]
 target_position = Vector2(0, 0)
 collision_mask = 20
 collide_with_areas = true
 
-[node name="ShootTimer" type="Timer" parent="."]
+[node name="ShootTimer" type="Timer" parent="RangedPlant"]
 
-[node name="Damage" type="Area2D" parent="."]
+[node name="Damage" type="Area2D" parent="RangedPlant"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedPlant/Damage"]
 shape = SubResource("CapsuleShape2D_3dful")
 
-[node name="plantshoot" type="AudioStreamPlayer2D" parent="."]
+[node name="plantshoot" type="AudioStreamPlayer2D" parent="RangedPlant"]
 stream = ExtResource("8_xls6p")
 volume_db = 9.865
 
-[node name="playerRay" type="RayCast2D" parent="."]
+[node name="TowerShoot" type="Area2D" parent="RangedPlant"]
 
-[node name="healthbar" type="TextureProgressBar" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedPlant/TowerShoot"]
+shape = SubResource("CircleShape2D_cgatr")
+
+[node name="playerRay" type="RayCast2D" parent="RangedPlant"]
+
+[node name="healthbar" type="TextureProgressBar" parent="RangedPlant"]
 offset_left = -32.0
 offset_top = -41.0
 offset_right = 32.0
@@ -724,10 +732,12 @@ offset_bottom = -28.0
 texture_under = ExtResource("9_jq8k1")
 texture_progress = ExtResource("10_xb07b")
 
-[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]
-[connection signal="timeout" from="HurtBox/Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="FireRange" to="." method="_on_fire_range_body_entered"]
-[connection signal="body_exited" from="FireRange" to="." method="_on_fire_range_body_exited"]
-[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
-[connection signal="area_entered" from="Damage" to="." method="_on_damage_area_entered"]
+[connection signal="area_entered" from="RangedPlant/HurtBox" to="RangedPlant" method="_on_hurt_box_area_entered"]
+[connection signal="area_exited" from="RangedPlant/HurtBox" to="RangedPlant" method="_on_hurt_box_area_exited"]
+[connection signal="timeout" from="RangedPlant/HurtBox/Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="RangedPlant/FireRange" to="RangedPlant" method="_on_fire_range_body_entered"]
+[connection signal="body_exited" from="RangedPlant/FireRange" to="RangedPlant" method="_on_fire_range_body_exited"]
+[connection signal="timeout" from="RangedPlant/ShootTimer" to="RangedPlant" method="_on_shoot_timer_timeout"]
+[connection signal="area_entered" from="RangedPlant/Damage" to="RangedPlant" method="_on_damage_area_entered"]
+[connection signal="area_entered" from="RangedPlant/TowerShoot" to="RangedPlant" method="_on_tower_shoot_area_entered"]
+[connection signal="area_exited" from="RangedPlant/TowerShoot" to="RangedPlant" method="_on_tower_shoot_area_exited"]

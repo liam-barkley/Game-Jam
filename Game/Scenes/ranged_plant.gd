@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @onready var Ranged_enemy_state_machine = $RangedEnemyStateMachine
 @onready var shoot_timer = $ShootTimer
@@ -15,10 +15,12 @@ var player
 var shoot_allowed = false
 var current_target
 var new_position 
-
+var TowerInArea = false
+const SPEED = 100
+var direction = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_parent().find_child("Player")
+	player = get_parent().get_parent().find_child("Player")
 	
 	
 
@@ -35,6 +37,7 @@ func search_closest_tower():
 				closest_tower_dist = dist
 				closest_tower = tower
 	else:
+		return null
 		shoot_timer.stop()
 	return closest_tower
 	
@@ -42,9 +45,10 @@ func updateHealthbar():
 	$healthbar.value =HEALTH*100/MAX_HEALTH
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	updateHealthbar()
-	playerRay.target_position = to_local(player.global_position)
+	if player != null:
+		playerRay.target_position = to_local(player.global_position)
 	current_target = null
 	ray_cast.target_position = Vector2.ZERO
 	if player_in_proximity == false:
@@ -55,11 +59,17 @@ func _process(delta):
 	#print(current_target)
 	if current_target != null:
 		aim_at(current_target)
-		check_target_collision(current_target)
+		velocity = global_position.direction_to(current_target.global_position) * SPEED
+		if TowerInArea or player_in_proximity:
+			velocity = Vector2.ZERO
+			check_target_collision(current_target)
+			
+		
 	else:
 		var looky = position.direction_to(player.global_position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 		shoot_timer.stop()
+	move_and_slide()
 	
 func aim_at(target):
 	
@@ -73,6 +83,7 @@ func check_target_collision(target):
 	
 	if (target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped():
 		shoot_timer.start()
+		
 		
 		
 	elif !(target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)):
@@ -111,6 +122,7 @@ func shoot(target):
 
 func _on_shoot_timer_timeout():
 	$plantshoot.play()
+	print("shoot")
 	shoot(current_target)
 
 func _on_fire_range_body_entered(body):
@@ -132,3 +144,14 @@ func _on_damage_area_entered(area):
 		
 func _get_health():
 	return HEALTH
+
+
+func _on_tower_shoot_area_entered(area):
+	if area.is_in_group("Allies"):
+		TowerInArea = true
+
+
+func _on_tower_shoot_area_exited(area):
+	if area.is_in_group("Allies"):
+		print(false)
+		TowerInArea = false
