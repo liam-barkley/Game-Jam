@@ -4,8 +4,8 @@ extends CharacterBody2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 
 # Constants
-@export var SPEED = 35.0
-@export var DAMAGE = 1
+@export var SPEED = 50.0
+@export var DAMAGE = 2
 @export var HEALTH = 6
 @export var MAX_HEALTH = 6
 
@@ -13,15 +13,12 @@ extends CharacterBody2D
 var hurt_area
 var target = null
 var direction = Vector2.ZERO
+var mobile = true
 
 func _physics_process(_delta):
 	_find_closest_target()
 	
-	if target && !_is_closer_enemy_available():
-		#print("-----------------------------")
-		#print("Target available: ", target)
-		#print("-----------------------------")
-		#melee_enemy_state_machine.transition_to("Move", {"player" = target})
+	if target && !_is_closer_enemy_available() && mobile:
 		direction = global_transform.origin.direction_to(target.global_transform.origin)
 		play_walk_animation()
 		velocity = direction * SPEED
@@ -57,18 +54,20 @@ func _on_vision_range_body_exited(body):
 			melee_enemy_state_machine.transition_to("Idle", {"direction" = direction})
 
 func _on_attack_range_body_entered(body):
-	if body.name != "Player" || body.is_in_group("Towers"):
+	if !body.is_in_group("AllyBody"):
 		return
 	
 	if target != null:
+		mobile = false
 		print("Attacking target: ", target)
 		melee_enemy_state_machine.transition_to("Attack", {"player" = target})
 
 func _on_attack_range_body_exited(body):
-	if body.name != "Player" || body.is_in_group("Towers"):
+	if !body.is_in_group("AllyBody"):
 		return
 
 	if target != null:
+		mobile = true
 		melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
 func _on_attack_range_area_entered(area):
@@ -82,6 +81,9 @@ func _on_attack_range_area_exited(area):
 func _on_attack_timer_timeout():
 	# give time to get away
 	await get_tree().create_timer(0.75).timeout
+	print("##########################################################")
+	print("Hurt area: ", hurt_area)
+	print("##########################################################")
 	if hurt_area != null:
 		hurt_area.take_damage(DAMAGE)
 

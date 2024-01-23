@@ -22,13 +22,14 @@ func _on_timer_timeout():
 		print("healing player!")
 		player._heal_player(HEAL_AMOUNT)
 
-
-	
-
-
 func _on_hit_box_area_entered(area):
 	if area.is_in_group("Ebullet"):
 		print(HEALTH)
 		HEALTH -= 2
 		if HEALTH <= 0:
+			queue_free()
+
+func _on_hit_box_damage(amount):
+	HEALTH = HEALTH - amount
+	if HEALTH <= 0:
 			queue_free()

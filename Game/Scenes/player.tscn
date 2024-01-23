@@ -1,17 +1,17 @@
 [gd_scene load_steps=89 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
-[ext_resource type="Texture2D" uid="uid://dn0qoyixkkn6f" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
+[ext_resource type="Texture2D" uid="uid://51shhysufqux" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
 [ext_resource type="Script" path="res://Scripts/Player/StateMachine.gd" id="3_jlv1t"]
-[ext_resource type="Texture2D" uid="uid://em33hbqpt6vf" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
+[ext_resource type="Texture2D" uid="uid://bhglvcxeuq0mv" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
 [ext_resource type="PackedScene" uid="uid://dl7yy65bwdxiu" path="res://Scenes/hurtbox.tscn" id="3_qohu5"]
-[ext_resource type="Texture2D" uid="uid://cdvw7aul225mv" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
+[ext_resource type="Texture2D" uid="uid://fwyb56ms2mrr" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
 [ext_resource type="Script" path="res://Scripts/Player/Idle.gd" id="4_p7012"]
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
 [ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
-[ext_resource type="AudioStream" uid="uid://cy8nxvw1vfcv3" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
-[ext_resource type="AudioStream" uid="uid://cebc1xu7w8mcg" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
+[ext_resource type="AudioStream" uid="uid://do04gapxse2b3" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
+[ext_resource type="AudioStream" uid="uid://dtqf0p8cwhhhc" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35oo8"]
 atlas = ExtResource("2_kigft")
@@ -596,7 +596,7 @@ height = 28.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsnb7"]
 size = Vector2(17.25, 46)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["AllyBody"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 27
@@ -614,6 +614,8 @@ position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_8hgcy")
 
 [node name="Hurtbox" parent="." groups=["player"] instance=ExtResource("3_qohu5")]
+collision_layer = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -1)
