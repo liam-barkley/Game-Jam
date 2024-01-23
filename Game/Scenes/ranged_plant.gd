@@ -99,6 +99,7 @@ func shoot(target):
 	var looky = position.direction_to(target.position)
 	Ranged_enemy_state_machine.transition_to("Attack", {"direction" = looky})
 	var bullet = ammo.instantiate()
+	bullet.rotation = looky.angle() + 1.5708
 	#bullet._set_owner("ENEMY")
 	if target.name == "Player":
 		bullet.position = playerRay.global_position
