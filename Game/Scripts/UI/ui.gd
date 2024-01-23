@@ -14,14 +14,17 @@ extends CanvasLayer
 var tower_selected : int = 0
 
 var TOWER_SCENES = [preload("res://Scenes/healing_tower.tscn"), 
-					preload("res://Scenes/purifying_tower.tscn")]
+					preload("res://Scenes/purifying_tower.tscn"),
+					preload("res://Scenes/ranged_tower.tscn")]
 # drop down index for towers
 var HEALER_IDX = 0
 var PURIFIER_IDX = 1
+var RANGED_IDX = 2
 
 # resources for towers [wood, rock, ore, battery]
-var healer_resources = [5, 3, 0, 0]
-var purifier_resources = [0, 3, 3, 1]
+var healer_resources = [3, 1, 0, 0]
+var purifier_resources = [0, 2, 2, 1]
+var ranged_resources = [1, 1, 1, 0]
 
 var num_wood = 0:
 	set(new_wood):
@@ -56,28 +59,26 @@ func _ready():
 func build_selected_tower():
 	match tower_selected:
 			HEALER_IDX: # healing tower
-				if not build_healer():
+				if not build_tower(healer_resources):
 					print("Not enough resources for healer!")
 					return
 				print("Built healer!")
 			PURIFIER_IDX:  # purifying tower
-				if not build_purifier():
+				if not build_tower(purifier_resources):
 					print("Not enough resources for purifier!")
 					return
 				print("Built purifier!")
+			RANGED_IDX: # ranged tower
+				if not build_tower(ranged_resources):
+					print("Not enough resources for ranged!")
+					return
+				print("Built ranged!")
 
 	return true
 
-func build_healer():
-	if check_sufficient_resources(healer_resources):
-		use_resources(healer_resources)
-		return true
-	else:
-		return false
-
-func build_purifier():
-	if check_sufficient_resources(purifier_resources):
-		use_resources(purifier_resources)
+func build_tower(required_resources):
+	if check_sufficient_resources(required_resources):
+		use_resources(required_resources)
 		return true
 	else:
 		return false
@@ -97,8 +98,10 @@ func use_resources(res):
 func update_dropdown():
 	var h = "Healer (%d wood, %d stone, %d ore)" % [healer_resources[0], healer_resources[1], healer_resources[2]]
 	var p = "Purifier (%d wood, %d stone, %d ore, %d battery)" % [purifier_resources[0], purifier_resources[1], purifier_resources[2], purifier_resources[3]]
+	var r = "Ranged (%d wood, %d stone, %d ore)" % [ranged_resources[0], ranged_resources[1], ranged_resources[2]]
 	option_button.add_item(h, HEALER_IDX)
 	option_button.add_item(p, PURIFIER_IDX)
+	option_button.add_item(r, RANGED_IDX)
 	
 	# set healer active 
 	option_button.selected = HEALER_IDX
