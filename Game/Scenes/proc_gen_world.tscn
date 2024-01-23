@@ -43,11 +43,11 @@ layer_2/tile_data = PackedInt32Array()
 script = ExtResource("3_x24lf")
 ui = NodePath("../UI")
 
-[node name="spread_timer" type="Timer" parent="TileMap"]
-wait_time = 10.0
-
 [node name="Player" parent="TileMap" instance=ExtResource("3_puo4j")]
 position = Vector2(259, 243)
+
+[node name="spread_timer" type="Timer" parent="TileMap"]
+wait_time = 5.0
 
 [node name="enemy_spawn_timer" type="Timer" parent="TileMap"]
 wait_time = 3.0

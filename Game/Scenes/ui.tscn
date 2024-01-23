@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cq8qfish7bo6a" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
-[ext_resource type="Texture2D" uid="uid://c0aoejfa5vvro" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
+[ext_resource type="Texture2D" uid="uid://dcnwi83f8liqg" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
 [ext_resource type="Theme" uid="uid://e81g3sxbef5w" path="res://Resources/default_theme.tres" id="7_hnhho"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8b8r"]

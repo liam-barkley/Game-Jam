@@ -51,9 +51,9 @@ polygon = PackedVector2Array(6, 13, -3, 13, -8, 10, -12, 8, -11, 5, 7, 5, 8, 9)
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = 1
 offset_left = -4.0
-offset_top = -24.7118
+offset_top = -24.0
 offset_right = 4.0
-offset_bottom = -14.7118
+offset_bottom = -14.0
 texture = ExtResource("3_5degx")
 expand_mode = 1
 

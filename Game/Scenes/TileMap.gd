@@ -34,6 +34,7 @@ var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 var wood_tree = preload("res://Scenes/wood_tree.tscn")
 var rock_stone = preload("res://Scenes/rock_stone.tscn")
 var rock_ore = preload("res://Scenes/rock_ore.tscn")
+var battery = preload("res://Scenes/battery.tscn")
 var enemies = [preload("res://Scenes/ranged_plant.tscn"),
 			   preload("res://Scenes/melee_plant.tscn")]
 
@@ -163,12 +164,26 @@ func spawn_ore():
 		ore.gathered_ore.connect(on_ore_gathered_ore)
 		num_ores += 1
 		add_child(ore)
+		
+func spawn_battery():
+	if num_batteries < MAX_BATTERIES:
+		var r = arr_sand_tiles.pick_random()
+		var bat = battery.instantiate()
+		bat.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
+		bat.gathered_battery.connect(ui._on_battery_gathered_battery)
+		bat.gathered_battery.connect(on_battery_gathered_battery)
+		num_batteries += 1
+		add_child(bat)
+		print(r)
 
 func on_stone_gathered_stone():
 	num_stones -= 1
 
 func on_ore_gathered_ore():
 	num_ores -= 1
+
+func on_battery_gathered_battery():
+	num_batteries -= 1
 
 # get a random position to spawn an entity
 func get_random_grid_pos():
@@ -275,6 +290,9 @@ func _on_resource_spawn_timer_timeout():
 		arr_spawn.append(spawn_stone)
 	if num_ores < MAX_ORES:
 		arr_spawn.append(spawn_ore)
+		
+	if arr_corrupted_tiles.size() > 10 and num_batteries < MAX_BATTERIES:
+		arr_spawn.append(spawn_battery)
 	
 	if arr_spawn.size() > 0:
 		arr_spawn.pick_random().call()

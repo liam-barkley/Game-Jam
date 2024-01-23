@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxro5vqes58k4"]
+[gd_scene load_steps=8 format=3 uid="uid://dxro5vqes58k4"]
 
 [ext_resource type="Script" path="res://Scripts/battery.gd" id="1_bcbee"]
-[ext_resource type="Texture2D" uid="uid://c0aoejfa5vvro" path="res://Arts/Resources/battery.png" id="1_o1i2w"]
+[ext_resource type="Texture2D" uid="uid://dcnwi83f8liqg" path="res://Arts/Resources/battery.png" id="1_o1i2w"]
 [ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Arrow-icon.png" id="2_6mi4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_omgm1"]
@@ -10,28 +10,13 @@ radius = 29.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqyda"]
 radius = 5.09902
 
-[sub_resource type="Animation" id="Animation_aslpy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../TextureRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-4, -24)]
-}
-
-[sub_resource type="Animation" id="Animation_8t3v7"]
-resource_name = "position"
+[sub_resource type="Animation" id="Animation_1vw6v"]
+resource_name = "arrow"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../TextureRect:position")
+tracks/0/path = NodePath("TextureRect:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -41,10 +26,9 @@ tracks/0/keys = {
 "values": [Vector2(-4, -24), Vector2(-4, -30), Vector2(-4, -24)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pp6kp"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tqa73"]
 _data = {
-"RESET": SubResource("Animation_aslpy"),
-"position": SubResource("Animation_8t3v7")
+"arrow": SubResource("Animation_1vw6v")
 }
 
 [node name="Battery" type="Node2D"]
@@ -54,11 +38,13 @@ script = ExtResource("1_bcbee")
 texture = ExtResource("1_o1i2w")
 
 [node name="PickableArea" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickableArea"]
 shape = SubResource("CircleShape2D_omgm1")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 8)
@@ -74,18 +60,16 @@ texture = ExtResource("2_6mi4h")
 expand_mode = 1
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath(".")
 libraries = {
-"": SubResource("AnimationLibrary_pp6kp")
+"": SubResource("AnimationLibrary_tqa73")
 }
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../AnimationTree")
 libraries = {
-"": SubResource("AnimationLibrary_pp6kp")
+"": SubResource("AnimationLibrary_tqa73")
 }
-autoplay = "position"
+autoplay = "arrow"
 
 [connection signal="body_entered" from="PickableArea" to="." method="_on_pickable_area_body_entered"]
 [connection signal="body_exited" from="PickableArea" to="." method="_on_pickable_area_body_exited"]

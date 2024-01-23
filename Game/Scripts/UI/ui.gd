@@ -20,8 +20,8 @@ var HEALER_IDX = 0
 var PURIFIER_IDX = 1
 
 # resources for towers [wood, rock, ore, battery]
-var healer_resources = [1, 2, 0, 0]
-var purifier_resources = [0, 0, 1, 1]
+var healer_resources = [5, 3, 0, 0]
+var purifier_resources = [0, 3, 3, 1]
 
 var num_wood = 0:
 	set(new_wood):
@@ -92,7 +92,7 @@ func use_resources(res):
 	num_wood -= res[0]
 	num_rock -= res[1]
 	num_ore -= res[2]
-	num_ore -= res[3]
+	num_battery -= res[3]
 
 func update_dropdown():
 	var h = "Healer (%d wood, %d stone, %d ore)" % [healer_resources[0], healer_resources[1], healer_resources[2]]
