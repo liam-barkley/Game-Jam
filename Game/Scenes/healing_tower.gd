@@ -23,8 +23,12 @@ func _on_timer_timeout():
 		player._heal_player(HEAL_AMOUNT)
 
 
-func _on_area_2d_area_entered(area):
+	
+
+
+func _on_hit_box_area_entered(area):
 	if area.is_in_group("Ebullet"):
+		print(HEALTH)
 		HEALTH -= 2
 		if HEALTH <= 0:
 			queue_free()

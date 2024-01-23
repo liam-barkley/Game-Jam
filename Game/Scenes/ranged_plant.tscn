@@ -718,6 +718,8 @@ stream = ExtResource("8_xls6p")
 volume_db = 9.865
 
 [node name="TowerShoot" type="Area2D" parent="RangedPlant"]
+collision_layer = 8
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangedPlant/TowerShoot"]
 shape = SubResource("CircleShape2D_cgatr")

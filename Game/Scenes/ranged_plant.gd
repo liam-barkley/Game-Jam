@@ -50,6 +50,8 @@ func _physics_process(delta):
 	if player != null:
 		playerRay.target_position = to_local(player.global_position)
 	current_target = null
+	if velocity != Vector2.ZERO:
+		shoot_timer.stop()
 	ray_cast.target_position = Vector2.ZERO
 	if player_in_proximity == false:
 		current_target = search_closest_tower()
@@ -81,7 +83,7 @@ func aim_at(target):
 func check_target_collision(target):
 	
 	
-	if (target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped():
+	if (target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped() and velocity == Vector2.ZERO:
 		shoot_timer.start()
 		
 		
@@ -122,7 +124,6 @@ func shoot(target):
 
 func _on_shoot_timer_timeout():
 	$plantshoot.play()
-	print("shoot")
 	shoot(current_target)
 
 func _on_fire_range_body_entered(body):
@@ -139,14 +140,15 @@ func _on_damage_area_entered(area):
 	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
-			#get_parent().num_enemies -= 1
-			queue_free()
+			#get_parent().get_parent().num_enemies -= 1
+			get_parent().queue_free()
 		
 func _get_health():
 	return HEALTH
 
 
 func _on_tower_shoot_area_entered(area):
+	print(area.name)
 	if area.is_in_group("Allies"):
 		TowerInArea = true
 

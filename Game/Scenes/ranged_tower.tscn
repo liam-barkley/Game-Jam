@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
-[ext_resource type="Texture2D" uid="uid://byvpci11hc7q7" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Texture2D" uid="uid://c65o6gs53q6s0" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
 size = Vector2(40, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g6hlu"]
-radius = 93.1343
+radius = 32.0624
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84lqb"]
 atlas = ExtResource("4_yhx4b")
@@ -69,8 +69,8 @@ position = Vector2(0, 14.5)
 shape = SubResource("RectangleShape2D_mmkfj")
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Allies"]]
-collision_layer = 20
-collision_mask = 20
+collision_layer = 16
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_g6hlu")
