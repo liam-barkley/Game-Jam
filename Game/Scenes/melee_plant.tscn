@@ -657,7 +657,7 @@ script = ExtResource("1_3cudg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c0frd")
-animation = &"attack_down"
+animation = &"stand_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
