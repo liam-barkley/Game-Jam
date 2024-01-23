@@ -47,7 +47,7 @@ ui = NodePath("../UI")
 position = Vector2(259, 243)
 
 [node name="spread_timer" type="Timer" parent="TileMap"]
-wait_time = 5.0
+wait_time = 10.0
 
 [node name="enemy_spawn_timer" type="Timer" parent="TileMap"]
 wait_time = 3.0

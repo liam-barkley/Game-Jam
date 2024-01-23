@@ -96,7 +96,19 @@ func _process(delta):
 			current_state = states.GRASS
 		elif current_state != states.BEACH and atlas_coord.x >= 6:
 			current_state = states.BEACH
-
+			
+	# slow corruption
+	var size = arr_corrupted_tiles.size()
+	if size < 5 and spread_timer.wait_time != 5:
+		spread_timer.wait_time = 5
+		#print(spread_timer.wait_time)
+	elif arr_corrupted_tiles.size() % 5 == 0 and size < 100 and spread_timer.wait_time != arr_corrupted_tiles.size() * 0.1 + 4.5:
+		spread_timer.wait_time = arr_corrupted_tiles.size() * 0.1 + 4.5
+		#print(spread_timer.wait_time)
+	elif size >= 100 and spread_timer.wait_time != 12:
+		spread_timer.wait_time = 12
+		#print(spread_timer.wait_time)
+	
 func initialize_grid():
 	# Initialize 2d array
 	for x in range(NUM_ROWS):
@@ -248,14 +260,6 @@ func add_corruption(nx, ny):
 	is_corrupted_grid[nx][ny] = true
 	arr_corrupted_tiles.append(Vector2(nx, ny))
 	add_child(corruption)
-	
-	# slow corruption
-	if arr_corrupted_tiles.size() > 10 and spread_timer.wait_time != 12:
-		spread_timer.wait_time = 12
-	if arr_corrupted_tiles.size() > 20 and spread_timer.wait_time != 15:
-		spread_timer.wait_time = 15
-	if arr_corrupted_tiles.size() > 30 and spread_timer.wait_time != 20:
-		spread_timer.wait_time = 20
 
 func on_corruption_body_entered(body):
 	if body.name == "Player":
@@ -288,7 +292,7 @@ func _on_enemy_spawn_timer_timeout():
 
 func _on_spread_timer_timeout():
 	update_grid()
-
+	print("timer fired!")
 
 func _on_resource_spawn_timer_timeout():
 	var arr_spawn = []
@@ -300,7 +304,7 @@ func _on_resource_spawn_timer_timeout():
 	if num_ores < MAX_ORES:
 		arr_spawn.append(spawn_ore)
 		
-	if arr_corrupted_tiles.size() > 10 and num_batteries < MAX_BATTERIES:
+	if arr_corrupted_tiles.size() > 50 and num_batteries < MAX_BATTERIES:
 		arr_spawn.append(spawn_battery)
 	
 	if arr_spawn.size() > 0:
