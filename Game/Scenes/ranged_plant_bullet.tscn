@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxybe0vg3ydag"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant_bullet.gd" id="1_m0v06"]
-[ext_resource type="Texture2D" uid="uid://bq1ykr4i3pb1b" path="res://Arts/Enemies/ranged_bullet.png" id="2_q3kpo"]
+[ext_resource type="Texture2D" uid="uid://btj0s0vd810t5" path="res://Arts/Enemies/ranged_bullet.png" id="2_q3kpo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5amdc"]
 atlas = ExtResource("2_q3kpo")
@@ -46,8 +46,8 @@ radius = 2.06155
 script = ExtResource("1_m0v06")
 
 [node name="BulletSize" type="Area2D" parent="." groups=["Ebullet"]]
-collision_layer = 13
-collision_mask = 13
+collision_layer = 8
+collision_mask = 29
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BulletSize"]
 sprite_frames = SubResource("SpriteFrames_67gk5")

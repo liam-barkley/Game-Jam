@@ -19,6 +19,7 @@ func _physics_process(delta):
 
 func _on_bullet_size_area_entered(area):
 	area_space=area
+	print(area.name + str(area.is_in_group("Allies")))
 	if area.is_in_group("Weapons"):
 		queue_free()
 	if area.is_in_group("Allies"):

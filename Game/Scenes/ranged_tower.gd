@@ -30,10 +30,12 @@ func search_for_enemies():
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	
 	if enemies.size() != 0:
+		
 		for enemy in enemies:
 			
 			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)
 			if (dist <= closest_enemy_dist) and enemy.name != "HurtBox":
+				closest_enemy_dist = dist
 				closest_enemy = enemy
 	else:
 		shoot_timer.stop()
@@ -68,7 +70,9 @@ func shoot(target):
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Ebullet"):
+		
 		Health-= 2
+		print(Health)
 		if Health <= 0:
 			queue_free()
 
