@@ -44,11 +44,16 @@ script = ExtResource("3_x24lf")
 ui = NodePath("../UI")
 
 [node name="spread_timer" type="Timer" parent="TileMap"]
+wait_time = 10.0
 
 [node name="Player" parent="TileMap" instance=ExtResource("3_puo4j")]
 position = Vector2(259, 243)
 
 [node name="enemy_spawn_timer" type="Timer" parent="TileMap"]
+wait_time = 3.0
+autostart = true
+
+[node name="resource_spawn_timer" type="Timer" parent="TileMap"]
 wait_time = 3.0
 autostart = true
 
@@ -78,3 +83,4 @@ volume_db = -12.83
 [connection signal="timeout" from="TileMap/enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
+[connection signal="timeout" from="TileMap/resource_spawn_timer" to="TileMap" method="_on_resource_spawn_timer_timeout"]

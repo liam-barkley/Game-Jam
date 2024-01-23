@@ -15,6 +15,16 @@ var arr_spawnable_tiles = []
 var arr_sand_tiles = []
 var arr_grass_tiles = []
 
+var num_trees = 0
+var num_stones = 0
+var num_ores = 0
+var num_batteries = 0
+
+var MAX_TREES = 15
+var MAX_STONES = 15
+var MAX_ORES = 15
+var MAX_BATTERIES = 5
+
 var grass_tile = Vector2i(2,3)
 var sand_tile = Vector2i(8,2)
 
@@ -73,9 +83,9 @@ func _ready():
 	
 func _process(delta):
 	var player_pos = Vector2i(player.position)
-	var tile = Vector2i(player_pos.x/32, player_pos.y/32)
+	var tile = Vector2i(player_pos.x/GRID_SIZE, player_pos.y/GRID_SIZE)
 	
-	label_2.text = ("(" + str(player_pos.x/32) + "," + str(player_pos.y/32) + ")")
+	label_2.text = ("(" + str(player_pos.x/GRID_SIZE) + "," + str(player_pos.y/GRID_SIZE) + ")")
 
 	# set state
 	if not is_corrupted_grid[tile.x][tile.y]:
@@ -114,29 +124,51 @@ func initialize_grid():
 	print("Corruption spawned at: " + str(Vector2i(pos.x, pos.y)))
 
 func initialize_resources():
-	var l = 5
-	var h = 15 + 1
+	var low = 5
 	# spawn wood
-	for i in (randi() % h + l):
+	for i in (randi() % MAX_TREES + 1 + low):
+		spawn_tree()
+	## spawn stone
+	for i in (randi() % MAX_STONES + low):
+		spawn_stone()
+	# spawn ore
+	for i in (randi() % MAX_ORES + low):
+		spawn_ore()
+
+func spawn_tree():
+	if num_trees < MAX_TREES:
 		var r = arr_grass_tiles.pick_random()
 		var tree = wood_tree.instantiate()
 		tree.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		tree.gathered_wood.connect(ui._on_wood_tree_gathered_wood)
+		num_trees += 1
 		add_child(tree)
-	## spawn stone
-	for i in (randi() % h + l):
+
+func spawn_stone():
+	if num_stones < MAX_STONES:
 		var r = get_random_grid_pos()
 		var stone = rock_stone.instantiate()
 		stone.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		stone.gathered_stone.connect(ui._on_rock_stone_gathered_stone)
+		stone.gathered_stone.connect(on_stone_gathered_stone)
+		num_stones += 1
 		add_child(stone)
-	# spawn ore
-	for i in (randi() % h + l):
+
+func spawn_ore():
+	if num_ores < MAX_ORES:
 		var r = arr_sand_tiles.pick_random()
 		var ore = rock_ore.instantiate()
 		ore.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		ore.gathered_ore.connect(ui._on_rock_ore_gathered_ore)
+		ore.gathered_ore.connect(on_ore_gathered_ore)
+		num_ores += 1
 		add_child(ore)
+
+func on_stone_gathered_stone():
+	num_stones -= 1
+
+func on_ore_gathered_ore():
+	num_ores -= 1
 
 # get a random position to spawn an entity
 func get_random_grid_pos():
@@ -232,3 +264,19 @@ func _on_enemy_spawn_timer_timeout():
 
 func _on_spread_timer_timeout():
 	update_grid()
+
+
+func _on_resource_spawn_timer_timeout():
+	var arr_spawn = []
+	
+	if num_trees < MAX_TREES:
+		arr_spawn.append(spawn_tree)
+	if num_stones < MAX_STONES:
+		arr_spawn.append(spawn_stone)
+	if num_ores < MAX_ORES:
+		arr_spawn.append(spawn_ore)
+	
+	if arr_spawn.size() > 0:
+		arr_spawn.pick_random().call()
+	
+	$resource_spawn_timer.wait_time = randi() % 10 + 5
