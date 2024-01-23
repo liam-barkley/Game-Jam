@@ -11,6 +11,12 @@ var NUM_COLS
 
 var is_corrupted_grid = [] # Boolean 2D array of NUM_ROWS * NUM_COLS
 var arr_corrupted_tiles = []
+var arr_spawnable_tiles = []
+var arr_sand_tiles = []
+var arr_grass_tiles = []
+
+var grass_tile = Vector2i(2,3)
+var sand_tile = Vector2i(8,2)
 
 var CORRUPTION_PROBABILITY =  0.1 # 0.05
 
@@ -57,7 +63,7 @@ func _ready():
 
 	# initialization
 	initialize_grid()
-	spawn_resources()
+	initialize_resources()
 	$spread_timer.start()
 	
 	# Random spawning 
@@ -85,6 +91,21 @@ func initialize_grid():
 		var row = []
 		for y in range(NUM_COLS):
 			row.append(false)
+			# tiles
+			position = Vector2i(x, y)
+			var atlas_coord = get_cell_atlas_coords(ground_layer, position)
+			# check for obstacles
+			if get_cell_atlas_coords(ground_object_layer, position) == Vector2i(-1,-1):
+				# set spawnable tiles
+				if valid_spawn_pos(atlas_coord):
+					arr_spawnable_tiles.append(position)
+				# set sand and grass tiles
+				match atlas_coord:
+					grass_tile:
+						arr_grass_tiles.append(position)
+					sand_tile:
+						arr_sand_tiles.append(position)
+
 		is_corrupted_grid.append(row)
 	
 	# Randomly assign one corrupted tile
@@ -92,12 +113,12 @@ func initialize_grid():
 	add_corruption(pos.x, pos.y)
 	print("Corruption spawned at: " + str(Vector2i(pos.x, pos.y)))
 
-func spawn_resources():
+func initialize_resources():
 	var l = 5
 	var h = 15 + 1
 	# spawn wood
 	for i in (randi() % h + l):
-		var r = get_random_grid_pos()
+		var r = arr_grass_tiles.pick_random()
 		var tree = wood_tree.instantiate()
 		tree.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		tree.gathered_wood.connect(ui._on_wood_tree_gathered_wood)
@@ -111,7 +132,7 @@ func spawn_resources():
 		add_child(stone)
 	# spawn ore
 	for i in (randi() % h + l):
-		var r = get_random_grid_pos()
+		var r = arr_sand_tiles.pick_random()
 		var ore = rock_ore.instantiate()
 		ore.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 		ore.gathered_ore.connect(ui._on_rock_ore_gathered_ore)
@@ -119,17 +140,8 @@ func spawn_resources():
 
 # get a random position to spawn an entity
 func get_random_grid_pos():
-	var random = RandomNumberGenerator.new()
-	random.randomize()
-	# ensure spawn occurs on valid location
-	while true:
-		var x = random.randi_range(0, NUM_COLS-1)
-		var y = random.randi_range(0, NUM_ROWS-1)
-		position = Vector2i(x, y)
-		var atlas_coord = get_cell_atlas_coords(ground_layer, position)
-		if valid_spawn_pos(atlas_coord) and (get_cell_atlas_coords(ground_object_layer, position) == Vector2i(-1,-1)):
-			return position
-			
+	return arr_spawnable_tiles.pick_random()
+
 # a valid spawn is any atlas coordinate in the tilemap that is allowed
 func valid_spawn_pos(pos):
 	var invalid_atlas = [Vector2i(10,2), Vector2i(12,1)]
@@ -172,7 +184,7 @@ func add_corruption(nx, ny):
 	var atlas_coords = get_cell_atlas_coords(ground_decor, Vector2i(nx, ny))
 	if atlas_coords == Vector2i(-1, -1):
 		atlas_coords = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
-	if atlas_coords == Vector2i(2,3) and randf() < 0.15:
+	if atlas_coords == grass_tile and randf() < 0.15:
 		atlas_coords = [Vector2i(4,1), Vector2i(3,2), Vector2i(4,3)].pick_random()
 
 	# Instantiate corrupt tile
