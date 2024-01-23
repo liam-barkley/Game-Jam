@@ -1,48 +1,75 @@
 extends CharacterBody2D
 
 @onready var melee_enemy_state_machine = $MeleeEnemyStateMachine
+@onready var animated_sprite_2d = $AnimatedSprite2D
 
 # Constants
-@export var SPEED = 70.0
+@export var SPEED = 35.0
 @export var DAMAGE = 1
 @export var HEALTH = 6
 @export var MAX_HEALTH = 6
 
 # Variables
 var hurt_area
-var target
-var waiting_for_process = false
+var target = null
+var direction = Vector2.ZERO
 
 func _physics_process(_delta):
-	if waiting_for_process:
+	_find_closest_target()
+	
+	if target && !_is_closer_enemy_available():
+		#print("-----------------------------")
+		#print("Target available: ", target)
+		#print("-----------------------------")
+		#melee_enemy_state_machine.transition_to("Move", {"player" = target})
+		direction = global_transform.origin.direction_to(target.global_transform.origin)
+		play_walk_animation()
+		velocity = direction * SPEED
+		move_and_slide()
+
+
+func play_walk_animation():
+	# Player more below than beside
+	if abs(direction.y) >= abs (direction.x):
+		if direction.y >= 0:
+			animated_sprite_2d.play("move_down")
+		else:
+			animated_sprite_2d.play("move_up")
 		return
-	
-	await _find_closest_target()
-	
-	waiting_for_process = true
-	$WaitTimer.start()
+
+	if direction.x >= 0:
+		animated_sprite_2d.play("move_right")
+	else:
+		animated_sprite_2d.play("move_left")
 
 func _on_vision_range_body_entered(body):
-	if body.name == "Player":
-		melee_enemy_state_machine.transition_to("Move", {"player" = body})
+	if body.name == "Player" || body.is_in_group("Towers"):
+		_find_closest_target()
+		print("Body entered: ", body)
+		if target != null:
+			melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
 func _on_vision_range_body_exited(body):
-	if body.name == "Player":
-		var direction = position.direction_to(body.position)
-		melee_enemy_state_machine.transition_to("Idle", {"direction" = direction})
+	if body.name == "Player" || body.is_in_group("Towers"):
+		_find_closest_target()
+		if target == null:
+			var direction = position.direction_to(body.position)
+			melee_enemy_state_machine.transition_to("Idle", {"direction" = direction})
 
 func _on_attack_range_body_entered(body):
-	if body.name != "Player":
+	if body.name != "Player" || body.is_in_group("Towers"):
 		return
-		
-	melee_enemy_state_machine.transition_to("Attack", {"player" = body})
+	
+	if target != null:
+		print("Attacking target: ", target)
+		melee_enemy_state_machine.transition_to("Attack", {"player" = target})
 
 func _on_attack_range_body_exited(body):
-	if body.name != "Player":
+	if body.name != "Player" || body.is_in_group("Towers"):
 		return
 
-	var direction = position.direction_to(body.position)
-	melee_enemy_state_machine.transition_to("Move", {"player" = body})
+	if target != null:
+		melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
 func _on_attack_range_area_entered(area):
 	if area.is_in_group("hurtbox"):
@@ -81,11 +108,16 @@ func _find_closest_target():
 				closest_enemy = body
 	if closest_enemy:
 		target = closest_enemy
-		print("--------------------------------")
-		print("Closest enemy found: ", target.name)
-		print("--------------------------------")
+		#print("--------------------------------")
+		#print("Closest enemy found: ", target.name)
+		#print("--------------------------------")
 	else:
 		target = null
 
-func _on_wait_timer_timeout():
-	waiting_for_process = false
+func _is_closer_enemy_available():
+	for body in $VisionRange.get_overlapping_bodies():
+		if body is CharacterBody2D || body is StaticBody2D && !body.is_in_group("Enemies"):
+			if global_position.distance_to(body.global_position) < global_position.distance_to(target.global_position):
+				return true
+	return false
+
