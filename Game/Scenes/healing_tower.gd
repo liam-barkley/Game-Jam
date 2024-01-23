@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var HEAL_AMOUNT = 1
-var HEALTH = 10
+var HEALTH = 15
 @onready var timer = $Timer
 
 var player

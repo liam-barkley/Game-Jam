@@ -24,7 +24,7 @@ var RANGED_IDX = 2
 # resources for towers [wood, rock, ore, battery]
 var healer_resources = [3, 1, 0, 0]
 var purifier_resources = [0, 2, 2, 1]
-var ranged_resources = [1, 1, 1, 0]
+var ranged_resources = [2, 2, 1, 0]
 
 var num_wood = 0:
 	set(new_wood):

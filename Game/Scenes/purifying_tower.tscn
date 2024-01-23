@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=18 format=3 uid="uid://ff2x2ipc20fh"]
 
 [ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
 [ext_resource type="Texture2D" uid="uid://cs7mbvfxy6m1c" path="res://Arts/Towers/purifier_tower_sheet.png" id="2_6ya81"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_m6ywe"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_c6iru"]
+[ext_resource type="Texture2D" uid="uid://c2ix70am6s572" path="res://Arts/Resources/yellow-outline.png" id="5_l0kuv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w174"]
 size = Vector2(35, 23)
@@ -101,7 +102,7 @@ shape = SubResource("CircleShape2D_0ypho")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ye163")
 autoplay = "default"
-frame_progress = 0.124998
+frame_progress = 0.961446
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -32.0
@@ -110,5 +111,10 @@ offset_right = 32.0
 offset_bottom = -33.0
 texture_under = ExtResource("4_m6ywe")
 texture_progress = ExtResource("5_c6iru")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.00001, 1.5)
+scale = Vector2(0.315197, 0.329787)
+texture = ExtResource("5_l0kuv")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

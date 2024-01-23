@@ -4,6 +4,7 @@ extends TileMap
 @onready var player = $Player
 @export var ui : CanvasLayer
 @onready var label_2 = $"../UI/Label2"
+@onready var spread_timer = $spread_timer
 
 var GRID_SIZE = 32
 var NUM_ROWS
@@ -247,6 +248,14 @@ func add_corruption(nx, ny):
 	is_corrupted_grid[nx][ny] = true
 	arr_corrupted_tiles.append(Vector2(nx, ny))
 	add_child(corruption)
+	
+	# slow corruption
+	if arr_corrupted_tiles.size() > 10 and spread_timer.wait_time != 12:
+		spread_timer.wait_time = 12
+	if arr_corrupted_tiles.size() > 20 and spread_timer.wait_time != 15:
+		spread_timer.wait_time = 15
+	if arr_corrupted_tiles.size() > 30 and spread_timer.wait_time != 20:
+		spread_timer.wait_time = 20
 
 func on_corruption_body_entered(body):
 	if body.name == "Player":
@@ -275,7 +284,7 @@ func _on_enemy_spawn_timer_timeout():
 			enemy.position = Vector2(r.x*GRID_SIZE + GRID_SIZE/2, r.y*GRID_SIZE + GRID_SIZE/2)
 			num_enemies += 1
 			add_child(enemy)
-			$enemy_spawn_timer.wait_time = randi() % 15 + 10
+			$enemy_spawn_timer.wait_time = randi() % 11 + 5
 
 func _on_spread_timer_timeout():
 	update_grid()

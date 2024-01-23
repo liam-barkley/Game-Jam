@@ -1,6 +1,6 @@
 extends Node2D
-@export var HEALTH = 10
-const MAX_HEALTH = 10
+@export var HEALTH = 25
+const MAX_HEALTH = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

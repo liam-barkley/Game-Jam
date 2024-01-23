@@ -3,7 +3,7 @@ extends Node2D
 @onready var shoot_timer = $ShootTimer
 @onready var ray_cast = $RayCast2D
 @export var ammo : PackedScene
-@export var Health = 50
+@export var Health = 20
 
 var shoot_allowed
 var current_target
