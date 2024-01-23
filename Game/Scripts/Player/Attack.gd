@@ -8,7 +8,7 @@ extends State
 var direction = Vector2.ZERO
 
 func enter(msg := {}) -> void:
-	print("Player entering ATTACK state")
+	# print("Player entering ATTACK state")
 	if msg.has("direction"):
 		direction = msg.direction
 

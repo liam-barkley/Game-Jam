@@ -190,7 +190,6 @@ func add_corruption(nx, ny):
 	add_child(corruption)
 
 func on_corruption_body_entered(body):
-	print(body.name)
 	if body.name == "Player":
 		if current_state != states.CORRUPTION:
 			current_state = states.CORRUPTION
@@ -210,7 +209,7 @@ func _on_enemy_spawn_timer_timeout():
 	if num_enemies < num_corrupt_tiles / FRAC && arr_corrupted_tiles.size() > 0:
 		# get random corruption tile
 		var r = arr_corrupted_tiles.pick_random()
-		print("spawned enemy at: " + str(r))
+		# print("spawned enemy at: " + str(r))
 		if valid_spawn_pos(get_cell_atlas_coords(ground_layer, r)):
 			# get random enemy
 			var enemy = enemies.pick_random().instantiate()

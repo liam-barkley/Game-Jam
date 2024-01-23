@@ -7,7 +7,8 @@ var old_direction = Vector2.ZERO
 var direction = Vector2.ZERO
 
 func enter(msg := {}) -> void:
-	print("Player Entering Move state")
+	# print("Player Entering Move state")
+	pass
 
 func physics_update(delta: float) -> void:
 	# Get the input direction and handle states

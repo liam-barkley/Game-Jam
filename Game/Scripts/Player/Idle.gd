@@ -6,7 +6,7 @@ var direction = Vector2.ZERO
 
 # Upon entering the state, we set the Player node's velocity to zero.
 func enter(msg := {}) -> void:
-	print("Player Entering Idle state")
+	# print("Player Entering Idle state")
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
 	
