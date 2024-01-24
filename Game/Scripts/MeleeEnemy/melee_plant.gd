@@ -83,9 +83,9 @@ func _on_attack_range_area_exited(area):
 func _on_attack_timer_timeout():
 	# give time to get away
 	await get_tree().create_timer(0.75).timeout
-	print("##########################################################")
-	print("Hurt area: ", hurt_area)
-	print("##########################################################")
+	#print("##########################################################")
+	#print("Hurt area: ", hurt_area)
+	#print("##########################################################")
 	if hurt_area != null:
 		hurt_area.take_damage(DAMAGE)
 
