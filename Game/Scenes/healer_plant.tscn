@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4ehkq53nnm53"]
+
+[ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
+[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_usvm2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
+size = Vector2(56, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iuqc"]
+size = Vector2(56, 56)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nnu6n"]
+radius = 260.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0vq2"]
+radius = 125.004
+
+[sub_resource type="GDScript" id="GDScript_iwb03"]
+script/source = "extends FiniteStateMachine
+"
+
+[sub_resource type="GDScript" id="GDScript_0o3ju"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_nivsu"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_h6nru"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="HealerPlant" type="Node2D"]
+script = ExtResource("1_m2qsc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 9.53674e-07)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("1_usvm2")
+
+[node name="HealerPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
+visible = false
+
+[node name="Body" type="CollisionShape2D" parent="HealerPlant"]
+shape = SubResource("RectangleShape2D_50qdc")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_8iuqc")
+
+[node name="VisionRange" type="Area2D" parent="." groups=["Enemies"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
+shape = SubResource("CircleShape2D_nnu6n")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="HealRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealRange"]
+shape = SubResource("CircleShape2D_b0vq2")
+
+[node name="HealTimer" type="Timer" parent="."]
+
+[node name="WaitTimer" type="Timer" parent="."]
+
+[node name="HealerEnemyStateMachine" type="Node" parent="."]
+script = SubResource("GDScript_iwb03")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_0o3ju")
+
+[node name="Death" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_nivsu")
+
+[node name="Heal" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_h6nru")
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
+[connection signal="body_entered" from="HealRange" to="." method="_on_heal_range_body_entered"]
+[connection signal="body_exited" from="HealRange" to="." method="_on_heal_range_body_exited"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
