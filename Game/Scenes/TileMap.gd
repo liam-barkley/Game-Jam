@@ -27,7 +27,7 @@ var MAX_ORES = 15
 var MAX_BATTERIES = 5
 
 
-var CORRUPTION_PROBABILITY =  0.1 # 0.05
+var CORRUPTION_PROBABILITY =  0.2 # 0.05
 
 var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 var wood_tree = preload("res://Scenes/wood_tree.tscn")
@@ -90,22 +90,19 @@ func _process(delta):
 	# set state
 	if not is_corrupted_grid[tile.x][tile.y]:
 		var atlas_coord = get_cell_atlas_coords(ground_layer, tile)
-		if current_state != states.GRASS and [Vector2i(2,3)].has(atlas_coord):
+		if current_state != states.GRASS and atlas_coord.y <= 3:
 			current_state = states.GRASS
-		elif current_state != states.BEACH and atlas_coord.x >= 6:
+		elif current_state != states.BEACH and atlas_coord.y > 3:
 			current_state = states.BEACH
 			
 	# slow corruption
 	var size = arr_corrupted_tiles.size()
 	if size < 5 and spread_timer.wait_time != 5:
 		spread_timer.wait_time = 5
-		#print(spread_timer.wait_time)
-	elif arr_corrupted_tiles.size() % 5 == 0 and size < 100 and spread_timer.wait_time != arr_corrupted_tiles.size() * 0.1 + 4.5:
-		spread_timer.wait_time = arr_corrupted_tiles.size() * 0.1 + 4.5
-		#print(spread_timer.wait_time)
-	elif size >= 100 and spread_timer.wait_time != 12:
+	elif arr_corrupted_tiles.size() % 2 == 0 and size < 200 and spread_timer.wait_time != arr_corrupted_tiles.size() * 0.02 + 4.5:
+		spread_timer.wait_time = arr_corrupted_tiles.size() * 0.02 + 4.5
+	elif size >= 200 and spread_timer.wait_time != 12:
 		spread_timer.wait_time = 12
-		#print(spread_timer.wait_time)
 	
 func initialize_grid():
 	# Initialize 2d array

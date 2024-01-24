@@ -29,9 +29,8 @@ var ground_layer = 0
 var ground_decor = 1
 var ground_object_layer = 2
 
-var sand_terrain_idx = 4
-var grass_terrain_idx = 3
-var lightwater_terrain_idx = 2
+var sand_terrain_idx = 0
+var grass_terrain_idx = 1
 
 var lightwater_tiles_arr = []
 var sand_tiles_arr = []
@@ -58,7 +57,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("build"):
 		var mouse_pos = get_local_mouse_position()
 		var player_pos = player.position
-		
+
 		# building radius
 		var distance = sqrt(pow(mouse_pos.x - player_pos.x, 2) + pow(mouse_pos.y - player_pos.y, 2))
 		if distance >= 3 * grid_size:
@@ -84,26 +83,15 @@ func gen_world():
 			# debug info
 			var noise_val = noise.get_noise_2d(x, y)
 			noise_val_array.append(noise_val)
-
-			# dark water
-			tile_map.set_cell(0, pos, source, light_water_atlas)
-
-			# outer shallow water random
-			if distance <= min(center_x, center_y) + 4 and distance > min(center_x, center_y) + 1:
-				if noise_val > 0.4:
-					lightwater_tiles_arr.append(pos)
-			# light water boundary
-			if distance <= min(center_x, center_y) + 1:
-				tile_map.set_cell(0, pos, source, light_water_atlas)
 			
 			# outer beach random
-			if distance <= min(center_x, center_y) - 1 and distance > min(center_x, center_y) - 3 :
+			if distance <= min(center_x, center_y) - 1 and distance > min(center_x, center_y) - 2 :
 				if noise_val > 0.4:
 					sand_tiles_arr.append(pos)
 					if randf() < SAND_PROBABILITY:
 						tile_map.set_cell(ground_decor, pos, source, sand_atlas_arr.pick_random())
 			# beach boundary
-			if distance <= min(center_x, center_y) - 3 and distance >= min(center_x, center_y) - 6:
+			if distance <= min(center_x, center_y) - 2 and distance >= min(center_x, center_y) - 6:
 				sand_tiles_arr.append(pos)
 				if randf() < ROCK_PROBABILITY:
 					tile_map.set_cell(ground_object_layer, pos, source, rock_atlas.pick_random())
@@ -131,7 +119,6 @@ func gen_world():
 						if randf() < ROCK_PROBABILITY:
 							tile_map.set_cell(ground_object_layer, pos, source, rock_atlas.pick_random())
 
-	tile_map.set_cells_terrain_connect(ground_layer, lightwater_tiles_arr, lightwater_terrain_idx, 0)
 	tile_map.set_cells_terrain_connect(ground_layer, sand_tiles_arr, sand_terrain_idx, 0)
 	tile_map.set_cells_terrain_connect(ground_layer, grass_tiles_arr, grass_terrain_idx, 0)
 
