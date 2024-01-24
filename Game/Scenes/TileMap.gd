@@ -26,8 +26,6 @@ var MAX_STONES = 15
 var MAX_ORES = 15
 var MAX_BATTERIES = 5
 
-var grass_tile = Vector2i(2,3)
-var sand_tile = Vector2i(8,2)
 
 var CORRUPTION_PROBABILITY =  0.1 # 0.05
 
@@ -118,17 +116,18 @@ func initialize_grid():
 			# tiles
 			position = Vector2i(x, y)
 			var atlas_coord = get_cell_atlas_coords(ground_layer, position)
-			# check for obstacles
-			if get_cell_atlas_coords(ground_object_layer, position) == Vector2i(-1,-1):
-				# set spawnable tiles
-				if valid_spawn_pos(atlas_coord):
-					arr_spawnable_tiles.append(position)
-				# set sand and grass tiles
-				match atlas_coord:
-					grass_tile:
-						arr_grass_tiles.append(position)
-					sand_tile:
-						arr_sand_tiles.append(position)
+			var source_id = get_cell_source_id(ground_layer, position)
+			if source_id == proc_gen_world.source:
+				# check for obstacles
+				if get_cell_atlas_coords(ground_object_layer, position) == Vector2i(-1,-1):
+					# set spawnable tiles
+					if valid_spawn_pos(atlas_coord):
+						arr_spawnable_tiles.append(position)
+						# set sand and grass tiles
+						if atlas_coord.y <= 3:
+							arr_grass_tiles.append(position)
+						elif atlas_coord .y > 3:
+							arr_sand_tiles.append(position)
 
 		is_corrupted_grid.append(row)
 	
@@ -204,7 +203,7 @@ func get_random_grid_pos():
 
 # a valid spawn is any atlas coordinate in the tilemap that is allowed
 func valid_spawn_pos(pos):
-	var invalid_atlas = [Vector2i(10,2), Vector2i(12,1)]
+	var invalid_atlas = [Vector2i(11,7)]
 	return not invalid_atlas.has(pos)
 #
 func update_grid():
@@ -240,19 +239,20 @@ func spread_corruption(x, y):
 func add_corruption(nx, ny):
 	# Get vectors
 	var pos = Vector2(nx * GRID_SIZE, ny * GRID_SIZE)
-	# get tile to display
-	var atlas_coords = get_cell_atlas_coords(ground_decor, Vector2i(nx, ny))
-	if atlas_coords == Vector2i(-1, -1):
-		atlas_coords = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
-	if atlas_coords == grass_tile and randf() < 0.15:
-		atlas_coords = [Vector2i(4,1), Vector2i(3,2), Vector2i(4,3)].pick_random()
+	var ground_atlas = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
 
 	# Instantiate corrupt tile
 	var corruption = corrupted_tile.instantiate()
 	corruption.position = pos 
-	# Set corrupted tile
-	corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), 2, atlas_coords)
 	
+	# Set corrupted tile
+
+	var atlas_coords = get_cell_atlas_coords(ground_layer, Vector2i(nx, ny))
+	corruption.get_node("CorrosionTiles").set_cell(0, Vector2i(0,0), proc_gen_world.source_corruption, atlas_coords)
+
+	atlas_coords = get_cell_atlas_coords(ground_decor, Vector2i(nx, ny))
+	if atlas_coords != Vector2i(-1, -1):
+		corruption.get_node("CorrosionTiles").set_cell(1, Vector2i(0,0), proc_gen_world.source_corruption, atlas_coords)
 	# Link signals
 	corruption.clear.connect(on_corruption_clear)
 	corruption.body_entered.connect(on_corruption_body_entered)
@@ -292,7 +292,6 @@ func _on_enemy_spawn_timer_timeout():
 
 func _on_spread_timer_timeout():
 	update_grid()
-	print("timer fired!")
 
 func _on_resource_spawn_timer_timeout():
 	var arr_spawn = []
