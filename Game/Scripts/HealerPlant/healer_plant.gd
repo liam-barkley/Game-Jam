@@ -28,17 +28,20 @@ func _process(delta):
 		$WaitTimer.start()
 		
 	if target != null:
+		#print("------------------------------")
+		#print("Target to heal: ", target)
+		#print("------------------------------")
 		waiting_for_process = true
 		$WaitTimer.start()
-		if target.name == "MeleePlant":
-			if $HealRange.overlaps_body(target) && can_heal_enemy:
-				heal_timer.start()
-				can_heal_enemy = false
-				print("Timer started")
-		if target.name == "RangedPlant":
-			if $HealRange.overlaps_body(target.get_parent()) && can_heal_enemy:
-				heal_timer.start()
-				can_heal_enemy = false
+		#if target.name == "MeleePlant":
+		if $HealRange.overlaps_body(target) && can_heal_enemy:
+			heal_timer.start()
+			can_heal_enemy = false
+			print("Timer started")
+		#if target.name == "RangedPlant":
+			#if $HealRange.overlaps_body(target.get_parent()) && can_heal_enemy:
+				#heal_timer.start()
+				#can_heal_enemy = false
 
 func _on_vision_range_body_entered(body):
 	if target == null:
@@ -59,10 +62,10 @@ func _on_heal_range_body_exited(body):
 
 func _on_heal_timer_timeout():
 	if target != null:
-		print("------------------------------------------")
-		print("Target to heal: ", target)
-		print("Target health: ", target.HEALTH)
-		print("------------------------------------------")
+		#print("------------------------------------------")
+		#print("Target to heal: ", target)
+		#print("Target health: ", target.HEALTH)
+		#print("------------------------------------------")
 		_heal_current_target(target)
 
 func _heal_current_target(heal_target):
@@ -75,12 +78,12 @@ func _heal_current_target(heal_target):
 func _find_new_target():
 	for body in $VisionRange.get_overlapping_bodies():
 		if body is CharacterBody2D && body.name != "HealerPlant":
-			if body.name == "RangedPlant":
-				if body.get_parent().HEALTH < body.get_parent().MAX_HEALTH:
-					target = body.get_parent()
-					can_heal_enemy = true
-					print("New healable target found: ", target)
-			if body.name == "MeleePlant":
+			#if body.name == "RangedPlant":
+				#if body.get_parent().HEALTH < body.get_parent().MAX_HEALTH:
+					#target = body.get_parent()
+					#can_heal_enemy = true
+					#print("New healable target found: ", target)
+			#if body.name == "MeleePlant":
 				if body.HEALTH < body.MAX_HEALTH:
 					target = body
 					can_heal_enemy = true
