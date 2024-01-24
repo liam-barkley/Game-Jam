@@ -28,16 +28,17 @@ func _process(delta):
 	
 func search_for_enemies():
 	var closest_enemy
-	var closest_enemy_dist = 100000000
+	var closest_enemy_dist = 690420
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 	
 	if enemies.size() != 0:
 		
 		for enemy in enemies:
 			
-			var dist = (enemy.position.x-self.position.x)*(enemy.position.x-self.position.x) + (enemy.position.y - self.position.y)*(enemy.position.y - self.position.y)
+			var dist = (enemy.global_position.x-self.global_position.x)*(enemy.global_position.x-self.global_position.x) + (enemy.global_position.y - self.global_position.y)*(enemy.global_position.y - self.global_position.y)
 			if (dist <= closest_enemy_dist) and enemy.name != "HurtBox":
 				closest_enemy_dist = dist
+				
 				closest_enemy = enemy
 	else:
 		shoot_timer.stop()

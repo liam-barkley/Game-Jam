@@ -36,7 +36,7 @@ func search_closest_tower():
 	var towers = get_tree().get_nodes_in_group("Towers")
 	if towers.size() != 0:
 		for tower in towers:
-			var dist = (tower.position.x-self.position.x)*(tower.position.x-self.position.x)+(tower.position.y - self.position.y)*(tower.position.y - self.position.y)
+			var dist = (tower.global_position.x-self.global_position.x)*(tower.global_position.x-self.global_position.x)+(tower.global_position.y - self.global_position.y)*(tower.global_position.y - self.global_position.y)
 			
 			if (dist < closest_tower_dist):
 				closest_tower_dist = dist
@@ -56,7 +56,7 @@ func _physics_process(delta):
 			playerRay.target_position = to_local(player.global_position)
 		current_target = null
 		if velocity != Vector2.ZERO:
-			print(velocity)
+			
 			shoot_timer.stop()
 		ray_cast.target_position = Vector2.ZERO
 		if player_in_proximity == false:
@@ -92,12 +92,12 @@ func check_target_collision(target):
 	#print(str(ray_cast.get_collider())+" "+ str(playerRay.get_collider())+" "+target.name)
 	if (target.is_in_group("Towers") or (ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped() and velocity == Vector2.ZERO:
 		shoot_timer.start()
-		print("shoot")
+		
 		
 		
 	elif !(target.is_in_group("Towers") or !(ray_cast.get_collider() == player or playerRay.get_collider() == player)) and shoot_timer.is_stopped():
 		#this can be inefficient
-		print("stop shoot")
+		
 		shoot_timer.stop()
 		shoot_allowed = false
 
@@ -172,7 +172,7 @@ func _get_health():
 func _on_tower_shoot_area_entered(area):
 	if dead:
 		pass
-	print(area.name+""+str(area))
+	
 	if area.is_in_group("Allies"):
 		TowerInArea = true
 
@@ -181,5 +181,4 @@ func _on_tower_shoot_area_exited(area):
 	if dead:
 		pass
 	if area.is_in_group("Allies"):
-		print(false)
 		TowerInArea = false

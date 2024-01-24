@@ -1,7 +1,7 @@
 extends Node2D
 
 var direction : Vector2 = Vector2.RIGHT
-var speed : float = 100
+var speed : float = 250
 var DAMAGE = 2
 var attack_pressed=false
 var area_space
@@ -30,10 +30,6 @@ func _on_bullet_size_area_exited(area):
 
 func _on_area_2d_area_entered(area):
 	area_space=area
-	print(area.is_in_group("Weapons"))
-	print(area.is_in_group("Enemies"))
-	print(area.is_in_group("EnemyHealth"))
-	print(area.is_in_group("hurtbox"))
 	if area.is_in_group("Weapons"):
 		queue_free()
 	if area.is_in_group("Enemies"):

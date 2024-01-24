@@ -6,11 +6,11 @@
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
 [ext_resource type="Script" path="res://Scripts/Dead.gd" id="6_rim3o"]
-[ext_resource type="Texture2D" uid="uid://cxumox3nmqn15" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
-[ext_resource type="AudioStream" uid="uid://b8y10x6758uc8" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
-[ext_resource type="Texture2D" uid="uid://cj763pjjwlt1s" path="res://Arts/Enemies/ranged_plant_death_sheet.png" id="8_xxebw"]
-[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
-[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
+[ext_resource type="Texture2D" uid="uid://bmucevrqw4crh" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
+[ext_resource type="AudioStream" uid="uid://uunobh13gp8d" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
+[ext_resource type="Texture2D" uid="uid://bn58kb4ohg8xa" path="res://Arts/Enemies/ranged_plant_death_sheet.png" id="8_xxebw"]
+[ext_resource type="Texture2D" uid="uid://djwd2kit7ti8r" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
+[ext_resource type="Texture2D" uid="uid://cen3xr4pllj65" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8a27h"]
 
