@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://dcvpxnk1vi847"]
 
-[ext_resource type="Texture2D" uid="uid://ch0j2qg50q5lo" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
+[ext_resource type="Texture2D" uid="uid://cx2d53o2fen6b" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
 [ext_resource type="Script" path="res://Scripts/UI/ui.gd" id="1_fhapp"]
-[ext_resource type="Texture2D" uid="uid://tmasof6f7210" path="res://Arts/Resources/Wood-icon.png" id="2_2yyba"]
-[ext_resource type="Texture2D" uid="uid://cq8qfish7bo6a" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
-[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
-[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
-[ext_resource type="Texture2D" uid="uid://dcnwi83f8liqg" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
+[ext_resource type="Texture2D" uid="uid://bsreshm1t7vba" path="res://Arts/Resources/Wood-icon.png" id="2_2yyba"]
+[ext_resource type="Texture2D" uid="uid://2xi5fnehvbsx" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
+[ext_resource type="Texture2D" uid="uid://ckuiju75r00n" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
+[ext_resource type="Texture2D" uid="uid://brpu3ogpn8u33" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
+[ext_resource type="Texture2D" uid="uid://bfcukv83wjd1l" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
 [ext_resource type="Theme" uid="uid://e81g3sxbef5w" path="res://Resources/default_theme.tres" id="7_hnhho"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8b8r"]
@@ -125,6 +125,84 @@ grow_horizontal = 2
 theme = ExtResource("7_hnhho")
 theme_override_font_sizes/font_size = 10
 
+[node name="VictoryScreen" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0.054902, 0.0627451, 0.47451)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/VictoryScreen"]
+layout_mode = 2
+offset_right = 620.0
+offset_bottom = 350.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VictoryScreen/CenterContainer"]
+layout_mode = 2
+
+[node name="WinLabel" type="Label" parent="Control/VictoryScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Congratulations! You beat the game..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VictoryScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MainMenuButton" type="Button" parent="Control/VictoryScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="Control/VictoryScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Quit"
+
+[node name="DeathScreen" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0.054902, 0.0627451, 0.47451)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/DeathScreen"]
+layout_mode = 2
+offset_right = 620.0
+offset_bottom = 350.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/DeathScreen/CenterContainer"]
+layout_mode = 2
+
+[node name="DeathLabel" type="Label" parent="Control/DeathScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "You lose..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/DeathScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MainMenuButton" type="Button" parent="Control/DeathScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="Control/DeathScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Quit"
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 6
 anchor_left = 1.0
@@ -148,4 +226,10 @@ Scroll to zoom
 label_settings = SubResource("LabelSettings_h8b8r")
 horizontal_alignment = 2
 
+[connection signal="lose" from="." to="." method="_on_lose"]
+[connection signal="victory" from="." to="." method="_on_victory"]
 [connection signal="item_selected" from="Control/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Control/VictoryScreen/CenterContainer/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Control/VictoryScreen/CenterContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Control/DeathScreen/CenterContainer/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Control/DeathScreen/CenterContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
