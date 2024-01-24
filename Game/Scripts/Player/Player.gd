@@ -5,6 +5,7 @@ signal health_changed
 # Nodes
 @onready var state_machine = $StateMachine
 @onready var camera_2d = $Camera2D
+@onready var ui = $"../../UI"
 
 # Constants
 @export var SPEED = 200.0
@@ -19,6 +20,7 @@ signal health_changed
 func _physics_process(_delta):
 	if health == 0:
 		state_machine.transition_to("Death")
+		ui.emit_signal("lose")
 
 func _on_sword_hitbox_area_entered(area):
 	if area.is_in_group("hurtbox") and not area.is_in_group("player"):

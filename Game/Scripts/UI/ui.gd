@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+signal victory
+signal lose
+
 @export var player: CharacterBody2D
 
 @onready var player_health_bar = %PlayerHealthBar
@@ -10,6 +13,8 @@ extends CanvasLayer
 @onready var battery_label = %BatteryLabel
 @onready var label = $Control/MarginContainer/MarginContainer/BoxContainer/PlayerHealthBar/Label
 @onready var option_button = $Control/OptionButton
+@onready var victory_screen = %VictoryScreen
+@onready var death_screen = %DeathScreen
 
 var tower_selected : int = 0
 
@@ -140,3 +145,15 @@ func _on_battery_gathered_battery():
 
 func _on_option_button_item_selected(index):
 	tower_selected = index
+
+func _on_victory():
+	victory_screen.visible = true
+
+func _on_main_menu_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+
+func _on_quit_button_pressed():
+	get_tree().quit()
+
+func _on_lose():
+	death_screen.visible = true
