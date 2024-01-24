@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var Ranged_enemy_state_machine = $RangedEnemyStateMachine
 @onready var shoot_timer = $ShootTimer
 @onready var ray_cast = $RayCast2D
+@onready var ranged_enemy_state_machine = $RangedEnemyStateMachine
 @onready var bullety = get_parent().get_node("RangedPlantBullet")
 @export var HEALTH = 10
 @export var MAX_HEALTH = 10
@@ -149,7 +150,7 @@ func _on_damage_area_entered(area):
 		HEALTH -= 2
 		if HEALTH <=0:
 			get_parent().get_parent().num_enemies -= 1
-			get_parent().queue_free()
+			ranged_enemy_state_machine.transition_to("Dead")
 		
 func _get_health():
 	return HEALTH
