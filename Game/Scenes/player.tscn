@@ -1,18 +1,18 @@
 [gd_scene load_steps=98 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
-[ext_resource type="Texture2D" uid="uid://dsj8f5kmu522o" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
-[ext_resource type="Texture2D" uid="uid://wdjcewr33hls" path="res://Arts/Characters/character_death_sheet.png" id="3_0dtkt"]
+[ext_resource type="Texture2D" uid="uid://rbk8ujkm41uc" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
+[ext_resource type="Texture2D" uid="uid://cbb87dwyihjy" path="res://Arts/Characters/character_death_sheet.png" id="3_0dtkt"]
 [ext_resource type="Script" path="res://Scripts/Player/StateMachine.gd" id="3_jlv1t"]
-[ext_resource type="Texture2D" uid="uid://3apk0slm8jjg" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
+[ext_resource type="Texture2D" uid="uid://cbkubeuuteug5" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
 [ext_resource type="PackedScene" uid="uid://dl7yy65bwdxiu" path="res://Scenes/hurtbox.tscn" id="3_qohu5"]
-[ext_resource type="Texture2D" uid="uid://djs5cn15cqljs" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
+[ext_resource type="Texture2D" uid="uid://dkfraba312ece" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
 [ext_resource type="Script" path="res://Scripts/Player/Idle.gd" id="4_p7012"]
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
 [ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
-[ext_resource type="AudioStream" uid="uid://bns6h0frviovv" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
-[ext_resource type="AudioStream" uid="uid://c4haeohdu06mx" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
+[ext_resource type="AudioStream" uid="uid://dnsrhsjlbe8fm" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
+[ext_resource type="AudioStream" uid="uid://bh5lwii0db777" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35oo8"]
 atlas = ExtResource("2_kigft")
@@ -656,7 +656,7 @@ size = Vector2(17.25, 46)
 [node name="Player" type="CharacterBody2D" groups=["AllyBody"]]
 y_sort_enabled = true
 collision_layer = 4
-collision_mask = 27
+collision_mask = 11
 script = ExtResource("1_ex118")
 SPEED = 150.0
 
