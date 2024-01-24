@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfmks6knlfcvn"]
+[gd_scene load_steps=7 format=3 uid="uid://bfmks6knlfcvn"]
 
 [ext_resource type="PackedScene" uid="uid://cfr2wjve2btpe" path="res://Scenes/player.tscn" id="1_ya5jb"]
 [ext_resource type="PackedScene" uid="uid://dcvpxnk1vi847" path="res://Scenes/ui.tscn" id="2_ubxr8"]
 [ext_resource type="PackedScene" uid="uid://dxro5vqes58k4" path="res://Scenes/battery.tscn" id="3_ojdy3"]
 [ext_resource type="PackedScene" uid="uid://ccpocuyp60wrf" path="res://Scenes/rock_ore.tscn" id="4_v7nu6"]
+[ext_resource type="PackedScene" uid="uid://d0xwe7ass64p6" path="res://Scenes/melee_plant.tscn" id="5_ym5lh"]
 [ext_resource type="PackedScene" uid="uid://bkaacwghv2qqi" path="res://Scenes/ranged_plant.tscn" id="7_fuq5h"]
 
 [node name="Test_Gunther" type="Node2D"]
@@ -21,4 +22,6 @@ position = Vector2(243, 165)
 position = Vector2(177, 89)
 
 [node name="RangedPlant" parent="." instance=ExtResource("7_fuq5h")]
-position = Vector2(56, 329)
+position = Vector2(60, 175)
+
+[node name="MeleePlant" parent="." instance=ExtResource("5_ym5lh")]

@@ -1,13 +1,14 @@
-[gd_scene load_steps=95 format=3 uid="uid://bkaacwghv2qqi"]
+[gd_scene load_steps=102 format=3 uid="uid://bkaacwghv2qqi"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant.gd" id="1_yqd74"]
 [ext_resource type="PackedScene" uid="uid://dxybe0vg3ydag" path="res://Scenes/ranged_plant_bullet.tscn" id="2_3cd2n"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/RangedEnemyStateMachine.gd" id="3_2ya5m"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Idle.gd" id="4_ml4as"]
 [ext_resource type="Script" path="res://Scripts/RangedPlant/Attack.gd" id="5_mwqlf"]
-[ext_resource type="Script" path="res://Scenes/Dead.gd" id="6_3u4kb"]
-[ext_resource type="Texture2D" uid="uid://bmucevrqw4crh" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
-[ext_resource type="AudioStream" uid="uid://uunobh13gp8d" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
+[ext_resource type="Script" path="res://Scripts/Dead.gd" id="6_rim3o"]
+[ext_resource type="Texture2D" uid="uid://cxumox3nmqn15" path="res://Arts/Enemies/ranged_plant_sheet.png" id="7_cmcv2"]
+[ext_resource type="AudioStream" uid="uid://b8y10x6758uc8" path="res://SFX/Plant shooting.mp3" id="8_xls6p"]
+[ext_resource type="Texture2D" uid="uid://cj763pjjwlt1s" path="res://Arts/Enemies/ranged_plant_death_sheet.png" id="8_xxebw"]
 [ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="9_jq8k1"]
 [ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="10_xb07b"]
 
@@ -114,6 +115,30 @@ region = Rect2(96, 576, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3dhwc"]
 atlas = ExtResource("7_cmcv2")
 region = Rect2(144, 576, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ui1e"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8u0q"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7lp1"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdc0y"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbbcs"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmqxd"]
+atlas = ExtResource("8_xxebw")
+region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds5n7"]
 atlas = ExtResource("7_cmcv2")
@@ -427,6 +452,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_1ui1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8u0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7lp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdc0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbbcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmqxd")
+}],
+"loop": false,
+"name": &"death",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ds5n7")
 }, {
 "duration": 1.0,
@@ -694,12 +742,13 @@ script = ExtResource("4_ml4as")
 script = ExtResource("5_mwqlf")
 
 [node name="Dead" type="Node" parent="RangedPlant/RangedEnemyStateMachine"]
-script = ExtResource("6_3u4kb")
+script = ExtResource("6_rim3o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RangedPlant"]
 sprite_frames = SubResource("SpriteFrames_03c8w")
-animation = &"stand_up"
-frame_progress = 0.636988
+animation = &"death"
+frame = 5
+frame_progress = 1.0
 
 [node name="RayCast2D" type="RayCast2D" parent="RangedPlant"]
 target_position = Vector2(0, 0)

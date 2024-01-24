@@ -1,8 +1,9 @@
-[gd_scene load_steps=91 format=3 uid="uid://d0xwe7ass64p6"]
+[gd_scene load_steps=98 format=3 uid="uid://d0xwe7ass64p6"]
 
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/melee_plant.gd" id="1_3cudg"]
 [ext_resource type="Texture2D" uid="uid://yeufmwf4l0cn" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="2_8ydh8"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/MeleeEnemyStateMachine.gd" id="3_2xv1x"]
+[ext_resource type="Texture2D" uid="uid://c7uc2b3uwmps" path="res://Arts/Enemies/melee_plant_death_sheet.png" id="3_cl32f"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Idle.gd" id="4_pubb2"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Attack.gd" id="5_q13uw"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Move.gd" id="6_f7deh"]
@@ -103,6 +104,30 @@ region = Rect2(96, 576, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8oh0b"]
 atlas = ExtResource("2_8ydh8")
 region = Rect2(144, 576, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_887jv"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v05p5"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqs5h"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sx1ly"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjtan"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uay3r"]
+atlas = ExtResource("3_cl32f")
+region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0wj8"]
 atlas = ExtResource("2_8ydh8")
@@ -416,6 +441,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_887jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v05p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqs5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sx1ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjtan")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uay3r")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_q0wj8")
 }, {
 "duration": 1.0,
@@ -657,7 +705,7 @@ script = ExtResource("1_3cudg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c0frd")
-animation = &"attack_down"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yxi7q")

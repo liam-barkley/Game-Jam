@@ -96,7 +96,7 @@ func _on_hurtbox_area_entered(area):
 
 	if HEALTH <=0:
 		get_parent().num_enemies -= 1
-		queue_free()
+		melee_enemy_state_machine.transition_to("Death")
 
 func _find_closest_target():
 	var closest_enemy = null

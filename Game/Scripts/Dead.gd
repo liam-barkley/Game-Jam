@@ -1,9 +1,9 @@
 extends State
 
 @onready var animated_sprite_2d = $"../../AnimatedSprite2D"
-@onready var melee_plant = $"../.."
+@onready var ranged_plant = $"../../.."
 
-func enter(_msg := {}) -> void:
+func physics_update(delta: float) -> void:
 	animated_sprite_2d.play("death")
 	await animated_sprite_2d.animation_finished
-	melee_plant.queue_free()
+	ranged_plant.queue_free()

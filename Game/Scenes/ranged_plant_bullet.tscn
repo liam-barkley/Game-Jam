@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxybe0vg3ydag"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_plant_bullet.gd" id="1_m0v06"]
-[ext_resource type="Texture2D" uid="uid://btj0s0vd810t5" path="res://Arts/Enemies/ranged_bullet.png" id="2_q3kpo"]
+[ext_resource type="Texture2D" uid="uid://bq1ykr4i3pb1b" path="res://Arts/Enemies/ranged_bullet.png" id="2_q3kpo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5amdc"]
 atlas = ExtResource("2_q3kpo")
