@@ -74,7 +74,7 @@ func _on_attack_range_body_exited(body):
 
 	print($AttackRange.get_overlapping_bodies().find("Player"))
 
-	if target != null && $AttackRange.get_overlapping_bodies().find("Player") != -1:
+	if target != null:
 		mobile = true
 		melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
