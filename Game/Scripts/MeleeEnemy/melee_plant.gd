@@ -5,9 +5,9 @@ extends CharacterBody2D
 
 # Constants
 @export var SPEED = 50.0
-@export var DAMAGE = 2
-@export var HEALTH = 6
-@export var MAX_HEALTH = 6
+@export var DAMAGE = 9
+@export var HEALTH = 10
+@export var MAX_HEALTH = 10
 
 # Variables
 var hurt_area
@@ -45,7 +45,7 @@ func _on_vision_range_body_entered(body):
 	if dead: return
 	if body.name == "Player" || body.is_in_group("Towers"):
 		_find_closest_target()
-		print("Body entered: ", body)
+		#print("Body entered: ", body)
 		if target != null:
 			melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
@@ -64,7 +64,7 @@ func _on_attack_range_body_entered(body):
 	
 	if target != null:
 		mobile = false
-		print("Attacking target: ", target)
+		#print("Attacking target: ", target)
 		melee_enemy_state_machine.transition_to("Attack", {"player" = target})
 
 func _on_attack_range_body_exited(body):
@@ -72,7 +72,9 @@ func _on_attack_range_body_exited(body):
 	if !body.is_in_group("AllyBody"):
 		return
 
-	if target != null:
+	print($AttackRange.get_overlapping_bodies().find("Player"))
+
+	if target != null && $AttackRange.get_overlapping_bodies().find("Player") != -1:
 		mobile = true
 		melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
