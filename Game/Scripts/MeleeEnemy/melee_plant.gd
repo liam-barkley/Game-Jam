@@ -42,6 +42,7 @@ func play_walk_animation():
 		animated_sprite_2d.play("move_left")
 
 func _on_vision_range_body_entered(body):
+	if dead: return
 	if body.name == "Player" || body.is_in_group("Towers"):
 		_find_closest_target()
 		print("Body entered: ", body)
@@ -49,6 +50,7 @@ func _on_vision_range_body_entered(body):
 			melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
 func _on_vision_range_body_exited(body):
+	if dead: return
 	if body.name == "Player" || body.is_in_group("Towers"):
 		_find_closest_target()
 		if target == null:
@@ -56,6 +58,7 @@ func _on_vision_range_body_exited(body):
 			melee_enemy_state_machine.transition_to("Idle", {"direction" = direction})
 
 func _on_attack_range_body_entered(body):
+	if dead: return
 	if !body.is_in_group("AllyBody"):
 		return
 	
@@ -65,6 +68,7 @@ func _on_attack_range_body_entered(body):
 		melee_enemy_state_machine.transition_to("Attack", {"player" = target})
 
 func _on_attack_range_body_exited(body):
+	if dead: return
 	if !body.is_in_group("AllyBody"):
 		return
 
@@ -73,14 +77,17 @@ func _on_attack_range_body_exited(body):
 		melee_enemy_state_machine.transition_to("Move", {"player" = target})
 
 func _on_attack_range_area_entered(area):
+	if dead: return
 	if area.is_in_group("hurtbox"):
 		hurt_area = area
 
 func _on_attack_range_area_exited(area):
+	if dead: return
 	if area.is_in_group("hurtbox"):
 		hurt_area = null
 
 func _on_attack_timer_timeout():
+	if dead: return
 	# give time to get away
 	await get_tree().create_timer(0.75).timeout
 	#print("##########################################################")
@@ -90,6 +97,7 @@ func _on_attack_timer_timeout():
 		hurt_area.take_damage(DAMAGE)
 
 func _on_hurtbox_area_entered(area):
+	if dead: return
 	if area.is_in_group("Weapons") :
 		HEALTH -= 2
 
