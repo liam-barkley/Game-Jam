@@ -6,10 +6,6 @@ extends State
 var old_direction = Vector2.ZERO
 var direction = Vector2.ZERO
 
-func enter(msg := {}) -> void:
-	# print("Player Entering Move state")
-	pass
-
 func physics_update(delta: float) -> void:
 	# Get the input direction and handle states
 	if direction != Vector2.ZERO:
@@ -54,12 +50,3 @@ func play_animation():
 		animated_sprite_2d.play("right")
 	else:
 		animated_sprite_2d.play("left")
-	
-	#if direction.x > 0.5 and direction.y < -0.5:
-		#animated_sprite_2d.play("right_up")
-	#if direction.x > 0.5 and direction.y > 0.5:
-		#animated_sprite_2d.play("right_down")
-	#if direction.x < -0.5 and direction.y < -0.5:
-		#animated_sprite_2d.play("left_up")
-	#if direction.x < -0.5 and direction.y > 0.5:
-		#animated_sprite_2d.play("left_down")
