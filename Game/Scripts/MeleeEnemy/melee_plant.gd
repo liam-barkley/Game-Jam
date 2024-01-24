@@ -20,7 +20,6 @@ func _physics_process(_delta):
 	if not dead:
 		updateHealthbar()
 		_find_closest_target()
-		print("Melee target is: ", target)
 		
 		if target && !_is_closer_enemy_available() && mobile:
 			direction = global_transform.origin.direction_to(target.global_transform.origin)
