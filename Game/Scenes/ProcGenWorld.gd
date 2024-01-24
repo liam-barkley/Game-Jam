@@ -11,11 +11,13 @@ var num_wood : int = 0
 var source = 8
 var source_corruption = 0
 var GRASS_PROBABILITY = 0.25
-var SAND_PROBABILITY = 0.15
+var FOREST_PROBABILITY = 0.05
+var SAND_PROBABILITY = 0.05
 var TREE_PROBABILITY = 0.05
 var ROCK_PROBABILITY = 0.01
 
-var grass_atlas_arr = [Vector2i(14,0), Vector2i(14,1), Vector2i(14,2), Vector2i(14,3)]
+var grass_atlas_arr = [Vector2i(14,0), Vector2i(14,1)]
+var forest_atlas_arr =  [Vector2i(14,2), Vector2i(14,3)]
 var tree_atlas_arr = [Vector2i(15,4), Vector2i(15,5), Vector2i(15,6)]
 var sand_atlas_arr = [Vector2i(14,4), Vector2i(14,5), Vector2i(14,6), Vector2i(14,7)]
 var light_water_atlas = Vector2i(11,7)
@@ -31,7 +33,6 @@ var sand_terrain_idx = 4
 var grass_terrain_idx = 3
 var lightwater_terrain_idx = 2
 
-var _tiles_arr = []
 var lightwater_tiles_arr = []
 var sand_tiles_arr = []
 var grass_tiles_arr = []
@@ -106,6 +107,8 @@ func gen_world():
 				sand_tiles_arr.append(pos)
 				if randf() < ROCK_PROBABILITY:
 					tile_map.set_cell(ground_object_layer, pos, source, rock_atlas.pick_random())
+				if randf() < SAND_PROBABILITY:
+						tile_map.set_cell(ground_decor, pos, source, sand_atlas_arr.pick_random())
 			
 			# inner island with noise map
 			if distance <= min(center_x, center_y) - 6:
@@ -121,6 +124,8 @@ func gen_world():
 						grass_tiles_arr.append(pos)
 						if randf() < GRASS_PROBABILITY:
 							tile_map.set_cell(ground_decor, pos, source, grass_atlas_arr.pick_random())
+						if randf() < FOREST_PROBABILITY:
+							tile_map.set_cell(ground_decor, pos, source, forest_atlas_arr.pick_random())
 						if randf() < TREE_PROBABILITY:
 							tile_map.set_cell(ground_object_layer, pos, source, tree_atlas_arr.pick_random())
 						if randf() < ROCK_PROBABILITY:
