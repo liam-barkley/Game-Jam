@@ -1,10 +1,10 @@
 [gd_scene load_steps=24 format=3 uid="uid://c4ehkq53nnm53"]
 
 [ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
-[ext_resource type="Texture2D" uid="uid://bf5lwfs5j84jn" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
-[ext_resource type="Texture2D" uid="uid://cue3hcqg3s5dn" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
-[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="4_af3ts"]
-[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="5_6rhqm"]
+[ext_resource type="Texture2D" uid="uid://5u4a03u8a5oy" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
+[ext_resource type="Texture2D" uid="uid://b42e7ko3505a5" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
+[ext_resource type="Texture2D" uid="uid://djwd2kit7ti8r" path="res://Arts/HUD/healthbarUnder.png" id="4_af3ts"]
+[ext_resource type="Texture2D" uid="uid://cen3xr4pllj65" path="res://Arts/HUD/healthbarProgress.png" id="5_6rhqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
 size = Vector2(56, 56)
@@ -144,12 +144,12 @@ visible = false
 [node name="Body" type="CollisionShape2D" parent="HealerPlant"]
 shape = SubResource("RectangleShape2D_50qdc")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." groups=["EnemyHealth"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_8iuqc")
 
-[node name="VisionRange" type="Area2D" parent="." groups=["Enemies"]]
+[node name="VisionRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
 shape = SubResource("CircleShape2D_nnu6n")

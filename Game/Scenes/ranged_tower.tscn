@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://diseqr6x4bnac"]
+[gd_scene load_steps=15 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
 [ext_resource type="Script" path="res://Scripts/Hurtbox.gd" id="3_mbifr"]
-[ext_resource type="Texture2D" uid="uid://cx6r8jbidti2w" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Texture2D" uid="uid://c65o6gs53q6s0" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Texture2D" uid="uid://djwd2kit7ti8r" path="res://Arts/HUD/healthbarUnder.png" id="5_mmf5m"]
+[ext_resource type="Texture2D" uid="uid://cen3xr4pllj65" path="res://Arts/HUD/healthbarProgress.png" id="6_2obvf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
 size = Vector2(56, 60)
@@ -87,6 +89,14 @@ wait_time = 1.146
 sprite_frames = SubResource("SpriteFrames_hkogs")
 autoplay = "default"
 frame_progress = 0.930515
+
+[node name="healthbar" type="TextureProgressBar" parent="."]
+offset_left = -35.0
+offset_top = -46.0
+offset_right = 29.0
+offset_bottom = -6.0
+texture_under = ExtResource("5_mmf5m")
+texture_progress = ExtResource("6_2obvf")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]

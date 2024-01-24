@@ -104,7 +104,8 @@ func _on_wait_timer_timeout():
 	waiting_for_process = false
 
 func _on_hurt_box_area_entered(area):
-	if area.is_in_group("Weapons"):
+	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
+		updateHealthbar()
 		HEALTH -= 2
 		if HEALTH <=0:
 			dead = true

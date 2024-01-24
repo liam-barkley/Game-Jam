@@ -9,8 +9,10 @@ var shoot_allowed
 var current_target
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	updateHealthbar()
+	
+func updateHealthbar():
+	$healthbar.value =Health*100/20
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -70,9 +72,8 @@ func shoot(target):
 
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("Ebullet"):
-		
 		Health-= 2
-		print(Health)
+		updateHealthbar()
 		if Health <= 0:
 			queue_free()
 
@@ -82,6 +83,7 @@ func _on_shoot_timer_timeout():
 
 
 func _on_hurtbox_damage(amount):
+	updateHealthbar()
 	Health = Health - amount
 	if Health <= 0:
 			queue_free()
