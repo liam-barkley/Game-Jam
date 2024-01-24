@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4ehkq53nnm53"]
+[gd_scene load_steps=24 format=3 uid="uid://c4ehkq53nnm53"]
 
 [ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
-[ext_resource type="Texture2D" uid="uid://d06bcgkafrqfl" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
-[ext_resource type="Texture2D" uid="uid://ydjflse45sse" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
+[ext_resource type="Texture2D" uid="uid://bf5lwfs5j84jn" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
+[ext_resource type="Texture2D" uid="uid://cue3hcqg3s5dn" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
+[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="4_af3ts"]
+[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="5_6rhqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
 size = Vector2(56, 56)
@@ -185,6 +187,14 @@ frame_progress = 0.542619
 position = Vector2(1.00002, -0.500001)
 scale = Vector2(0.994371, 1.10851)
 texture = ExtResource("3_by0bg")
+
+[node name="healthbar" type="TextureProgressBar" parent="."]
+offset_left = -30.0
+offset_top = -35.0
+offset_right = 34.0
+offset_bottom = -25.0
+texture_under = ExtResource("4_af3ts")
+texture_progress = ExtResource("5_6rhqm")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]

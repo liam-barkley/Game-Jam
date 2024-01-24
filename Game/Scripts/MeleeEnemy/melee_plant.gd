@@ -14,16 +14,18 @@ var hurt_area
 var target = null
 var direction = Vector2.ZERO
 var mobile = true
+var dead = false
 
 func _physics_process(_delta):
-	_find_closest_target()
-	
-	if target && !_is_closer_enemy_available() && mobile:
-		direction = global_transform.origin.direction_to(target.global_transform.origin)
-		play_walk_animation()
-		velocity = direction * SPEED
-		move_and_slide()
-
+	if not dead:
+		updateHealthbar()
+		_find_closest_target()
+		
+		if target && !_is_closer_enemy_available() && mobile:
+			direction = global_transform.origin.direction_to(target.global_transform.origin)
+			play_walk_animation()
+			velocity = direction * SPEED
+			move_and_slide()
 
 func play_walk_animation():
 	# Player more below than beside
@@ -97,6 +99,7 @@ func _on_hurtbox_area_entered(area):
 	if HEALTH <=0:
 		get_parent().num_enemies -= 1
 		melee_enemy_state_machine.transition_to("Death")
+		dead = true
 
 func _find_closest_target():
 	var closest_enemy = null
@@ -123,3 +126,5 @@ func _is_closer_enemy_available():
 				return true
 	return false
 
+func updateHealthbar():
+	$healthbar.value =HEALTH*100/MAX_HEALTH
