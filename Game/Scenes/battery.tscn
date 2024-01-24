@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/battery.gd" id="1_bcbee"]
 [ext_resource type="Texture2D" uid="uid://dcnwi83f8liqg" path="res://Arts/Resources/battery.png" id="1_o1i2w"]
-[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Arrow-icon.png" id="2_6mi4h"]
+[ext_resource type="Texture2D" uid="uid://dcy708sy7d4m4" path="res://Arts/Resources/Arrow.png" id="3_p8kex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_omgm1"]
 radius = 29.0
@@ -53,10 +53,10 @@ shape = SubResource("CircleShape2D_cqyda")
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = 1
 offset_left = -4.0
-offset_top = -24.0
-offset_right = 4.0
-offset_bottom = -14.0
-texture = ExtResource("2_6mi4h")
+offset_top = -26.9163
+offset_right = 5.0
+offset_bottom = -14.9163
+texture = ExtResource("3_p8kex")
 expand_mode = 1
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
