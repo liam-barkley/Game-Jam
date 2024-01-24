@@ -1,17 +1,18 @@
-[gd_scene load_steps=89 format=3 uid="uid://cfr2wjve2btpe"]
+[gd_scene load_steps=98 format=3 uid="uid://cfr2wjve2btpe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_ex118"]
-[ext_resource type="Texture2D" uid="uid://51shhysufqux" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
+[ext_resource type="Texture2D" uid="uid://dsj8f5kmu522o" path="res://Arts/Characters/character_attack_sheet.png" id="2_kigft"]
+[ext_resource type="Texture2D" uid="uid://wdjcewr33hls" path="res://Arts/Characters/character_death_sheet.png" id="3_0dtkt"]
 [ext_resource type="Script" path="res://Scripts/Player/StateMachine.gd" id="3_jlv1t"]
-[ext_resource type="Texture2D" uid="uid://bhglvcxeuq0mv" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
+[ext_resource type="Texture2D" uid="uid://3apk0slm8jjg" path="res://Arts/Characters/character_walk_sheet.png" id="3_jq8si"]
 [ext_resource type="PackedScene" uid="uid://dl7yy65bwdxiu" path="res://Scenes/hurtbox.tscn" id="3_qohu5"]
-[ext_resource type="Texture2D" uid="uid://fwyb56ms2mrr" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
+[ext_resource type="Texture2D" uid="uid://djs5cn15cqljs" path="res://Arts/Characters/character_idle_sheet.png" id="4_mje7c"]
 [ext_resource type="Script" path="res://Scripts/Player/Idle.gd" id="4_p7012"]
 [ext_resource type="Script" path="res://Scripts/Player/Move.gd" id="5_j73yv"]
 [ext_resource type="Script" path="res://Scripts/Player/Attack.gd" id="6_uuhg0"]
 [ext_resource type="Script" path="res://Scripts/Player/Death.gd" id="7_jtbc0"]
-[ext_resource type="AudioStream" uid="uid://do04gapxse2b3" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
-[ext_resource type="AudioStream" uid="uid://dtqf0p8cwhhhc" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
+[ext_resource type="AudioStream" uid="uid://bns6h0frviovv" path="res://SFX/Player attack.mp3" id="11_rgp5y"]
+[ext_resource type="AudioStream" uid="uid://c4haeohdu06mx" path="res://SFX/Player damage.mp3" id="12_3wlkh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35oo8"]
 atlas = ExtResource("2_kigft")
@@ -140,6 +141,38 @@ region = Rect2(288, 48, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_06cel"]
 atlas = ExtResource("2_kigft")
 region = Rect2(336, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbers"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b64ij"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0bfu"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm0bl"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdpll"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w2kw"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaexd"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ne5w"]
+atlas = ExtResource("3_0dtkt")
+region = Rect2(336, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2aeju"]
 atlas = ExtResource("3_jq8si")
@@ -419,10 +452,34 @@ animations = [{
 "name": &"attack_up",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbers")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b64ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0bfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm0bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdpll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w2kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uaexd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ne5w")
+}],
 "loop": false,
 "name": &"death",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -605,7 +662,7 @@ SPEED = 150.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jbb6x")
-animation = &"attack_right"
+animation = &"death"
 frame = 7
 frame_progress = 1.0
 
