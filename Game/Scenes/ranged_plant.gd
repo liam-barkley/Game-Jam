@@ -17,6 +17,7 @@ var shoot_allowed = false
 var current_target
 var new_position 
 var TowerInArea = false
+var dead = false
 const SPEED = 30
 var direction = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
@@ -49,35 +50,34 @@ func updateHealthbar():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	updateHealthbar()
-	if player != null:
-		playerRay.target_position = to_local(player.global_position)
-	current_target = null
-	if velocity != Vector2.ZERO:
-		print(velocity)
-		shoot_timer.stop()
-	ray_cast.target_position = Vector2.ZERO
-	if player_in_proximity == false:
-		current_target = search_closest_tower()
-	else:
-		current_target = player
-	
-	
-	
-	if current_target != null:
-		aim_at(current_target)
-		velocity = global_position.direction_to(current_target.global_position) * SPEED
-		if TowerInArea or player_in_proximity:
-			velocity = Vector2.ZERO
-			
-			check_target_collision(current_target)
-			
+	if not dead:
+		updateHealthbar()
+		if player != null:
+			playerRay.target_position = to_local(player.global_position)
+		current_target = null
+		if velocity != Vector2.ZERO:
+			print(velocity)
+			shoot_timer.stop()
+		ray_cast.target_position = Vector2.ZERO
+		if player_in_proximity == false:
+			current_target = search_closest_tower()
+		else:
+			current_target = player
 		
-	else:
-		var looky = position.direction_to(player.global_position)
-		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
-		shoot_timer.stop()
-	move_and_slide()
+		if current_target != null:
+			aim_at(current_target)
+			velocity = global_position.direction_to(current_target.global_position) * SPEED
+			if TowerInArea or player_in_proximity:
+				velocity = Vector2.ZERO
+				
+				check_target_collision(current_target)
+				
+			
+		else:
+			var looky = position.direction_to(player.global_position)
+			Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
+			shoot_timer.stop()
+		move_and_slide()
 	
 func aim_at(target):
 	
@@ -103,6 +103,8 @@ func check_target_collision(target):
 
 # This is for when the player gets hurt
 func _on_hurt_box_area_entered(area):
+	if dead:
+		return
 	if area.is_in_group("hurtbox"):
 		hurt_area = area
 		$HurtBox/Timer.start()
@@ -112,6 +114,8 @@ func _on_timer_timeout():
 
 
 func _on_hurt_box_area_exited(area):
+	if dead:
+		return
 	if area.is_in_group("hurtbox"):
 		hurt_area = null
 		$HurtBox/Timer.stop()
@@ -132,37 +136,50 @@ func shoot(target):
 		get_tree().current_scene.add_child(bullet)
 
 func _on_shoot_timer_timeout():
+	if dead:
+		return  
 	$plantshoot.play()
 	shoot(current_target)
 
 func _on_fire_range_body_entered(body):
+	if dead:
+		return
 	if body.name == "Player":
 		player_in_proximity = true
 
 func _on_fire_range_body_exited(body):
+	if dead:
+		return
 	if body.name == "Player":
 		player_in_proximity = false
 		var looky = position.direction_to(player.position)
 		Ranged_enemy_state_machine.transition_to("Idle", {"direction" = looky})
 
 func _on_damage_area_entered(area):
+	if dead:
+		return
 	if area.is_in_group("Weapons") or area.is_in_group("Abullets"):
 		HEALTH -= 2
 		if HEALTH <=0:
 			get_parent().get_parent().num_enemies -= 1
 			ranged_enemy_state_machine.transition_to("Dead")
+			dead = true
 		
 func _get_health():
 	return HEALTH
 
 
 func _on_tower_shoot_area_entered(area):
+	if dead:
+		pass
 	print(area.name+""+str(area))
 	if area.is_in_group("Allies"):
 		TowerInArea = true
 
 
 func _on_tower_shoot_area_exited(area):
+	if dead:
+		pass
 	if area.is_in_group("Allies"):
 		print(false)
 		TowerInArea = false
