@@ -27,7 +27,7 @@ var MAX_ORES = 15
 var MAX_BATTERIES = 5
 
 
-var CORRUPTION_PROBABILITY =  0.2 # 0.05
+var CORRUPTION_PROBABILITY =  0.15 # 0.05
 
 var corrupted_tile = preload("res://Scenes/corrupt_tile.tscn")
 var wood_tree = preload("res://Scenes/wood_tree.tscn")

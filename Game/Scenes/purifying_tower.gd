@@ -15,8 +15,6 @@ func updateHealthbar():
 func _process(delta):
 	pass
 
-	
-
 func _on_timer_timeout():
 	collision_shape_2d.scale += Vector2(0.1, 0.1)
 	sprite_2d.scale += Vector2(0.05, 0.05)
