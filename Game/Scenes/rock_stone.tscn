@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cxr72ufbir3w1" path="res://Arts/Resources/Rock.png" id="1_se2uh"]
 [ext_resource type="Script" path="res://Scripts/rock_stone.gd" id="1_yew3r"]
-[ext_resource type="Texture2D" uid="uid://bjer618oreq5m" path="res://Arts/Resources/Arrow-icon.png" id="3_tqkbe"]
+[ext_resource type="Texture2D" uid="uid://dcy708sy7d4m4" path="res://Arts/Resources/Arrow.png" id="3_sdm51"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mei03"]
 radius = 29.0
@@ -50,11 +50,11 @@ polygon = PackedVector2Array(-2, 14, 7, 14, 9, 10, 10, 7, -1, 5, -12, 6, -12, 10
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = 1
-offset_left = -4.0
-offset_top = -24.0
-offset_right = 4.0
+offset_left = -5.0
+offset_top = -26.0
+offset_right = 5.0
 offset_bottom = -14.0
-texture = ExtResource("3_tqkbe")
+texture = ExtResource("3_sdm51")
 expand_mode = 1
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
