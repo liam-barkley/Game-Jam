@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://diseqr6x4bnac"]
+[gd_scene load_steps=13 format=3 uid="uid://diseqr6x4bnac"]
 
 [ext_resource type="Script" path="res://Scenes/ranged_tower.gd" id="1_bkyfg"]
 [ext_resource type="PackedScene" uid="uid://bbnfe620ga68j" path="res://Scenes/ranged_tower_bullet.tscn" id="2_054kw"]
-[ext_resource type="Texture2D" uid="uid://c65o6gs53q6s0" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
+[ext_resource type="Script" path="res://Scripts/Hurtbox.gd" id="3_mbifr"]
+[ext_resource type="Texture2D" uid="uid://cx6r8jbidti2w" path="res://Arts/Towers/ranged_tower_sheet.png" id="4_yhx4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mmkfj"]
-size = Vector2(40, 23)
+size = Vector2(56, 60)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g6hlu"]
-radius = 32.0624
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq3j7"]
+size = Vector2(56, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84lqb"]
 atlas = ExtResource("4_yhx4b")
@@ -62,18 +63,22 @@ ammo = ExtResource("2_054kw")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-2, 89)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["AllyBody"]]
+collision_layer = 16
+collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 14.5)
+position = Vector2(-4, -2)
 shape = SubResource("RectangleShape2D_mmkfj")
 
-[node name="Hurtbox" type="Area2D" parent="." groups=["Allies"]]
+[node name="Hurtbox" type="Area2D" parent="." groups=["Allies", "hurtbox"]]
 collision_layer = 16
 collision_mask = 8
+script = ExtResource("3_mbifr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CircleShape2D_g6hlu")
+position = Vector2(-4, -2)
+shape = SubResource("RectangleShape2D_mq3j7")
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 1.146
@@ -85,4 +90,5 @@ frame_progress = 0.930515
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]
+[connection signal="damage" from="Hurtbox" to="." method="_on_hurtbox_damage"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

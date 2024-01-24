@@ -32,3 +32,9 @@ func _on_hit_box_area_entered(area):
 		updateHealthbar()
 		if HEALTH <= 0:
 			queue_free()
+
+
+func _on_hit_box_damage(amount):
+	HEALTH = HEALTH - amount
+	if HEALTH <= 0:
+			queue_free()

@@ -79,3 +79,9 @@ func _on_hurtbox_area_entered(area):
 
 func _on_shoot_timer_timeout():
 	shoot(current_target)
+
+
+func _on_hurtbox_damage(amount):
+	Health = Health - amount
+	if Health <= 0:
+			queue_free()
