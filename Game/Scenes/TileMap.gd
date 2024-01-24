@@ -35,7 +35,8 @@ var rock_stone = preload("res://Scenes/rock_stone.tscn")
 var rock_ore = preload("res://Scenes/rock_ore.tscn")
 var battery = preload("res://Scenes/battery.tscn")
 var enemies = [preload("res://Scenes/ranged_plant.tscn"),
-			   preload("res://Scenes/melee_plant.tscn")]
+			   preload("res://Scenes/melee_plant.tscn"),
+			   preload("res://Scenes/healer_plant.tscn")]
 
 var ground_layer
 var ground_decor

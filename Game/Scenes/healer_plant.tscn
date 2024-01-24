@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4ehkq53nnm53"]
+[gd_scene load_steps=22 format=3 uid="uid://c4ehkq53nnm53"]
 
 [ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
-[ext_resource type="Texture2D" uid="uid://p5sy6dumcmvf" path="res://icon.svg" id="1_usvm2"]
+[ext_resource type="Texture2D" uid="uid://d06bcgkafrqfl" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
+[ext_resource type="Texture2D" uid="uid://ydjflse45sse" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
 size = Vector2(56, 56)
@@ -61,13 +62,79 @@ func _process(delta):
 	pass
 "
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8d4v"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exhlf"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vhb"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca8ux"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwy1f"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0il7e"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7mum"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw0et"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2wae"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0slhx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8d4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exhlf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca8ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwy1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0il7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7mum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw0et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2wae")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="HealerPlant" type="Node2D"]
 script = ExtResource("1_m2qsc")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 9.53674e-07)
-scale = Vector2(0.375, 0.375)
-texture = ExtResource("1_usvm2")
 
 [node name="HealerPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
 visible = false
@@ -107,6 +174,17 @@ script = SubResource("GDScript_nivsu")
 
 [node name="Heal" type="Node" parent="HealerEnemyStateMachine"]
 script = SubResource("GDScript_h6nru")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0slhx")
+autoplay = "default"
+frame = 5
+frame_progress = 0.542619
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.00002, -0.500001)
+scale = Vector2(0.994371, 1.10851)
+texture = ExtResource("3_by0bg")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
