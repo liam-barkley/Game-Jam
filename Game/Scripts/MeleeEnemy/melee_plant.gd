@@ -20,6 +20,7 @@ func _physics_process(_delta):
 	if not dead:
 		updateHealthbar()
 		_find_closest_target()
+		print("Melee target is: ", target)
 		
 		if target && !_is_closer_enemy_available() && mobile:
 			direction = global_transform.origin.direction_to(target.global_transform.origin)
@@ -71,8 +72,6 @@ func _on_attack_range_body_exited(body):
 	if dead: return
 	if !body.is_in_group("AllyBody"):
 		return
-
-	print($AttackRange.get_overlapping_bodies().find("Player"))
 
 	if target != null:
 		mobile = true
