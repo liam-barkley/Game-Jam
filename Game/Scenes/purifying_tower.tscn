@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ff2x2ipc20fh"]
+[gd_scene load_steps=20 format=3 uid="uid://ff2x2ipc20fh"]
 
 [ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
-[ext_resource type="Texture2D" uid="uid://cs7mbvfxy6m1c" path="res://Arts/Towers/purifier_tower_sheet.png" id="2_6ya81"]
-[ext_resource type="Texture2D" uid="uid://bdvblkhhbliec" path="res://Arts/HUD/healthbarUnder.png" id="4_m6ywe"]
-[ext_resource type="Texture2D" uid="uid://81mvji0lyfe3" path="res://Arts/HUD/healthbarProgress.png" id="5_c6iru"]
-[ext_resource type="Texture2D" uid="uid://c2ix70am6s572" path="res://Arts/Resources/yellow-outline.png" id="5_l0kuv"]
+[ext_resource type="Texture2D" uid="uid://b6pn5chlkblei" path="res://Arts/Towers/purifier_tower_sheet.png" id="2_6ya81"]
+[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="4_m6ywe"]
+[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="5_c6iru"]
+[ext_resource type="Texture2D" uid="uid://oco54lj2l7bt" path="res://Arts/Resources/yellow-outline.png" id="5_l0kuv"]
+[ext_resource type="Script" path="res://Scripts/Hurtbox.gd" id="6_1alyi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w174"]
 size = Vector2(35, 23)
@@ -89,8 +90,8 @@ size = Vector2(36, 35)
 [node name="Node2D2" type="Node2D" groups=["Towers"]]
 script = ExtResource("1_so1wm")
 
-[node name="PurifyingTower" type="StaticBody2D" parent="." groups=["Towers"]]
-collision_layer = 17
+[node name="PurifyingTower" type="StaticBody2D" parent="." groups=["AllyBody", "Towers"]]
+collision_layer = 16
 collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PurifyingTower"]
@@ -126,9 +127,10 @@ texture = ExtResource("5_l0kuv")
 wait_time = 2.0
 autostart = true
 
-[node name="HitBox" type="Area2D" parent="." groups=["Allies"]]
+[node name="HitBox" type="Area2D" parent="." groups=["Allies", "hurtbox"]]
 collision_layer = 16
 collision_mask = 8
+script = ExtResource("6_1alyi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 7.5)
@@ -137,3 +139,4 @@ shape = SubResource("RectangleShape2D_b6eyy")
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="damage" from="HitBox" to="." method="_on_hit_box_damage"]
