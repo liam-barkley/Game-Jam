@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 # Constants
 @export var SPEED = 50.0
-@export var DAMAGE = 9
+@export var DAMAGE = 4
 @export var HEALTH = 10
 @export var MAX_HEALTH = 10
 
@@ -66,6 +66,11 @@ func _on_attack_range_body_entered(body):
 		mobile = false
 		#print("Attacking target: ", target)
 		melee_enemy_state_machine.transition_to("Attack", {"player" = target})
+		#await get_tree().create_timer(0.75).timeout
+		$WaitTimer.start()
+		await $WaitTimer.timeout
+		if hurt_area != null:
+			hurt_area.take_damage(DAMAGE)
 
 func _on_attack_range_body_exited(body):
 	if dead: return
