@@ -94,7 +94,7 @@ volume_db = -12.83
 [connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_timer_timeout"]
 [connection signal="timeout" from="TileMap/spread_timer" to="TileMap" method="_on_spread_timer_timeout"]
 [connection signal="timeout" from="TileMap/enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
-[connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
 [connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="TileMap/enemy_spawn_timer" to="TileMap" method="_on_ranged_spawn_timer_timeout"]
 [connection signal="timeout" from="TileMap/resource_spawn_timer" to="TileMap" method="_on_resource_spawn_timer_timeout"]
 [connection signal="finished" from="game_music" to="TileMap" method="_on_game_music_finished"]
