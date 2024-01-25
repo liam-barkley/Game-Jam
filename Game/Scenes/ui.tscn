@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://dcvpxnk1vi847"]
 
-[ext_resource type="Texture2D" uid="uid://ou76wv5tuf65" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
+[ext_resource type="Texture2D" uid="uid://cx2d53o2fen6b" path="res://Arts/Resources/Rock-icon.png" id="1_ekkvy"]
 [ext_resource type="Script" path="res://Scripts/UI/ui.gd" id="1_fhapp"]
-[ext_resource type="Texture2D" uid="uid://clm5fpb0ol0he" path="res://Arts/Resources/Wood-icon.png" id="2_2yyba"]
-[ext_resource type="Texture2D" uid="uid://mx60fj4q2yqb" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
-[ext_resource type="Texture2D" uid="uid://cb1e5i7dw8bow" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
-[ext_resource type="Texture2D" uid="uid://d1ddd3r3qotcj" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
-[ext_resource type="Texture2D" uid="uid://dcnwi83f8liqg" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
+[ext_resource type="Texture2D" uid="uid://bsreshm1t7vba" path="res://Arts/Resources/Wood-icon.png" id="2_2yyba"]
+[ext_resource type="Texture2D" uid="uid://2xi5fnehvbsx" path="res://Arts/Resources/Rock_ore-icon.png" id="2_kun3u"]
+[ext_resource type="Texture2D" uid="uid://ckuiju75r00n" path="res://Arts/HUD/healthbarUnder.png" id="4_jvu7m"]
+[ext_resource type="Texture2D" uid="uid://brpu3ogpn8u33" path="res://Arts/HUD/healthbarProgress.png" id="5_003gc"]
+[ext_resource type="Texture2D" uid="uid://bfcukv83wjd1l" path="res://Arts/Resources/battery.png" id="5_lx0mq"]
 [ext_resource type="Theme" uid="uid://e81g3sxbef5w" path="res://Resources/default_theme.tres" id="7_hnhho"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8b8r"]

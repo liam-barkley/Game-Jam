@@ -1,15 +1,15 @@
 [gd_scene load_steps=100 format=3 uid="uid://d0xwe7ass64p6"]
 
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/melee_plant.gd" id="1_3cudg"]
-[ext_resource type="Texture2D" uid="uid://l0chcrkaf6x7" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="2_8ydh8"]
+[ext_resource type="Texture2D" uid="uid://dhwq5062p8thd" path="res://Arts/Enemies/melee_plant_sprite_sheet.png" id="2_8ydh8"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/MeleeEnemyStateMachine.gd" id="3_2xv1x"]
-[ext_resource type="Texture2D" uid="uid://dq8s1q10mhmvj" path="res://Arts/Enemies/melee_plant_death_sheet.png" id="3_cl32f"]
+[ext_resource type="Texture2D" uid="uid://bfvwrfkg01mii" path="res://Arts/Enemies/melee_plant_death_sheet.png" id="3_cl32f"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Idle.gd" id="4_pubb2"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Attack.gd" id="5_q13uw"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Move.gd" id="6_f7deh"]
 [ext_resource type="Script" path="res://Scripts/MeleeEnemy/Death.gd" id="7_7erjs"]
-[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="9_l0xsx"]
-[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="10_b61vm"]
+[ext_resource type="Texture2D" uid="uid://ckuiju75r00n" path="res://Arts/HUD/healthbarUnder.png" id="9_l0xsx"]
+[ext_resource type="Texture2D" uid="uid://brpu3ogpn8u33" path="res://Arts/HUD/healthbarProgress.png" id="10_b61vm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2v3v"]
 atlas = ExtResource("2_8ydh8")
