@@ -16,17 +16,21 @@ signal health_changed
 # Variables
 @export var max_health = 20
 @onready var health = max_health
+@onready var dead = false
 
 func _physics_process(_delta):
-	if health == 0:
+	if health <= 0:
+		dead = true
 		state_machine.transition_to("Death")
 		ui.emit_signal("lose")
 
 func _on_sword_hitbox_area_entered(area):
+	if dead: return
 	if area.is_in_group("hurtbox") and not area.is_in_group("player"):
 		area.take_damage(DAMAGE)
 
 func _on_hurtbox_damage(amount):
+	if dead: return
 	$HurtSound.play()
 	health = health - amount
 	health_changed.emit()
