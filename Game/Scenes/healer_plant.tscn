@@ -1,0 +1,209 @@
+[gd_scene load_steps=24 format=3 uid="uid://c4ehkq53nnm53"]
+
+[ext_resource type="Script" path="res://Scripts/HealerPlant/healer_plant.gd" id="1_m2qsc"]
+[ext_resource type="Texture2D" uid="uid://bf5lwfs5j84jn" path="res://Arts/Enemies/healer_sheet.png" id="2_pxv0e"]
+[ext_resource type="Texture2D" uid="uid://cue3hcqg3s5dn" path="res://Arts/Resources/red-outline.png" id="3_by0bg"]
+[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="4_af3ts"]
+[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="5_6rhqm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50qdc"]
+size = Vector2(56, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iuqc"]
+size = Vector2(56, 56)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nnu6n"]
+radius = 260.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0vq2"]
+radius = 260.192
+
+[sub_resource type="GDScript" id="GDScript_iwb03"]
+script/source = "extends FiniteStateMachine
+"
+
+[sub_resource type="GDScript" id="GDScript_0o3ju"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_nivsu"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_h6nru"]
+script/source = "extends State
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8d4v"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exhlf"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vhb"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca8ux"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwy1f"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0il7e"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7mum"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw0et"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2wae"]
+atlas = ExtResource("2_pxv0e")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0slhx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8d4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exhlf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca8ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwy1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0il7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7mum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw0et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2wae")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HealerPlant" type="Node2D"]
+script = ExtResource("1_m2qsc")
+
+[node name="HealerPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
+visible = false
+collision_layer = 8
+collision_mask = 12
+
+[node name="Body" type="CollisionShape2D" parent="HealerPlant"]
+shape = SubResource("RectangleShape2D_50qdc")
+
+[node name="HurtBox" type="Area2D" parent="." groups=["EnemyHealth"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_8iuqc")
+
+[node name="VisionRange" type="Area2D" parent="."]
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange"]
+shape = SubResource("CircleShape2D_nnu6n")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="HealRange" type="Area2D" parent="."]
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealRange"]
+shape = SubResource("CircleShape2D_b0vq2")
+
+[node name="HealTimer" type="Timer" parent="."]
+
+[node name="WaitTimer" type="Timer" parent="."]
+
+[node name="HealerEnemyStateMachine" type="Node" parent="."]
+script = SubResource("GDScript_iwb03")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_0o3ju")
+
+[node name="Death" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_nivsu")
+
+[node name="Heal" type="Node" parent="HealerEnemyStateMachine"]
+script = SubResource("GDScript_h6nru")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0slhx")
+autoplay = "default"
+frame = 5
+frame_progress = 0.542619
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.00002, -0.500001)
+scale = Vector2(0.994371, 1.10851)
+texture = ExtResource("3_by0bg")
+
+[node name="healthbar" type="TextureProgressBar" parent="."]
+offset_left = -30.0
+offset_top = -35.0
+offset_right = 34.0
+offset_bottom = -25.0
+texture_under = ExtResource("4_af3ts")
+texture_progress = ExtResource("5_6rhqm")
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="body_entered" from="VisionRange" to="." method="_on_vision_range_body_entered"]
+[connection signal="body_exited" from="VisionRange" to="." method="_on_vision_range_body_exited"]
+[connection signal="body_entered" from="HealRange" to="." method="_on_heal_range_body_entered"]
+[connection signal="body_exited" from="HealRange" to="." method="_on_heal_range_body_exited"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

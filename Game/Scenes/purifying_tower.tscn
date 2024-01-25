@@ -1,0 +1,142 @@
+[gd_scene load_steps=20 format=3 uid="uid://ff2x2ipc20fh"]
+
+[ext_resource type="Script" path="res://Scenes/purifying_tower.gd" id="1_so1wm"]
+[ext_resource type="Texture2D" uid="uid://b6pn5chlkblei" path="res://Arts/Towers/purifier_tower_sheet.png" id="2_6ya81"]
+[ext_resource type="Texture2D" uid="uid://bnvi375o2l8f" path="res://Arts/HUD/healthbarUnder.png" id="4_m6ywe"]
+[ext_resource type="Texture2D" uid="uid://nyfnikyrxn5v" path="res://Arts/HUD/healthbarProgress.png" id="5_c6iru"]
+[ext_resource type="Texture2D" uid="uid://oco54lj2l7bt" path="res://Arts/Resources/yellow-outline.png" id="5_l0kuv"]
+[ext_resource type="Script" path="res://Scripts/Hurtbox.gd" id="6_1alyi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w174"]
+size = Vector2(35, 23)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ypho"]
+radius = 107.019
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08vih"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfrwd"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_768s7"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugda2"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qngpi"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgolh"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de8fr"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xmb5"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pelin"]
+atlas = ExtResource("2_6ya81")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ye163"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08vih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfrwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_768s7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugda2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qngpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgolh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de8fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xmb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pelin")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6eyy"]
+size = Vector2(36, 35)
+
+[node name="Node2D2" type="Node2D" groups=["Towers"]]
+script = ExtResource("1_so1wm")
+
+[node name="PurifyingTower" type="StaticBody2D" parent="." groups=["AllyBody", "Towers"]]
+collision_layer = 16
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PurifyingTower"]
+position = Vector2(-1.5, 13.5)
+shape = SubResource("RectangleShape2D_1w174")
+
+[node name="Area2D" type="Area2D" parent="." groups=["pure"]]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_0ypho")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ye163")
+autoplay = "default"
+frame_progress = 0.520075
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -44.0
+offset_right = 32.0
+offset_bottom = -33.0
+texture_under = ExtResource("4_m6ywe")
+texture_progress = ExtResource("5_c6iru")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("5_l0kuv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="HitBox" type="Area2D" parent="." groups=["Allies", "hurtbox"]]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("6_1alyi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_b6eyy")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="damage" from="HitBox" to="." method="_on_hit_box_damage"]
