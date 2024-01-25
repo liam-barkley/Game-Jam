@@ -18,7 +18,7 @@ func updateHealthbar():
 func _process(delta):
 	current_target = null
 
-	
+	ray_cast.target_position=Vector2.ZERO
 	current_target=search_for_enemies()
 	#print(current_target)
 	if current_target != null:
@@ -39,6 +39,8 @@ func search_for_enemies():
 			if (dist <= closest_enemy_dist) and enemy.name != "HurtBox":
 				closest_enemy_dist = dist
 				closest_enemy = enemy
+		if closest_enemy_dist>690420:
+			shoot_timer.stop()
 	else:
 		shoot_timer.stop()
 	return closest_enemy
