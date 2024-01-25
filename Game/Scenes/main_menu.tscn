@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=3 uid="uid://cj4rxv6w67sab"]
 
 [ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_qspiv"]
-[ext_resource type="Texture2D" uid="uid://byyuh0h8n8t1f" path="res://Arts/Terrain (Reg+Mono)/Main_Menu.png" id="2_1og7n"]
-[ext_resource type="AudioStream" uid="uid://cvlou8h58vl4f" path="res://Music/Menu_Music_V2.mp3" id="3_qv1kk"]
+[ext_resource type="Texture2D" uid="uid://p2opkvgi62e1" path="res://Arts/Terrain (Reg+Mono)/Main_Menu.png" id="2_1og7n"]
+[ext_resource type="AudioStream" uid="uid://xp75avmqwcoh" path="res://Music/Menu_Music_V2.mp3" id="3_qv1kk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nu8v1"]
 atlas = ExtResource("2_1og7n")
@@ -212,25 +212,18 @@ autoplay = "default"
 frame_progress = 0.468668
 
 [node name="Play" type="Button" parent="."]
-offset_left = 242.0
-offset_top = 66.0
-offset_right = 415.0
-offset_bottom = 129.0
+offset_left = 216.0
+offset_top = 72.0
+offset_right = 414.0
+offset_bottom = 163.0
 text = "Play"
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 244.0
-offset_top = 259.0
-offset_right = 417.0
-offset_bottom = 322.0
+offset_left = 216.0
+offset_top = 213.0
+offset_right = 416.0
+offset_bottom = 307.0
 text = "Quit"
-
-[node name="Settings" type="Button" parent="."]
-offset_left = 244.0
-offset_top = 159.0
-offset_right = 417.0
-offset_bottom = 222.0
-text = "Settings"
 
 [node name="mmAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_qv1kk")
@@ -242,4 +235,3 @@ offset = Vector2(320, 180)
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
