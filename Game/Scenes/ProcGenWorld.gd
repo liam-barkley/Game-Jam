@@ -56,12 +56,13 @@ func _process(delta):
 	
 	# manage towers
 	if Input.is_action_just_pressed("build"):
-		var mouse_pos = get_local_mouse_position()
+		var mouse_pos = get_global_mouse_position()
+		mouse_pos = Vector2i(mouse_pos.x - 51, mouse_pos.y-56)
 		var player_pos = player.position
 
 		# building radius
-		var distance = sqrt(pow(mouse_pos.x - player_pos.x, 2) + pow(mouse_pos.y - player_pos.y, 2))
-		if distance >= 5 * grid_size:
+		var distance = sqrt(pow((mouse_pos.x) - player_pos.x, 2) + pow((mouse_pos.y) - player_pos.y, 2))
+		if distance >= 4 * grid_size:
 			label.text = "Not in build radius"
 			label.visible = true
 			timer.start()
