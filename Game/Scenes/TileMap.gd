@@ -44,21 +44,34 @@ var ground_object_layer
 
 enum states {BEACH, GRASS, CORRUPTION}
 
+var game_just_started = true
+
 # music states
 var current_state:
 	set(value):
+		if not game_just_started:
+			current_state = value
+			await get_tree().create_timer(2.0).timeout
+			# Check if the current state is still the same after the delay
+			if current_state != value:
+				return
+		game_just_started = false
 		match value:
 			states.BEACH:
-				game_music.stream = preload("res://Music/Beachy_background_V1.mp3")
-				game_music.volume_db = 0
+				if game_music.stream != preload("res://Music/Beachy_background_V1.mp3"):
+					game_music.stream = preload("res://Music/Beachy_background_V1.mp3")
+					game_music.volume_db = 0
+					game_music.play()
 			states.GRASS:
-				game_music.stream = preload("res://Music/Ominous_background_V1.mp3")
-				game_music.volume_db = -12
+				if game_music.stream != preload("res://Music/Ominous_background_V1.mp3"):
+					game_music.stream = preload("res://Music/Ominous_background_V1.mp3")
+					game_music.volume_db = -12
+					game_music.play()
 			states.CORRUPTION:
-				game_music.stream = preload("res://Music/Death_March.mp3")
-				game_music.volume_db = -10
-		current_state = value
-		game_music.play()
+				if game_music.stream != preload("res://Music/Death_March.mp3"):
+					game_music.stream = preload("res://Music/Death_March.mp3")
+					game_music.volume_db = -10
+					game_music.play()
 
 var is_player_in_corruption : bool = false
 var num_enemies : int = 0
@@ -308,3 +321,7 @@ func _on_resource_spawn_timer_timeout():
 		arr_spawn.pick_random().call()
 	
 	$resource_spawn_timer.wait_time = randi() % 10 + 5
+
+
+func _on_game_music_finished():
+	game_music.play()
