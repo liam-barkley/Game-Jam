@@ -104,6 +104,9 @@ func _process(delta):
 		spread_timer.wait_time = arr_corrupted_tiles.size() * 0.02 + 4.5
 	elif size >= 200 and spread_timer.wait_time != 12:
 		spread_timer.wait_time = 12
+		
+	if arr_corrupted_tiles.size() == 0:
+		ui.victory.emit()
 	
 func initialize_grid():
 	# Initialize 2d array
