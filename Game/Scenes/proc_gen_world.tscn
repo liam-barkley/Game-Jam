@@ -46,6 +46,19 @@ ui = NodePath("../UI")
 [node name="Player" parent="TileMap" instance=ExtResource("3_puo4j")]
 position = Vector2(259, 243)
 
+[node name="Label" type="Label" parent="TileMap/Player"]
+visible = false
+offset_left = -131.0
+offset_top = -55.0
+offset_right = 132.0
+offset_bottom = -29.0
+theme_override_font_sizes/font_size = 20
+text = "Not in build radius"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="TileMap/Player"]
+wait_time = 1.5
+
 [node name="spread_timer" type="Timer" parent="TileMap"]
 wait_time = 5.0
 
