@@ -16,7 +16,7 @@ size = Vector2(56, 56)
 radius = 260.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b0vq2"]
-radius = 125.004
+radius = 260.192
 
 [sub_resource type="GDScript" id="GDScript_iwb03"]
 script/source = "extends FiniteStateMachine
@@ -140,6 +140,8 @@ script = ExtResource("1_m2qsc")
 
 [node name="HealerPlant" type="CharacterBody2D" parent="." groups=["Enemies"]]
 visible = false
+collision_layer = 8
+collision_mask = 12
 
 [node name="Body" type="CollisionShape2D" parent="HealerPlant"]
 shape = SubResource("RectangleShape2D_50qdc")
