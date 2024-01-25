@@ -30,13 +30,10 @@ func _process(delta):
 			waiting_for_process = true
 			$WaitTimer.start()
 			
+			
 		if target != null:
-			#print("------------------------------")
-			#print("Target to heal: ", target)
-			#print("------------------------------")
 			waiting_for_process = true
 			$WaitTimer.start()
-			#if target.name == "MeleePlant":
 			if $HealRange.overlaps_body(target) && can_heal_enemy:
 				heal_timer.start()
 				can_heal_enemy = false
@@ -93,12 +90,12 @@ func _find_new_target():
 					print("New healable target found: ", target)
 
 func _same_target(body):
-	if body.name == "RangedPlant":
-		if body.get_parent() == target:
-			return true
-	if body.name == "MeleePlant":
-		if body == target:
-			return true
+	#if body.name == "RangedPlant":
+		#if body.get_parent() == target:
+			#return true
+	#if body.name == "MeleePlant":
+	if body == target:
+		return true
 
 func _on_wait_timer_timeout():
 	waiting_for_process = false
