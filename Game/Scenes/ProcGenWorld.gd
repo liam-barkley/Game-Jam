@@ -80,7 +80,7 @@ func _process(delta):
 			return
 		# place tower that has been built
 		var building = ui.TOWER_SCENES[ui.tower_selected].instantiate()
-		building.position = mouse_pos
+		building.position = get_global_mouse_position()
 		add_child(building)
 
 func gen_world():
